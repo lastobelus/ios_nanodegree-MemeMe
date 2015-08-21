@@ -82,6 +82,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="bottomTextField" destination="xN0-fP-xkP" id="3I5-wz-DnZ"/>
+                        <outlet property="cameraButton" destination="7v0-fP-9qh" id="gYe-Kn-gFy"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                     </connections>
