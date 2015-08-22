@@ -66,7 +66,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+      imageView.alpha = 0
       imageView.image = image
+      UIView.animateWithDuration(1,
+        delay: 0,
+        options: UIViewAnimationOptions.CurveEaseOut,
+        animations: {
+          self.imageView.alpha = 1.0
+        },
+        completion: nil
+      )
     }
     dismissViewControllerAnimated(true, completion: nil)
   }
