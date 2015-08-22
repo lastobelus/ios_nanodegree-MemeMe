@@ -73,10 +73,18 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="bottomTextBottomConstraint" destination="D7L-ok-G9l" id="YGX-C3-8VA"/>
                         <outlet property="bottomTextField" destination="xN0-fP-xkP" id="3I5-wz-DnZ"/>
+                        <outlet property="bottomTextLeftConstraint" destination="ocq-Lw-Yi1" id="VNk-dy-6T7"/>
+                        <outlet property="bottomTextRightConstraint" destination="55w-WY-LmC" id="uHw-8l-09G"/>
                         <outlet property="cameraButton" destination="7v0-fP-9qh" id="gYe-Kn-gFy"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
+                        <outlet property="imageViewBottomConstraint" destination="D7L-ok-G9l" id="jqf-Sg-iDa"/>
+                        <outlet property="imageViewTopConstraint" destination="6tb-IA-Kfu" id="yBe-Tu-DR7"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
+                        <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
+                        <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
+                        <outlet property="topTextTopConstraint" destination="6tb-IA-Kfu" id="SNF-H7-bKZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

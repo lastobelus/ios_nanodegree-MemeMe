@@ -15,6 +15,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var cameraButton: UIBarButtonItem!
 
+  @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
+  @IBOutlet weak var topTextRightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var topTextTopConstraint: NSLayoutConstraint!
+
+  @IBOutlet weak var bottomTextLeftConstraint: NSLayoutConstraint!
+  @IBOutlet weak var bottomTextRightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var bottomTextBottomConstraint: NSLayoutConstraint!
+  
+  @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
+
   let memeTextAttributes = [
     NSStrokeColorAttributeName : UIColor.blackColor(),
     NSForegroundColorAttributeName : UIColor.whiteColor(),
