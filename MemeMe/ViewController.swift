@@ -91,7 +91,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     if let activeTextField = activeTextField {
       switch activeTextField {
       case topTextField:
-        availableHeight -= (2 * currentKeyboardHeight / 3.0 )
+        availableHeight -= (currentKeyboardHeight / 2.0 )
       case bottomTextField:
         availableHeight -= (currentKeyboardHeight - toolbar.bounds.height)
         availableHeight += ( currentKeyboardHeight / 3.0)
@@ -112,10 +112,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
     }
 
+    topTextLeftConstraint.constant = topTextLeftConstraintDefault + letterBoxWidth
+    topTextRightConstraint.constant = topTextRightConstraintDefault + letterBoxWidth
+    topTextTopConstraint.constant = topTextTopConstraintDefault - letterBoxHeight
+    
+    bottomTextLeftConstraint.constant = bottomTextLeftConstraintDefault + letterBoxWidth
+    bottomTextRightConstraint.constant = bottomTextRightConstraintDefault + letterBoxWidth
+    bottomTextBottomConstraint.constant = bottomTextBottomConstraintDefault + letterBoxHeight
+
     if let activeTextField = activeTextField {
       switch activeTextField {
       case topTextField:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + (currentKeyboardHeight / 3.0)
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + (currentKeyboardHeight / 2.0)
+//        topTextTopConstraint.constant += (currentKeyboardHeight / 3.0)
         imageViewTopConstraint.constant = imageViewTopConstraintDefault
       case bottomTextField:
         imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + currentKeyboardHeight - toolbar.bounds.height
@@ -126,13 +135,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
     }
     
-    topTextLeftConstraint.constant = topTextLeftConstraintDefault + letterBoxWidth
-    topTextRightConstraint.constant = topTextRightConstraintDefault + letterBoxWidth
-    topTextTopConstraint.constant = topTextTopConstraintDefault + letterBoxHeight
-
-    bottomTextLeftConstraint.constant = bottomTextLeftConstraintDefault + letterBoxWidth
-    bottomTextRightConstraint.constant = bottomTextRightConstraintDefault + letterBoxWidth
-    bottomTextBottomConstraint.constant = bottomTextBottomConstraintDefault + letterBoxHeight
 }
   
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {

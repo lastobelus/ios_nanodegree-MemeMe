@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h36-LD-jGa">
-                                <rect key="frame" x="0.0" y="20" width="320" height="423"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="416"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gf-rf-Jce">
@@ -37,7 +37,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Top" borderStyle="line" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AxA-gn-Ae7">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Top" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AxA-gn-Ae7">
                                 <rect key="frame" x="0.0" y="20" width="320" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" enablesReturnKeyAutomatically="YES"/>
@@ -45,7 +45,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="PoN-9l-dO1"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Bottom" borderStyle="line" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xN0-fP-xkP">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Bottom" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xN0-fP-xkP">
                                 <rect key="frame" x="0.0" y="405" width="320" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" enablesReturnKeyAutomatically="YES"/>
@@ -60,10 +60,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="xN0-fP-xkP" secondAttribute="trailing" constant="-16" id="55w-WY-LmC"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="5gf-rf-Jce" secondAttribute="bottom" id="5fR-yD-Dcn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AxA-gn-Ae7" secondAttribute="trailing" constant="-16" id="6S7-yj-Ais"/>
-                            <constraint firstItem="AxA-gn-Ae7" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="6tb-IA-Kfu"/>
-                            <constraint firstItem="h36-LD-jGa" firstAttribute="bottom" secondItem="xN0-fP-xkP" secondAttribute="bottom" constant="8" id="D7L-ok-G9l"/>
+                            <constraint firstItem="h36-LD-jGa" firstAttribute="bottom" secondItem="xN0-fP-xkP" secondAttribute="bottom" id="D7L-ok-G9l"/>
                             <constraint firstItem="5gf-rf-Jce" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="Oxc-zB-bSr"/>
-                            <constraint firstItem="5gf-rf-Jce" firstAttribute="top" secondItem="h36-LD-jGa" secondAttribute="bottom" constant="-7" id="a4x-5F-IAH"/>
+                            <constraint firstItem="h36-LD-jGa" firstAttribute="top" secondItem="AxA-gn-Ae7" secondAttribute="top" id="XUP-8F-jaI"/>
+                            <constraint firstItem="5gf-rf-Jce" firstAttribute="top" secondItem="h36-LD-jGa" secondAttribute="bottom" id="a4x-5F-IAH"/>
                             <constraint firstItem="h36-LD-jGa" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="dHZ-61-lQA"/>
                             <constraint firstItem="h36-LD-jGa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="fDq-Mf-6Xe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="h36-LD-jGa" secondAttribute="trailing" constant="-16" id="jal-Xf-8Uq"/>
@@ -87,7 +87,7 @@
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
                         <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
-                        <outlet property="topTextTopConstraint" destination="6tb-IA-Kfu" id="SNF-H7-bKZ"/>
+                        <outlet property="topTextTopConstraint" destination="XUP-8F-jaI" id="rLZ-74-Pfj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
