@@ -62,7 +62,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   }
 
   override func viewDidAppear(animated: Bool) {
-    super.viewWillAppear(animated)
+    super.viewDidAppear(animated)
     subscribeToKeyboardNotifications()
     println("layoutTextFields in viewWillAppear")
     print("imageView.bounds: "); debugPrintln(self.imageView.bounds)
