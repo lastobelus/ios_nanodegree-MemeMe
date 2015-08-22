@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A470CA01B8933A400122684 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A470C9F1B8933A400122684 /* Meme.swift */; };
 		2AAB830C1B86A0AC00B226FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */; };
 		2AAB830E1B86A0AC00B226FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB830D1B86A0AC00B226FF /* ViewController.swift */; };
 		2AAB83111B86A0AC00B226FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB830F1B86A0AC00B226FF /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A470C9F1B8933A400122684 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		2AAB83061B86A0AC00B226FF /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AAB830A1B86A0AC00B226FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				2AAB83121B86A0AC00B226FF /* Images.xcassets */,
 				2AAB83141B86A0AC00B226FF /* LaunchScreen.xib */,
 				2AAB83091B86A0AC00B226FF /* Supporting Files */,
+				2A470C9F1B8933A400122684 /* Meme.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A470CA01B8933A400122684 /* Meme.swift in Sources */,
 				2AAB830E1B86A0AC00B226FF /* ViewController.swift in Sources */,
 				2AAB830C1B86A0AC00B226FF /* AppDelegate.swift in Sources */,
 			);
@@ -409,6 +413,7 @@
 				2AAB83271B86A0AC00B226FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AAB83281B86A0AC00B226FF /* Build configuration list for PBXNativeTarget "MemeMeTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +422,7 @@
 				2AAB832A1B86A0AC00B226FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
