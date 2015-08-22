@@ -187,6 +187,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     animateLayout()
   }
 
+  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    println("\n----> viewWillTransitionToSize")
+    print("size:             "); debugPrintln(size)
+    print("imageView.bounds: "); debugPrintln(imageView.bounds)
+    coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
+      println("layoutTextFields in animateAlongsideTransition")
+      self.view.setNeedsUpdateConstraints()
+      self.view.layoutIfNeeded()
+      }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+        println("rotation completed")
+    })
+    super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+  }
+  
+
   private func animateLayout() {
     UIView.animateWithDuration(0.5,
       delay: 0,
