@@ -15,13 +15,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var cameraButton: UIBarButtonItem!
 
+  let memeTextAttributes = [
+    NSStrokeColorAttributeName : UIColor.blackColor(),
+    NSForegroundColorAttributeName : UIColor.whiteColor(),
+    NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+    NSStrokeWidthAttributeName : -5.0
+  ]
+
   let imagePicker = UIImagePickerController()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
     cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
-    // Do any additional setup after loading the view, typically from a nib.
+    configureTextField(topTextField)
+    configureTextField(bottomTextField)
+  // Do any additional setup after loading the view, typically from a nib.
   }
 
   override func didReceiveMemoryWarning() {
@@ -54,5 +63,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
     dismissViewControllerAnimated(true, completion: nil)
   }
+
+
+
+  private func configureTextField(textField:UITextField) {
+    textField.defaultTextAttributes = memeTextAttributes
+    textField.textAlignment = .Center
+  }
+
 }
 
