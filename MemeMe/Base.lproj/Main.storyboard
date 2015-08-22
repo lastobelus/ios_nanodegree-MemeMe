@@ -79,8 +79,9 @@
                         <outlet property="bottomTextRightConstraint" destination="55w-WY-LmC" id="uHw-8l-09G"/>
                         <outlet property="cameraButton" destination="7v0-fP-9qh" id="gYe-Kn-gFy"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
-                        <outlet property="imageViewBottomConstraint" destination="D7L-ok-G9l" id="jqf-Sg-iDa"/>
-                        <outlet property="imageViewTopConstraint" destination="6tb-IA-Kfu" id="yBe-Tu-DR7"/>
+                        <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
+                        <outlet property="imageViewTopConstraint" destination="fDq-Mf-6Xe" id="VYd-8M-my2"/>
+                        <outlet property="toolbar" destination="5gf-rf-Jce" id="Ggy-PQ-KmP"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
                         <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
