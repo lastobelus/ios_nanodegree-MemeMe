@@ -34,6 +34,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   var imageViewTopConstraintDefault: CGFloat!
   @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
   var imageViewBottomConstraintDefault: CGFloat!
+  @IBOutlet weak var imageViewLeftConstraint: NSLayoutConstraint!
+  var imageViewLeftConstraintDefault: CGFloat!
+  @IBOutlet weak var imageViewRightConstraint: NSLayoutConstraint!
+  var imageViewRightConstraintDefault: CGFloat!
 
   var currentKeyboardHeight: CGFloat = 0
   var activeTextField: UITextField?
@@ -69,20 +73,67 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
   override func updateViewConstraints() {
     super.updateViewConstraints()
-    imageViewBottomConstraint.constant = imageViewBottomConstraintDefault
-    imageViewTopConstraint.constant = imageViewTopConstraintDefault
+
+    
+    var letterBoxWidth = CGFloat(0)
+    var letterBoxHeight = CGFloat(0)
+
+    var availableWidth = imageView.bounds.width +
+      imageViewLeftConstraint.constant - imageViewLeftConstraintDefault +
+      imageViewRightConstraint.constant - imageViewRightConstraintDefault
+    var availableHeight = imageView.bounds.height +
+      imageViewBottomConstraint.constant - imageViewBottomConstraintDefault +
+      imageViewTopConstraint.constant - imageViewTopConstraintDefault
+
+    var neededHeight: CGFloat = availableHeight
+    var neededWidth: CGFloat = availableWidth
+    
     if let activeTextField = activeTextField {
       switch activeTextField {
       case topTextField:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + max((currentKeyboardHeight - toolbar.bounds.height)/3.0, 0)
-        imageViewTopConstraint.constant = imageViewTopConstraintDefault
+        availableHeight -= (2 * currentKeyboardHeight / 3.0 )
       case bottomTextField:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + max(currentKeyboardHeight - toolbar.bounds.height, 0)
-        imageViewTopConstraint.constant = imageViewTopConstraintDefault - (currentKeyboardHeight / 3.0)
+        availableHeight -= (currentKeyboardHeight - toolbar.bounds.height)
+        availableHeight += ( currentKeyboardHeight / 3.0)
       default: ()
       }
     }
-  }
+
+    
+    if let image = imageView.image {
+      let widthRatio = availableWidth/image.size.width
+      let heightRatio = availableHeight/image.size.height
+      if heightRatio > widthRatio {
+        neededHeight = image.size.height * widthRatio
+        letterBoxHeight = (availableHeight - neededHeight) / 2.0
+      } else {
+        neededWidth = image.size.width * heightRatio
+        letterBoxWidth = (availableWidth - neededWidth) / 2.0
+      }
+    }
+
+    if let activeTextField = activeTextField {
+      switch activeTextField {
+      case topTextField:
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + (currentKeyboardHeight / 3.0)
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault
+      case bottomTextField:
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + currentKeyboardHeight - toolbar.bounds.height
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault - (currentKeyboardHeight / 3.0)
+      default:
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault
+      }
+    }
+    
+    topTextLeftConstraint.constant = topTextLeftConstraintDefault + letterBoxWidth
+    topTextRightConstraint.constant = topTextRightConstraintDefault + letterBoxWidth
+    topTextTopConstraint.constant = topTextTopConstraintDefault + letterBoxHeight
+
+    bottomTextLeftConstraint.constant = bottomTextLeftConstraintDefault + letterBoxWidth
+    bottomTextRightConstraint.constant = bottomTextRightConstraintDefault + letterBoxWidth
+    bottomTextBottomConstraint.constant = bottomTextBottomConstraintDefault + letterBoxHeight
+}
   
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {
     imagePicker.allowsEditing = false
@@ -113,6 +164,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         completion: nil
       )
     }
+    animateLayout()
     dismissViewControllerAnimated(true, completion: nil)
   }
   
@@ -194,6 +246,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     imageViewTopConstraintDefault = imageViewTopConstraint.constant
     imageViewBottomConstraintDefault = imageViewBottomConstraint.constant
+    imageViewLeftConstraintDefault = imageViewLeftConstraint.constant
+    imageViewRightConstraintDefault = imageViewRightConstraint.constant
   }
 }
 
