@@ -12,14 +12,16 @@ class Meme {
   let topText: String
   let bottomText: String
   let image: UIImage
-  var memedImage: UIImage?
+  let memedImage: UIImage
   
   init(
     topText: String,
     bottomText: String,
-    image: UIImage ) {
+    image: UIImage,
+    memedImage: UIImage) {
       self.topText = topText
       self.bottomText = bottomText
       self.image = image
+      self.memedImage = memedImage
   }
 }

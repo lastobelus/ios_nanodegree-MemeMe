@@ -41,4 +41,32 @@ extension MemeEditorViewController {
     dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func save() {
+    //Create the meme
+    let memedImage = generateMemedImage()
+    var meme = Meme(
+      topText: topTextField.text!,
+      bottomText: bottomTextField.text!,
+      image: imageView.image!,
+      memedImage: memedImage
+    )
+  }
+  
+  private func generateMemedImage() -> UIImage {
+    
+    // TODO: Hide toolbar and navbar
+    //    hmmm. Why not just render imageView?
+    
+    // Render view to an image
+    UIGraphicsBeginImageContext(imageView.frame.size)
+    self.view.drawViewHierarchyInRect(imageView.frame,
+      afterScreenUpdates: true)
+    let memedImage : UIImage =
+      UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+    
+    // TODO:  Show toolbar and navbar
+    
+    return memedImage
+  }
 }

@@ -30,10 +30,16 @@ extension MemeEditorViewController {
       switch activeTextField {
       case topTextField:
         availableHeight -= (currentKeyboardHeight / 2.0 )
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + (currentKeyboardHeight / 2.0)
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault
       case bottomTextField:
-        availableHeight -= (currentKeyboardHeight - toolbar.bounds.height)
+        availableHeight -= max((currentKeyboardHeight - toolbar.bounds.height), 0)
         availableHeight += ( currentKeyboardHeight / 3.0)
-      default: ()
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + max(currentKeyboardHeight - toolbar.bounds.height, 0)
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault - (currentKeyboardHeight / 3.0)
+      default:
+        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault
+        imageViewTopConstraint.constant = imageViewTopConstraintDefault
       }
     }
     
@@ -57,22 +63,7 @@ extension MemeEditorViewController {
     bottomTextLeftConstraint.constant = bottomTextLeftConstraintDefault + letterBoxWidth
     bottomTextRightConstraint.constant = bottomTextRightConstraintDefault + letterBoxWidth
     bottomTextBottomConstraint.constant = bottomTextBottomConstraintDefault + letterBoxHeight
-    
-    if let activeTextField = activeTextField {
-      switch activeTextField {
-      case topTextField:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + (currentKeyboardHeight / 2.0)
-        //        topTextTopConstraint.constant += (currentKeyboardHeight / 3.0)
-        imageViewTopConstraint.constant = imageViewTopConstraintDefault
-      case bottomTextField:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault + currentKeyboardHeight - toolbar.bounds.height
-        imageViewTopConstraint.constant = imageViewTopConstraintDefault - (currentKeyboardHeight / 3.0)
-      default:
-        imageViewBottomConstraint.constant = imageViewBottomConstraintDefault
-        imageViewTopConstraint.constant = imageViewTopConstraintDefault
-      }
-    }
-    
+        
   }
   
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
