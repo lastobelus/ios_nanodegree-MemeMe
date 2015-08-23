@@ -64,6 +64,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A470CA71B89453C00122684 /* MemeEditor */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB830D1B86A0AC00B226FF /* MemeEditorViewController.swift */,
+				2A470CA11B8938A700122684 /* MemeEditorAnimation.swift */,
+				2A470CA31B893BC000122684 /* MemeEditorTextHandling.swift */,
+				2A470CA51B893C7300122684 /* MemeEditorImageHandling.swift */,
+			);
+			name = MemeEditor;
+			sourceTree = "<group>";
+		};
 		2AAB82FD1B86A0AC00B226FF = {
 			isa = PBXGroup;
 			children = (
@@ -86,15 +97,12 @@
 			isa = PBXGroup;
 			children = (
 				2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */,
-				2AAB830D1B86A0AC00B226FF /* MemeEditorViewController.swift */,
+				2A470CA71B89453C00122684 /* MemeEditor */,
 				2AAB830F1B86A0AC00B226FF /* Main.storyboard */,
 				2AAB83121B86A0AC00B226FF /* Images.xcassets */,
 				2AAB83141B86A0AC00B226FF /* LaunchScreen.xib */,
 				2AAB83091B86A0AC00B226FF /* Supporting Files */,
 				2A470C9F1B8933A400122684 /* Meme.swift */,
-				2A470CA11B8938A700122684 /* MemeEditorAnimation.swift */,
-				2A470CA31B893BC000122684 /* MemeEditorTextHandling.swift */,
-				2A470CA51B893C7300122684 /* MemeEditorImageHandling.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
