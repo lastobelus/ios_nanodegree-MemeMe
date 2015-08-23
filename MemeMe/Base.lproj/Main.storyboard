@@ -57,6 +57,7 @@
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSa-Nz-ByP" userLabel="TopToolbar">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <gestureRecognizers/>
                                 <items>
                                     <barButtonItem systemItem="action" id="8q5-XJ-rmj"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="CCR-5l-cGu"/>
@@ -101,6 +102,8 @@
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
                         <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
                         <outlet property="topTextTopConstraint" destination="XUP-8F-jaI" id="rLZ-74-Pfj"/>
+                        <outlet property="topToolbar" destination="BSa-Nz-ByP" id="ckF-tz-win"/>
+                        <outlet property="topToolbarTopConstraint" destination="nLY-7r-2vD" id="eZ2-Sb-zJR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

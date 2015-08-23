@@ -21,10 +21,11 @@ extension MemeEditorViewController {
   
   func textFieldDidBeginEditing(textField: UITextField) {
     activeTextField = textField
+    topToolbarShouldHide = true
     animateLayout()
   }
 
-   func subscribeToKeyboardNotifications() {
+  func subscribeToKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
       selector: "keyboardWillShow:",
@@ -42,6 +43,18 @@ extension MemeEditorViewController {
    func unsubscribeFromKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+  }
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    if textField == topTextField {
+      bottomTextField.becomeFirstResponder()
+    } else {
+      topToolbarShouldHide = false
+      animateLayout()
+    }
+    
+    return true;
   }
   
   private func getKeyboardHeight(notification: NSNotification) -> CGFloat {

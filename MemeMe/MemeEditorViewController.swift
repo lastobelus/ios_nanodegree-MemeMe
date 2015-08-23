@@ -15,6 +15,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var cameraButton: UIBarButtonItem!
   @IBOutlet weak var toolbar: UIToolbar!
+  @IBOutlet weak var topToolbar: UIToolbar!
+  var topToolbarHeightDefault: CGFloat!
+  var topToolbarShouldHide = false
 
   @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
   var topTextLeftConstraintDefault: CGFloat!
@@ -39,8 +42,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var imageViewRightConstraint: NSLayoutConstraint!
   var imageViewRightConstraintDefault: CGFloat!
 
+  
+  @IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
+  var topToolbarTopConstraintDefault: CGFloat!
+  
   var currentKeyboardHeight: CGFloat = 0
   var activeTextField: UITextField?
+  
   
   let memeTextAttributes = [
     NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -58,6 +66,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     configureTextField(topTextField)
     configureTextField(bottomTextField)
     setupConstraintStartingValues()
+    topToolbar.hidden = false
     // Do any additional setup after loading the view, typically from a nib.
   }
 
@@ -98,6 +107,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     imageViewBottomConstraintDefault = imageViewBottomConstraint.constant
     imageViewLeftConstraintDefault = imageViewLeftConstraint.constant
     imageViewRightConstraintDefault = imageViewRightConstraint.constant
+    
+    topToolbarTopConstraintDefault = topToolbarTopConstraint.constant
+    topToolbarHeightDefault = topToolbar.bounds.height
   }
 }
 

@@ -63,6 +63,12 @@ extension MemeEditorViewController {
     bottomTextLeftConstraint.constant = bottomTextLeftConstraintDefault + letterBoxWidth
     bottomTextRightConstraint.constant = bottomTextRightConstraintDefault + letterBoxWidth
     bottomTextBottomConstraint.constant = bottomTextBottomConstraintDefault + letterBoxHeight
+    
+    if topToolbarShouldHide {
+      topToolbarTopConstraint.constant = topToolbarTopConstraintDefault - topToolbarHeightDefault
+    } else {
+      topToolbarTopConstraint.constant = topToolbarTopConstraintDefault
+    }
         
   }
   
