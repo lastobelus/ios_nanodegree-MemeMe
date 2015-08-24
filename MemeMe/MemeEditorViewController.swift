@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RSKImageCropper
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
