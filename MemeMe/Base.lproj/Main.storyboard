@@ -19,7 +19,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h36-LD-jGa">
                                 <rect key="frame" x="0.0" y="64" width="320" height="372"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gf-rf-Jce" userLabel="BottomToolbar">
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
@@ -73,7 +73,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AxA-gn-Ae7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="2NC-ng-Gve"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xN0-fP-xkP" secondAttribute="trailing" constant="-16" id="55w-WY-LmC"/>
@@ -106,8 +106,6 @@
                         <outlet property="cancelButton" destination="QSp-f0-rnS" id="r7M-UD-Va8"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
-                        <outlet property="imageViewLeftConstraint" destination="dHZ-61-lQA" id="MAf-rd-B6B"/>
-                        <outlet property="imageViewRightConstraint" destination="jal-Xf-8Uq" id="7lU-PT-hvo"/>
                         <outlet property="imageViewTopConstraint" destination="rEs-Wg-gSE" id="Ky9-HK-99s"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>

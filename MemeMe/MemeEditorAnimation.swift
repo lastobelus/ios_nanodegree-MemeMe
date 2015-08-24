@@ -47,17 +47,15 @@ extension NSLayoutConstraint {
 
 
 extension MemeEditorViewController {
-  override func updateViewConstraints() {
-    println("\n---> updateViewConstraints ----")
-    super.updateViewConstraints()
-    
-    self.view.layoutIfNeeded()
 
+  override func updateViewConstraints() {
+    super.updateViewConstraints()
+    // ensure we are calculating from a "settled" state
+    self.view.layoutIfNeeded()
 
     // first calculate how much space the image would have before any interface
     // adjustments
-    var availableWidth = imageView.bounds.width +
-      imageViewLeftConstraint.delta() + imageViewRightConstraint.delta()
+    var availableWidth = imageView.bounds.width
     
     // topToolbarTopConstraint.delta is the additive inverse. We are deleting
     // it here, and will add it back if topToolbarShouldHide is true. Similarly
@@ -81,9 +79,6 @@ extension MemeEditorViewController {
       bottomToolbarBottomConstraint.reset()
     }
     
-
-
-    
     // setup image view constraints based on whether a textfield is active
     // and height of keyboard if showing
     imageViewBottomConstraint.reset()
@@ -106,24 +101,7 @@ extension MemeEditorViewController {
       }
     }
 
-    println("    after calculations and shifts")
-    print("    availableWidth: "); debugPrintln(availableWidth)
-    print("    availableHeight: "); debugPrintln(availableHeight)
-    print("    imageView.frame.size: "); debugPrintln(imageView.frame.size)
-
     let (letterBoxWidth, letterBoxHeight) = letterBoxForSize(CGSizeMake(availableWidth, availableHeight))
-
-    print("    letterBoxWidth: "); debugPrintln(letterBoxWidth)
-    print("    letterBoxHeight: "); debugPrintln(letterBoxHeight)
-//    if false && shouldShrinkImageView {
-//      //      imageViewLeftConstraint.shift(letterBoxHeight)
-//      adjustTextFieldWidthsAlignedLeft(letterBoxWidth)
-////      imageViewRightConstraint.shift(letterBoxWidth*2)
-//    } else {
-//      adjustTextFieldWidths(letterBoxWidth)
-//      imageViewLeftConstraint.reset()
-//      imageViewRightConstraint.reset()
-//    }
 
     adjustTextFieldWidths(letterBoxWidth)
     adjustTextFieldPositions(letterBoxHeight)
@@ -149,28 +127,6 @@ extension MemeEditorViewController {
     return (letterBoxWidth, letterBoxHeight)
   }
 
-  private func adjustTextFieldWidths(width:CGFloat) {
-    topTextLeftConstraint.shift(width)
-    topTextRightConstraint.shift(width)
-    bottomTextLeftConstraint.shift(width)
-    bottomTextRightConstraint.shift(width)
-  }
-
-  private func adjustTextFieldWidthsAlignedLeft(width:CGFloat) {
-    let shift = width*2
-    topTextLeftConstraint.reset()
-    topTextRightConstraint.shift(shift)
-    bottomTextLeftConstraint.reset()
-    bottomTextRightConstraint.shift(shift)
-    imageViewRightConstraint.shift(shift)
-  }
-
-  private func adjustTextFieldPositions(shift :CGFloat) {
-    topTextTopConstraint.shift( -shift)
-    bottomTextBottomConstraint.shift(shift)
-  }
-  
-  
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
       self.view.setNeedsUpdateConstraints()
@@ -179,18 +135,35 @@ extension MemeEditorViewController {
     )
     super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
   }
-
-
   
-  func animateLayout(completion: ((Bool)->Void)?) {
-    UIView.animateWithDuration(0.3,
+  func animateLayout() {
+    UIView.animateWithDuration(animationDuration,
       delay: 0,
       options: UIViewAnimationOptions.CurveEaseOut,
       animations: {
         self.view.setNeedsUpdateConstraints()
         self.view.layoutIfNeeded()
       },
-      completion: completion
+      completion: nil
     )
+  }
+
+  func showToolbars(state:Bool) {
+    topToolbarShouldHide = !state
+    bottomToolbarShouldHide = !state
+    self.view.setNeedsUpdateConstraints()
+    self.view.layoutIfNeeded()
+  }
+
+  private func adjustTextFieldWidths(width:CGFloat) {
+    topTextLeftConstraint.shift(width)
+    topTextRightConstraint.shift(width)
+    bottomTextLeftConstraint.shift(width)
+    bottomTextRightConstraint.shift(width)
+  }
+
+  private func adjustTextFieldPositions(shift :CGFloat) {
+    topTextTopConstraint.shift( -shift)
+    bottomTextBottomConstraint.shift(shift)
   }
 }

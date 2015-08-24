@@ -35,8 +35,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
   @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
-  @IBOutlet weak var imageViewLeftConstraint: NSLayoutConstraint!
-  @IBOutlet weak var imageViewRightConstraint: NSLayoutConstraint!
 
   
   @IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
@@ -45,9 +43,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var cancelButton: UIBarButtonItem!
   @IBOutlet weak var actionButton: UIBarButtonItem!
 
-  var currentKeyboardHeight: CGFloat = 0
+  var currentKeyboardHeight:CGFloat = 0.0
+  
   var activeTextField: UITextField?
-  var shouldShrinkImageView = false
 
   let memeTextAttributes = [
     NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -57,7 +55,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   ]
 
   let imagePicker = UIImagePickerController()
-    
+
+  let animationDuration:NSTimeInterval = 0.4
+
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
@@ -72,7 +72,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
 
     manageButtonState()
-    // Do any additional setup after loading the view, typically from a nib.
   }
 
   override func viewWillDisappear(animated: Bool) {
@@ -98,28 +97,23 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     topTextField.text = textFieldDefaultText[topTextField]
     bottomTextField.text = textFieldDefaultText[bottomTextField]
     manageButtonState()
-    animateLayout(nil)
+    animateLayout()
   }
 
   @IBAction func shareMeme(sender: UIBarButtonItem) {
-//    generateMemedImageAsync({ memedImage in
-//      let activityController = UIActivityViewController(
-//        activityItems: [memedImage],
-//        applicationActivities: nil)
-//
-//      self.presentViewController(activityController,
-//        animated: true, completion: nil)
-//    })
-//
     let memedImage = generateMemedImage()
     let activityController = UIActivityViewController(
       activityItems: [memedImage],
       applicationActivities: nil)
-    
-    self.presentViewController(activityController,
+
+    activityController.completionWithItemsHandler = { activity, success, items, error in
+      self.save(memedImage)
+      self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    presentViewController(activityController,
       animated: true, completion: nil)
-  }
-  
+  }  
 
   func manageButtonState() {
     actionButton.enabled = imageView.image != nil
