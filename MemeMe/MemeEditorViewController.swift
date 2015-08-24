@@ -12,39 +12,34 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
   @IBOutlet weak var topTextField: UITextField!
   @IBOutlet weak var bottomTextField: UITextField!
+
   @IBOutlet weak var imageView: UIImageView!
-  @IBOutlet weak var cameraButton: UIBarButtonItem!
-  @IBOutlet weak var toolbar: UIToolbar!
+
   @IBOutlet weak var topToolbar: UIToolbar!
   var topToolbarHeightDefault: CGFloat!
   var topToolbarShouldHide = false
 
+  @IBOutlet weak var bottomToolbar: UIToolbar!
+  @IBOutlet weak var cameraButton: UIBarButtonItem!
+  var bottomToolbarHeightDefault: CGFloat!
+  var bottomToolbarShouldHide = false
+
   @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
-  var topTextLeftConstraintDefault: CGFloat!
   @IBOutlet weak var topTextRightConstraint: NSLayoutConstraint!
-  var topTextRightConstraintDefault: CGFloat!
   @IBOutlet weak var topTextTopConstraint: NSLayoutConstraint!
-  var topTextTopConstraintDefault: CGFloat!
 
   @IBOutlet weak var bottomTextLeftConstraint: NSLayoutConstraint!
-  var bottomTextLeftConstraintDefault: CGFloat!
   @IBOutlet weak var bottomTextRightConstraint: NSLayoutConstraint!
-  var bottomTextRightConstraintDefault: CGFloat!
   @IBOutlet weak var bottomTextBottomConstraint: NSLayoutConstraint!
-  var bottomTextBottomConstraintDefault: CGFloat!
   
   @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
-  var imageViewTopConstraintDefault: CGFloat!
   @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
-  var imageViewBottomConstraintDefault: CGFloat!
   @IBOutlet weak var imageViewLeftConstraint: NSLayoutConstraint!
-  var imageViewLeftConstraintDefault: CGFloat!
   @IBOutlet weak var imageViewRightConstraint: NSLayoutConstraint!
-  var imageViewRightConstraintDefault: CGFloat!
 
   
   @IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
-  var topToolbarTopConstraintDefault: CGFloat!
+  @IBOutlet weak var bottomToolbarBottomConstraint: NSLayoutConstraint!
   
   var currentKeyboardHeight: CGFloat = 0
   var activeTextField: UITextField?
@@ -65,8 +60,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
     configureTextField(topTextField)
     configureTextField(bottomTextField)
-    setupConstraintStartingValues()
-    topToolbar.hidden = false
+    topToolbarHeightDefault = topToolbar.bounds.height
+    bottomToolbarHeightDefault = bottomToolbar.bounds.height
+
     // Do any additional setup after loading the view, typically from a nib.
   }
 
@@ -94,22 +90,5 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     textField.textAlignment = .Center
   }
 
-  private func setupConstraintStartingValues() {
-    topTextLeftConstraintDefault = topTextLeftConstraint.constant
-    topTextRightConstraintDefault = topTextRightConstraint.constant
-    topTextTopConstraintDefault = topTextTopConstraint.constant
-    
-    bottomTextLeftConstraintDefault = bottomTextLeftConstraint.constant
-    bottomTextRightConstraintDefault = bottomTextRightConstraint.constant
-    bottomTextBottomConstraintDefault = bottomTextBottomConstraint.constant
-    
-    imageViewTopConstraintDefault = imageViewTopConstraint.constant
-    imageViewBottomConstraintDefault = imageViewBottomConstraint.constant
-    imageViewLeftConstraintDefault = imageViewLeftConstraint.constant
-    imageViewRightConstraintDefault = imageViewRightConstraint.constant
-    
-    topToolbarTopConstraintDefault = topToolbarTopConstraint.constant
-    topToolbarHeightDefault = topToolbar.bounds.height
-  }
 }
 

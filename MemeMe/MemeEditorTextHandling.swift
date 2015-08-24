@@ -22,6 +22,7 @@ extension MemeEditorViewController {
   func textFieldDidBeginEditing(textField: UITextField) {
     activeTextField = textField
     topToolbarShouldHide = true
+    bottomToolbarShouldHide = true
     animateLayout()
   }
 
@@ -51,6 +52,7 @@ extension MemeEditorViewController {
       bottomTextField.becomeFirstResponder()
     } else {
       topToolbarShouldHide = false
+      bottomToolbarShouldHide = false
       animateLayout()
     }
     

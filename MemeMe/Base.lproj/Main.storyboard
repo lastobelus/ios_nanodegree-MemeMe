@@ -40,7 +40,7 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Top" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AxA-gn-Ae7">
-                                <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -91,18 +91,19 @@
                         <outlet property="bottomTextField" destination="xN0-fP-xkP" id="3I5-wz-DnZ"/>
                         <outlet property="bottomTextLeftConstraint" destination="ocq-Lw-Yi1" id="VNk-dy-6T7"/>
                         <outlet property="bottomTextRightConstraint" destination="55w-WY-LmC" id="uHw-8l-09G"/>
+                        <outlet property="bottomToolbar" destination="5gf-rf-Jce" id="WqZ-Fu-JR5"/>
+                        <outlet property="bottomToolbarBottomConstraint" destination="5fR-yD-Dcn" id="npp-8c-2Og"/>
                         <outlet property="cameraButton" destination="7v0-fP-9qh" id="gYe-Kn-gFy"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
                         <outlet property="imageViewLeftConstraint" destination="dHZ-61-lQA" id="MAf-rd-B6B"/>
                         <outlet property="imageViewRightConstraint" destination="jal-Xf-8Uq" id="7lU-PT-hvo"/>
                         <outlet property="imageViewTopConstraint" destination="rEs-Wg-gSE" id="Ky9-HK-99s"/>
-                        <outlet property="toolbar" destination="5gf-rf-Jce" id="Ggy-PQ-KmP"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
                         <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
                         <outlet property="topTextTopConstraint" destination="XUP-8F-jaI" id="rLZ-74-Pfj"/>
-                        <outlet property="topToolbar" destination="BSa-Nz-ByP" id="ckF-tz-win"/>
+                        <outlet property="topToolbar" destination="BSa-Nz-ByP" id="RR2-pE-Sws"/>
                         <outlet property="topToolbarTopConstraint" destination="nLY-7r-2vD" id="eZ2-Sb-zJR"/>
                     </connections>
                 </viewController>
