@@ -11,12 +11,12 @@ import UIKit
 extension MemeEditorViewController {
   func keyboardWillShow(notification: NSNotification) {
     currentKeyboardHeight = getKeyboardHeight(notification)
-    animateLayout()
+    animateLayout(nil)
   }
   
   func keyboardWillHide(notification: NSNotification) {
     currentKeyboardHeight = 0
-    animateLayout()
+    animateLayout(nil)
   }
   
   func textFieldDidBeginEditing(textField: UITextField) {
@@ -27,7 +27,7 @@ extension MemeEditorViewController {
     if textIsDefault(textField) {
       textField.text = ""
     }
-    animateLayout()
+    animateLayout(nil)
   }
 
   func textFieldDidEndEditing(textField: UITextField) {
@@ -64,7 +64,7 @@ extension MemeEditorViewController {
     } else {
       topToolbarShouldHide = false
       bottomToolbarShouldHide = false
-      animateLayout()
+      animateLayout(nil)
     }
     
     return true;

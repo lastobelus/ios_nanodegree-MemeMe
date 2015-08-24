@@ -35,14 +35,14 @@ extension MemeEditorViewController {
         }
       )
     }
-    self.animateLayout()
+    animateLayout(nil)
     manageButtonState()
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   func removeImage() {
     // unlike fading in the image, fading it out works as expected
-    UIView.animateWithDuration(0.5,
+    UIView.animateWithDuration(0.3,
       delay: 0,
       options: UIViewAnimationOptions.CurveEaseOut,
       animations: {
@@ -51,7 +51,7 @@ extension MemeEditorViewController {
       completion: { finished in
         self.imageView.image = nil
         self.imageView.alpha = 1.0
-        self.animateLayout()
+        self.animateLayout(nil)
         self.manageButtonState()
       }
     )
@@ -72,21 +72,119 @@ extension MemeEditorViewController {
     )
   }
   
-   func generateMemedImage() -> UIImage {
-    
-    // TODO: Hide toolbar and navbar
-    //    hmmm. Why not just render imageView?
-    
-    // Render view to an image
-    UIGraphicsBeginImageContext(imageView.frame.size)
-    self.view.drawViewHierarchyInRect(imageView.frame,
+  func generateMemedImage() -> UIImage {
+    println("\n---> generateMemedImage ----")
+    println("    before redrawing with hide toolbars & shouldShrinkImageView")
+    print("    view.bounds:           "); debugPrintln(view.bounds)
+    print("    view.bounds.size:      "); debugPrintln(view.bounds.size)
+    print("    imageView.bounds:      "); debugPrintln(imageView.bounds)
+    print("    imageView.bounds.size: "); debugPrintln(view.bounds.size)
+    print("    imageView.frame:       "); debugPrintln(imageView.frame)
+    print("    imageView.frame.origin:"); debugPrintln(imageView.frame.origin)
+    print("    imageView.frame.size:  "); debugPrintln(imageView.frame.size)
+
+    println()
+    shouldShrinkImageView = true
+    topToolbarShouldHide = true
+    bottomToolbarShouldHide = true
+    self.view.setNeedsUpdateConstraints()
+    self.view.layoutIfNeeded()
+    println("    after redrawing with hide toolbars & shouldShrinkImageView")
+    print("    view.boundus:           "); debugPrintln(view.bounds)
+    print("    view.bounds.size:      "); debugPrintln(view.bounds.size)
+    println()
+    print("    imageView.bounds:      "); debugPrintln(imageView.bounds)
+    print("    imageView.bounds.size: "); debugPrintln(imageView.bounds.size)
+    print("    imageView.frame:       "); debugPrintln(imageView.frame)
+    print("    imageView.frame.origin:"); debugPrintln(imageView.frame.origin)
+    print("    imageView.frame.size:  "); debugPrintln(imageView.frame.size)
+    println()
+
+
+
+    let (letterBoxWidth, letterBoxHeight) = letterBoxForSize(imageView.bounds.size)
+    print("    letterBoxWidth: "); debugPrintln(letterBoxWidth)
+    print("    letterBoxHeight: "); debugPrintln(letterBoxHeight)
+
+
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, 0.0)
+    view.drawViewHierarchyInRect(view.frame,
       afterScreenUpdates: true)
-    let memedImage : UIImage =
-      UIGraphicsGetImageFromCurrentImageContext()
-      UIGraphicsEndImageContext()
+    let wholeImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext();
+
+    let width = imageView.frame.size.width - (letterBoxWidth * 2)
+    let height = imageView.frame.size.height - (letterBoxHeight * 2)
+    let imageSize = CGSizeMake(width, height)
+    let x = imageView.frame.origin.x + letterBoxWidth
+    let y = imageView.frame.origin.y + letterBoxHeight
+    let imageOrigin = CGPointMake(-x, -y)
     
+    print("    imageSize: "); debugPrintln(imageSize)
+    print("    imageOrigin: "); debugPrintln(imageOrigin)
+
+    UIGraphicsBeginImageContext(imageSize)
+    wholeImage.drawAtPoint(imageOrigin)
+    let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+
+
+
+    print("    memedImage.size: "); debugPrintln(memedImage.size)
     // TODO:  Show toolbar and navbar
+    topToolbarShouldHide = false
+    bottomToolbarShouldHide = false
+    shouldShrinkImageView = false
+    self.view.setNeedsUpdateConstraints()
+    self.view.layoutIfNeeded()
     
     return memedImage
   }
+
+  func generateMemedImageAsync(completion: ((UIImage)->Void)) {
+    println("\n---> generateMemedImageAsync ----")
+    println("    before redrawing with hide toolbars & shouldShrinkImageView")
+    print("    view.bounds:           "); debugPrintln(view.bounds)
+    print("    view.bounds.size:      "); debugPrintln(view.bounds.size)
+    print("    imageView.bounds:      "); debugPrintln(imageView.bounds)
+    print("    imageView.bounds.size: "); debugPrintln(view.bounds.size)
+    print("    imageView.frame:       "); debugPrintln(imageView.frame)
+    print("    imageView.frame.origin:"); debugPrintln(imageView.frame.origin)
+    print("    imageView.frame.size:  "); debugPrintln(imageView.frame.size)
+
+    println()
+
+    shouldShrinkImageView = true
+    topToolbarShouldHide = true
+    bottomToolbarShouldHide = true
+
+
+    animateLayout({ finished in
+      println("    after redrawing with hide toolbars & shouldShrinkImageView")
+      print("    view.boundus:           "); debugPrintln(self.view.bounds)
+      print("    view.bounds.size:      "); debugPrintln(self.view.bounds.size)
+      print("    imageView.bounds:      "); debugPrintln(self.imageView.bounds)
+      print("    imageView.bounds.size: "); debugPrintln(self.imageView.bounds.size)
+      print("    imageView.frame:       "); debugPrintln(self.imageView.frame)
+      print("    imageView.frame.origin:"); debugPrintln(self.imageView.frame.origin)
+      print("    imageView.frame.size:  "); debugPrintln(self.imageView.frame.size)
+
+      println("drawing image")
+      UIGraphicsBeginImageContextWithOptions(self.imageView.bounds.size, true, 1.0)
+      self.view.drawViewHierarchyInRect(self.imageView.frame,
+        afterScreenUpdates: false)
+      let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      print("    memedImage.size: "); debugPrintln(memedImage.size)
+      // TODO:  Show toolbar and navbar
+      self.topToolbarShouldHide = false
+      self.bottomToolbarShouldHide = false
+      self.shouldShrinkImageView = false
+      self.view.setNeedsUpdateConstraints()
+      self.view.layoutIfNeeded()
+      completion(memedImage)
+    })
+  }
+
 }

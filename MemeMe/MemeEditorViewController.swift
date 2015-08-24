@@ -47,8 +47,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
   var currentKeyboardHeight: CGFloat = 0
   var activeTextField: UITextField?
-  
-  
+  var shouldShrinkImageView = false
+
   let memeTextAttributes = [
     NSStrokeColorAttributeName : UIColor.blackColor(),
     NSForegroundColorAttributeName : UIColor.whiteColor(),
@@ -98,8 +98,28 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     topTextField.text = textFieldDefaultText[topTextField]
     bottomTextField.text = textFieldDefaultText[bottomTextField]
     manageButtonState()
-    animateLayout()
+    animateLayout(nil)
   }
+
+  @IBAction func shareMeme(sender: UIBarButtonItem) {
+//    generateMemedImageAsync({ memedImage in
+//      let activityController = UIActivityViewController(
+//        activityItems: [memedImage],
+//        applicationActivities: nil)
+//
+//      self.presentViewController(activityController,
+//        animated: true, completion: nil)
+//    })
+//
+    let memedImage = generateMemedImage()
+    let activityController = UIActivityViewController(
+      activityItems: [memedImage],
+      applicationActivities: nil)
+    
+    self.presentViewController(activityController,
+      animated: true, completion: nil)
+  }
+  
 
   func manageButtonState() {
     actionButton.enabled = imageView.image != nil
