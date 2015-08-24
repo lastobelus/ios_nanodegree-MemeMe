@@ -61,7 +61,11 @@
                                 <items>
                                     <barButtonItem systemItem="action" id="8q5-XJ-rmj"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="CCR-5l-cGu"/>
-                                    <barButtonItem title="Cancel" id="QSp-f0-rnS"/>
+                                    <barButtonItem title="Cancel" id="QSp-f0-rnS">
+                                        <connections>
+                                            <action selector="cancel:" destination="vXZ-lx-hvc" id="RhV-bx-9OG"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -87,6 +91,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="actionButton" destination="8q5-XJ-rmj" id="FRs-W0-lZf"/>
                         <outlet property="bottomTextBottomConstraint" destination="D7L-ok-G9l" id="YGX-C3-8VA"/>
                         <outlet property="bottomTextField" destination="xN0-fP-xkP" id="3I5-wz-DnZ"/>
                         <outlet property="bottomTextLeftConstraint" destination="ocq-Lw-Yi1" id="VNk-dy-6T7"/>
@@ -94,6 +99,7 @@
                         <outlet property="bottomToolbar" destination="5gf-rf-Jce" id="WqZ-Fu-JR5"/>
                         <outlet property="bottomToolbarBottomConstraint" destination="5fR-yD-Dcn" id="npp-8c-2Og"/>
                         <outlet property="cameraButton" destination="7v0-fP-9qh" id="gYe-Kn-gFy"/>
+                        <outlet property="cancelButton" destination="QSp-f0-rnS" id="r7M-UD-Va8"/>
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
                         <outlet property="imageViewLeftConstraint" destination="dHZ-61-lQA" id="MAf-rd-B6B"/>

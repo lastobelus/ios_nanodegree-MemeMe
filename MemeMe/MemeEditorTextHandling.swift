@@ -23,9 +23,20 @@ extension MemeEditorViewController {
     activeTextField = textField
     topToolbarShouldHide = true
     bottomToolbarShouldHide = true
+    
+    if textIsDefault(textField) {
+      textField.text = ""
+    }
     animateLayout()
   }
 
+  func textFieldDidEndEditing(textField: UITextField) {
+    if count(textField.text) == 0 {
+      textField.text = textFieldDefaultText[textField]
+    }
+    manageButtonState()
+  }
+  
   func subscribeToKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,

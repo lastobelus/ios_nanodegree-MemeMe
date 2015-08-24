@@ -12,6 +12,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
   @IBOutlet weak var topTextField: UITextField!
   @IBOutlet weak var bottomTextField: UITextField!
+  var textFieldDefaultText: [UITextField:String] = [:]
 
   @IBOutlet weak var imageView: UIImageView!
 
@@ -41,6 +42,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
   @IBOutlet weak var bottomToolbarBottomConstraint: NSLayoutConstraint!
   
+  @IBOutlet weak var cancelButton: UIBarButtonItem!
+  @IBOutlet weak var actionButton: UIBarButtonItem!
+
   var currentKeyboardHeight: CGFloat = 0
   var activeTextField: UITextField?
   
@@ -53,16 +57,21 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   ]
 
   let imagePicker = UIImagePickerController()
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
     cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+
     configureTextField(topTextField)
     configureTextField(bottomTextField)
+    textFieldDefaultText[topTextField] = topTextField.text
+    textFieldDefaultText[bottomTextField] = bottomTextField.text
+    
     topToolbarHeightDefault = topToolbar.bounds.height
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
 
+    manageButtonState()
     // Do any additional setup after loading the view, typically from a nib.
   }
 
@@ -84,7 +93,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     pickPhotoFromSource(.PhotoLibrary, mode: nil)
   }
   
+  @IBAction func cancel(sender: UIBarButtonItem) {
+    removeImage()
+    topTextField.text = textFieldDefaultText[topTextField]
+    bottomTextField.text = textFieldDefaultText[bottomTextField]
+    manageButtonState()
+    animateLayout()
+  }
 
+  func manageButtonState() {
+    actionButton.enabled = imageView.image != nil
+    cancelButton.enabled = (imageView.image != nil) ||
+      !textIsDefault(topTextField) ||
+      !textIsDefault(bottomTextField)
+  }
+  
+  func textIsDefault(textField: UITextField) -> Bool {
+    return textField.text == textFieldDefaultText[textField]
+  }
+  
   private func configureTextField(textField:UITextField) {
     textField.defaultTextAttributes = memeTextAttributes
     textField.textAlignment = .Center

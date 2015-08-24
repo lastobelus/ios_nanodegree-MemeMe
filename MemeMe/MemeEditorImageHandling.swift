@@ -21,22 +21,42 @@ extension MemeEditorViewController {
 
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-      imageView.alpha = 0
       imageView.image = image
       imageView.contentMode = .ScaleAspectFit
-      UIView.animateWithDuration(1,
+      imageView.alpha = 0
+      UIView.animateWithDuration(0.5,
         delay: 0,
         options: UIViewAnimationOptions.CurveEaseOut,
         animations: {
-          self.imageView.alpha = 1.0
+          self.imageView.alpha = 1
         },
-        completion: nil
+        completion: { finished in
+          println("animation complete")
+        }
       )
     }
-    animateLayout()
-    dismissViewControllerAnimated(true, completion: nil)
+    self.animateLayout()
+    manageButtonState()
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func removeImage() {
+    // unlike fading in the image, fading it out works as expected
+    UIView.animateWithDuration(0.5,
+      delay: 0,
+      options: UIViewAnimationOptions.CurveEaseOut,
+      animations: {
+        self.imageView.alpha = 0.0
+      },
+      completion: { finished in
+        self.imageView.image = nil
+        self.imageView.alpha = 1.0
+        self.animateLayout()
+        self.manageButtonState()
+      }
+    )
+  }
+
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
     dismissViewControllerAnimated(true, completion: nil)
   }
@@ -52,7 +72,7 @@ extension MemeEditorViewController {
     )
   }
   
-  private func generateMemedImage() -> UIImage {
+   func generateMemedImage() -> UIImage {
     
     // TODO: Hide toolbar and navbar
     //    hmmm. Why not just render imageView?

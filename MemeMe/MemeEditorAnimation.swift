@@ -90,8 +90,8 @@ extension MemeEditorViewController {
     
     // setup image view constraints based on whether a textfield is active
     // and height of keyboard if showing
-    imageViewBottomConstraint.reset()
-    imageViewTopConstraint.reset()
+//    imageViewBottomConstraint.reset()
+//    imageViewTopConstraint.reset()
     if let activeTextField = activeTextField {
       switch activeTextField {
       case topTextField:
@@ -152,7 +152,7 @@ extension MemeEditorViewController {
   }
   
   
-   func animateLayout() {
+  func animateLayout() {
     UIView.animateWithDuration(0.5,
       delay: 0,
       options: UIViewAnimationOptions.CurveEaseOut,
