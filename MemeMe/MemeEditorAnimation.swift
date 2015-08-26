@@ -113,14 +113,25 @@ extension MemeEditorViewController {
     // calculate how much we need to adjust the textfield widths & position
     var letterBoxWidth = CGFloat(0)
     var letterBoxHeight = CGFloat(0)
+
+    
     if let image = imageView.image {
       let widthRatio = size.width/image.size.width
       let heightRatio = size.height/image.size.height
+
+      var scale = (heightRatio > widthRatio) ? widthRatio : heightRatio
+
+      print("    scale: "); debugPrintln(scale)
+
+      scale = min(scale, 1.0)
+
+
+
       if heightRatio > widthRatio {
-        let neededHeight = image.size.height * widthRatio
+        let neededHeight = image.size.height * scale
         letterBoxHeight = (size.height - neededHeight) / 2.0
       } else {
-        let neededWidth = image.size.width * heightRatio
+        let neededWidth = image.size.width * scale
         letterBoxWidth = (size.width - neededWidth) / 2.0
       }
     }
