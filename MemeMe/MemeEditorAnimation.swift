@@ -121,27 +121,24 @@ extension MemeEditorViewController {
 
       var scale = (heightRatio > widthRatio) ? widthRatio : heightRatio
 
-      print("    scale: "); debugPrintln(scale)
-
-      scale = min(scale, 1.0)
-
-
-
-      if heightRatio > widthRatio {
-        let neededHeight = image.size.height * scale
-        letterBoxHeight = (size.height - neededHeight) / 2.0
+      if scale >= 1.0 {
+        imageView.contentMode = .Center
       } else {
-        let neededWidth = image.size.width * scale
-        letterBoxWidth = (size.width - neededWidth) / 2.0
+        imageView.contentMode = .ScaleAspectFit
       }
+      scale = min(scale, 1.0)
+      let neededHeight = image.size.height * scale
+      let neededWidth = image.size.width * scale
+      letterBoxHeight = max((size.height - neededHeight) / 2.0, 0)
+      letterBoxWidth = max((size.width - neededWidth) / 2.0, 0)
+
     }
     return (letterBoxWidth, letterBoxHeight)
   }
 
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
-      self.view.setNeedsUpdateConstraints()
-      self.view.layoutIfNeeded()
+      self.updateConstraintsAndLayoutImmediately()
       }, completion: nil
     )
     super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -152,18 +149,22 @@ extension MemeEditorViewController {
       delay: 0,
       options: UIViewAnimationOptions.CurveEaseOut,
       animations: {
-        self.view.setNeedsUpdateConstraints()
-        self.view.layoutIfNeeded()
+        self.imageView.alpha = 1.0
+        self.updateConstraintsAndLayoutImmediately()
       },
       completion: nil
     )
   }
 
+  func updateConstraintsAndLayoutImmediately() {
+    self.view.setNeedsUpdateConstraints()
+    self.view.layoutIfNeeded()
+  }
+
   func showToolbars(state:Bool) {
     topToolbarShouldHide = !state
     bottomToolbarShouldHide = !state
-    self.view.setNeedsUpdateConstraints()
-    self.view.layoutIfNeeded()
+    updateConstraintsAndLayoutImmediately()
   }
 
   private func adjustTextFieldWidths(width:CGFloat) {

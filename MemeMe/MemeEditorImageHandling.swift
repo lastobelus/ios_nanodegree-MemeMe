@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import TOCropViewController
 
-extension MemeEditorViewController {
+extension MemeEditorViewController: TOCropViewControllerDelegate {
   func pickPhotoFromSource(source: UIImagePickerControllerSourceType, mode: UIImagePickerControllerCameraCaptureMode?) {
     if let mode = mode {
       imagePicker.cameraCaptureMode = mode
@@ -21,23 +22,34 @@ extension MemeEditorViewController {
 
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-      imageView.image = image
-      imageView.contentMode = .ScaleAspectFit
-      imageView.alpha = 0
-      UIView.animateWithDuration(animationDuration,
-        delay: 0,
-        options: UIViewAnimationOptions.CurveEaseOut,
-        animations: {
-          self.imageView.alpha = 1
-        },
-        completion: nil
-      )
+      updateConstraintsAndLayoutImmediately()
+      dismissViewControllerAnimated(false,
+        completion: {
+          let cropController = TOCropViewController(image: image)
+          cropController.delegate = self;
+          self.presentViewController(cropController, animated:true, completion:nil);
+      })
+    } else {
+      animateLayout()
+      manageButtonState()
+      dismissViewControllerAnimated(true, completion: nil)
     }
-    animateLayout()
-    manageButtonState()
-    dismissViewControllerAnimated(true, completion: nil)
   }
-  
+
+  func cropViewController(cropViewController: TOCropViewController!, didCropToImage image: UIImage!, withRect cropRect: CGRect, angle: Int) {
+    imageView.image = image;
+    imageView.contentMode = .ScaleAspectFit
+
+    cropViewController.dismissAnimatedFromParentViewController(self,
+      withCroppedImage:image,
+      toFrame:CGRectZero,
+      completion: {
+        self.animateLayout()
+        self.manageButtonState()
+      }
+    )
+  }
+
   func removeImage() {
     // unlike fading in the image, fading it out works as expected
     UIView.animateWithDuration(animationDuration,
@@ -48,7 +60,6 @@ extension MemeEditorViewController {
       },
       completion: { finished in
         self.imageView.image = nil
-        self.imageView.alpha = 1.0
         self.animateLayout()
         self.manageButtonState()
       }
@@ -72,6 +83,7 @@ extension MemeEditorViewController {
   func generateMemedImage() -> UIImage {
 
     showToolbars(false)
+    updateConstraintsAndLayoutImmediately()
 
     let (letterBoxWidth, letterBoxHeight) = letterBoxForSize(imageView.bounds.size)
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, true, 0.0)
@@ -93,6 +105,7 @@ extension MemeEditorViewController {
     UIGraphicsEndImageContext();
 
     showToolbars(true)
+    updateConstraintsAndLayoutImmediately()
 
     return memedImage
   }
