@@ -10,13 +10,12 @@ import UIKit
 import TOCropViewController
 
 extension MemeEditorViewController: TOCropViewControllerDelegate {
-  func pickPhotoFromSource(source: UIImagePickerControllerSourceType, mode: UIImagePickerControllerCameraCaptureMode?) {
-    if let mode = mode {
-      imagePicker.cameraCaptureMode = mode
-    }
+  func pickPhotoFromSource(source: UIImagePickerControllerSourceType) {
     imagePicker.allowsEditing = false
     imagePicker.sourceType = source
-    
+    if source == .Camera {
+      imagePicker.cameraCaptureMode = .Photo
+    }
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 

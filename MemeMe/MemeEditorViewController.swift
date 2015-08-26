@@ -86,11 +86,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
 
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {
-    pickPhotoFromSource(.Camera, mode: .Photo)
+    pickPhotoFromSource(.Camera)
   }
 
   @IBAction func pickPhotoFromAlbum(sender: UIBarButtonItem) {
-    pickPhotoFromSource(.PhotoLibrary, mode: nil)
+    pickPhotoFromSource(.PhotoLibrary)
   }
   
   @IBAction func cancel(sender: UIBarButtonItem) {
