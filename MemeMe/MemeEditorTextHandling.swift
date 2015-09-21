@@ -31,7 +31,7 @@ extension MemeEditorViewController {
   }
 
   func textFieldDidEndEditing(textField: UITextField) {
-    if count(textField.text) == 0 {
+    if textField.text!.characters.count == 0 {
       textField.text = textFieldDefaultText[textField]
     }
     manageButtonState()

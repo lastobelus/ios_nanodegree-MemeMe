@@ -24,7 +24,7 @@ extension NSLayoutConstraint {
           self,
           &AssociatedKeys.OriginalValue,
           constant,
-          UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+          objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
         )
         return constant
       }
@@ -55,7 +55,7 @@ extension MemeEditorViewController {
 
     // first calculate how much space the image would have before any interface
     // adjustments
-    var availableWidth = imageView.bounds.width
+    let availableWidth = imageView.bounds.width
     
     // topToolbarTopConstraint.delta is the additive inverse. We are deleting
     // it here, and will add it back if topToolbarShouldHide is true. Similarly

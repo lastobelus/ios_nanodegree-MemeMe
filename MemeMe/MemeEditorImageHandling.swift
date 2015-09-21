@@ -19,7 +19,7 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
       updateConstraintsAndLayoutImmediately()
       dismissViewControllerAnimated(false,

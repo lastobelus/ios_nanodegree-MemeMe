@@ -2,7 +2,7 @@ PODS:
   - TOCropViewController (1.0.6)
 
 DEPENDENCIES:
-  - TOCropViewController (= 1.0.6)
+  - TOCropViewController
 
 SPEC CHECKSUMS:
   TOCropViewController: a8589f4a62e633fc0fbf13a113b3dff042932d67

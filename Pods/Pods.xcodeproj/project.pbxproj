@@ -48,7 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		ECAF194130DAAF6A2E8B7C42EA0118A5 /* PBXContainerItemProxy */ = {
+		43A2249790E0425473623CBC56B86BF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -308,7 +308,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5027B8B04D5E32C6DC8DC3D0C0792CB5 /* PBXTargetDependency */,
+				0334F7D4A152700F35464D5DCC353800 /* PBXTargetDependency */,
 			);
 			name = "Pods-MemeMe";
 			productName = "Pods-MemeMe";
@@ -413,11 +413,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5027B8B04D5E32C6DC8DC3D0C0792CB5 /* PBXTargetDependency */ = {
+		0334F7D4A152700F35464D5DCC353800 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TOCropViewController;
 			target = 25BDAEF28D7EA2AF8114A279E0D96F20 /* TOCropViewController */;
-			targetProxy = ECAF194130DAAF6A2E8B7C42EA0118A5 /* PBXContainerItemProxy */;
+			targetProxy = 43A2249790E0425473623CBC56B86BF0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
