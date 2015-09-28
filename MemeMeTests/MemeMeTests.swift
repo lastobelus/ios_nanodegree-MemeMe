@@ -9,6 +9,12 @@
 import UIKit
 import XCTest
 
+extension UIViewController {
+  func preloadView() {
+     _ = view
+  }
+}
+
 class MemeMeTests: XCTestCase {
     
     override func setUp() {
