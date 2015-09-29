@@ -16,13 +16,17 @@ class Meme: NSObject, NSCoding {
   var image: UIImage
   var memedImage: UIImage
   
-  // MARK: Types
+  // MARK: Keys
   
-  struct  PropertyKey {
-    static let topTextKey = "topText"
-    static let bottomTextKey = "topText"
-    static let imageKey = "topText"
-    static let memedImageKey = "topText"
+  enum  Keys:String {
+    case
+      topText,
+      bottomText,
+      image,
+      memedImage
+    func key() -> String {
+      return self.rawValue
+    }
   }
   
   init(
@@ -41,17 +45,17 @@ class Meme: NSObject, NSCoding {
   //  MARK: NSCoding
   
   func encodeWithCoder(aCoder: NSCoder) {
-    aCoder.encodeObject(topText, forKey: PropertyKey.topTextKey)
-    aCoder.encodeObject(bottomText, forKey: PropertyKey.bottomTextKey)
-    aCoder.encodeObject(image, forKey: PropertyKey.imageKey)
-    aCoder.encodeObject(memedImage, forKey: PropertyKey.memedImageKey)
+    aCoder.encodeObject(topText, forKey: Keys.topText.key())
+    aCoder.encodeObject(bottomText, forKey: Keys.bottomText.key())
+    aCoder.encodeObject(image, forKey: Keys.image.key())
+    aCoder.encodeObject(memedImage, forKey: Keys.memedImage.key())
   }
   
   required convenience init?(coder aDecoder: NSCoder) {
-    let topText = aDecoder.decodeObjectForKey(PropertyKey.topTextKey) as! String
-    let bottomText = aDecoder.decodeObjectForKey(PropertyKey.bottomTextKey) as! String
-    let image = aDecoder.decodeObjectForKey(PropertyKey.imageKey) as! UIImage
-    let memedImage = aDecoder.decodeObjectForKey(PropertyKey.memedImageKey) as! UIImage
+    let topText = aDecoder.decodeObjectForKey(Keys.topText.key()) as! String
+    let bottomText = aDecoder.decodeObjectForKey(Keys.bottomText.key()) as! String
+    let image = aDecoder.decodeObjectForKey(Keys.image.key()) as! UIImage
+    let memedImage = aDecoder.decodeObjectForKey(Keys.memedImage.key()) as! UIImage
     self.init(topText: topText, bottomText: bottomText, image: image, memedImage: memedImage)
   }
   

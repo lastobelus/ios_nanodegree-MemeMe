@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Swift does not allow adding stored properties via extension, so we use 
+// Swift does not allow adding stored properties via extension, so we use
 // objc associatedObject dictionary to keep track of constraints' orginal values
 extension NSLayoutConstraint {
   private struct AssociatedKeys {
@@ -67,8 +67,10 @@ extension MemeEditorViewController {
     
     if topToolbarShouldHide {
       topToolbarTopConstraint.shift( -topToolbarHeightDefault)
+      topToolbar.alpha = 0.0
       availableHeight -= topToolbarTopConstraint.delta()
     } else {
+      topToolbar.alpha = 1.0
       topToolbarTopConstraint.reset()
     }
 
@@ -92,11 +94,16 @@ extension MemeEditorViewController {
         imageViewTopConstraint.reset()
       case bottomTextField:
         let bottomShift = currentKeyboardHeight
-        let topShift = currentKeyboardHeight / 3.0
         availableHeight -= bottomShift
-        availableHeight += topShift
         imageViewBottomConstraint.shift(bottomShift)
-        imageViewTopConstraint.shift( -topShift)
+        if Preferences.instance.expandImageTopPastStatusBarWhenTyping {
+          
+          let topShift = currentKeyboardHeight / 3.0
+          availableHeight += topShift
+          imageViewTopConstraint.shift( -topShift)
+        } else {
+          imageViewTopConstraint.reset()
+        }
       default: ()
       }
     }

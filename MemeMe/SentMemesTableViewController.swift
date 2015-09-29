@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let reuseIdentifier = "MemeCell"
+
 class SentMemesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
