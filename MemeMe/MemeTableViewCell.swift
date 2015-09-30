@@ -8,17 +8,25 @@
 
 import UIKit
 
-class MemeTableViewCell: UITableViewCell {
+class MemeTableViewCell: UITableViewCell, MemesViewerCell {
+  
+  @IBOutlet weak var originalImage: UIImageView!
+  @IBOutlet weak var topText: UILabel!
+  @IBOutlet weak var bottomText: UILabel!
+  @IBOutlet weak var expandedTopText: UILabel!
+  @IBOutlet weak var expandedBottomText: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+  let memeTextFontSize:CGFloat = 15
+  let memeTextStrokeSize:CGFloat = 4.0
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
+  
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    
+    // Configure the view for the selected state
+  }
+  
 }

@@ -18,11 +18,6 @@ class Preferences {
     func key() -> String {
       return rawValue
     }
-    func bool() -> Bool {
-      let key = rawValue
-      let value = NSUserDefaults.standardUserDefaults().boolForKey(key)
-      return value
-    }
   }
   
   let expandImageTopPastStatusBarWhenTyping:Bool
@@ -37,7 +32,8 @@ class Preferences {
       }
     }
   
-    expandImageTopPastStatusBarWhenTyping = Keys.ExpandImageTopPastStatusBarWhenTyping.bool()
+    //    MARK: Values
+    expandImageTopPastStatusBarWhenTyping = NSUserDefaults.standardUserDefaults().boolForKey(Keys.ExpandImageTopPastStatusBarWhenTyping.key())
 
   }
   

@@ -48,12 +48,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   var activeTextField: UITextField?
   
-  let memeTextAttributes = [
-    NSStrokeColorAttributeName : UIColor.blackColor(),
-    NSForegroundColorAttributeName : UIColor.whiteColor(),
-    NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-    NSStrokeWidthAttributeName : -5.0
-  ]
+  let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
   
   let imagePicker = UIImagePickerController()
   
@@ -112,6 +107,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       
       
       self.save(memedImage)
+      
       self.dismissViewControllerAnimated(true, completion: nil)
     }
     

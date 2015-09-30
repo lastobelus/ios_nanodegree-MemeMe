@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Meme Editor View Controller-->
@@ -145,18 +146,89 @@
         <scene sceneID="biu-1p-QQj">
             <objects>
                 <tableViewController id="kj5-u9-urx" customClass="SentMemesTableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Y5-Qo-e43">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Y5-Qo-e43">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeCell" id="NTP-sa-MS3" customClass="MemeTableViewCell" customModule="MemeMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="MemeCell" id="NTP-sa-MS3" customClass="MemeTableViewCell" customModule="MemeMe" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NTP-sa-MS3" id="lEV-fs-5Az">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
+                                            <rect key="frame" x="0.0" y="0.0" width="134" height="89"/>
+                                            <color key="backgroundColor" red="0.88627457620000005" green="0.33725491169999999" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PU2-gD-4D0">
+                                            <rect key="frame" x="4" y="6" width="126" height="17"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d7-o3-TsT">
+                                            <rect key="frame" x="4" y="66" width="126" height="17"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7r-Y9-JkV">
+                                            <rect key="frame" x="134" y="0.0" width="186" height="45"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAn-1s-lVY">
+                                                    <rect key="frame" x="8" y="0.0" width="170" height="45"/>
+                                                    <string key="text">Top Text Expanded
+That can be two lines</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.96992481203007519" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="RAn-1s-lVY" secondAttribute="bottom" id="XLt-si-s1L"/>
+                                                <constraint firstItem="RAn-1s-lVY" firstAttribute="top" secondItem="h7r-Y9-JkV" secondAttribute="top" id="evG-sc-Bjd"/>
+                                                <constraint firstAttribute="trailing" secondItem="RAn-1s-lVY" secondAttribute="trailing" constant="8" id="lFb-5q-ocG"/>
+                                                <constraint firstItem="RAn-1s-lVY" firstAttribute="leading" secondItem="h7r-Y9-JkV" secondAttribute="leading" constant="8" id="sqf-hj-hCx"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text Expanded" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9J-hh-45J">
+                                            <rect key="frame" x="142" y="44" width="170" height="45"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3d7-o3-TsT" firstAttribute="width" secondItem="Dgg-B2-nEO" secondAttribute="width" constant="-8" id="6Ma-ZU-0LX"/>
+                                        <constraint firstItem="h7r-Y9-JkV" firstAttribute="height" secondItem="lEV-fs-5Az" secondAttribute="height" multiplier="0.5" id="6fd-Mg-cuc"/>
+                                        <constraint firstItem="Dgg-B2-nEO" firstAttribute="width" secondItem="lEV-fs-5Az" secondAttribute="width" multiplier="0.42" id="9sU-Ku-EVh"/>
+                                        <constraint firstItem="3d7-o3-TsT" firstAttribute="bottom" secondItem="Dgg-B2-nEO" secondAttribute="bottom" constant="-6" id="ADx-H9-dN7"/>
+                                        <constraint firstItem="PU2-gD-4D0" firstAttribute="leading" secondItem="Dgg-B2-nEO" secondAttribute="leading" constant="4" id="Exw-YR-9qk"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="h7r-Y9-JkV" secondAttribute="trailing" constant="-8" id="FAc-ol-jCm"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Dgg-B2-nEO" secondAttribute="bottom" constant="-8" id="NsI-aI-PaL"/>
+                                        <constraint firstItem="r9J-hh-45J" firstAttribute="leading" secondItem="Dgg-B2-nEO" secondAttribute="trailing" constant="8" id="PMe-1z-BTf"/>
+                                        <constraint firstItem="Dgg-B2-nEO" firstAttribute="top" secondItem="PU2-gD-4D0" secondAttribute="top" constant="-6" id="PiU-XA-OXC"/>
+                                        <constraint firstItem="PU2-gD-4D0" firstAttribute="width" secondItem="Dgg-B2-nEO" secondAttribute="width" constant="-8" id="QNS-Bh-b8V"/>
+                                        <constraint firstItem="h7r-Y9-JkV" firstAttribute="top" secondItem="lEV-fs-5Az" secondAttribute="topMargin" constant="-8" id="VPb-id-djE"/>
+                                        <constraint firstItem="h7r-Y9-JkV" firstAttribute="leading" secondItem="Dgg-B2-nEO" secondAttribute="trailing" id="dWt-wa-4Im"/>
+                                        <constraint firstItem="3d7-o3-TsT" firstAttribute="leading" secondItem="Dgg-B2-nEO" secondAttribute="leading" constant="4" id="fTl-nk-WNK"/>
+                                        <constraint firstItem="Dgg-B2-nEO" firstAttribute="leading" secondItem="lEV-fs-5Az" secondAttribute="leadingMargin" constant="-8" id="kxr-Nv-5xe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="r9J-hh-45J" secondAttribute="bottom" constant="-8" id="sTS-Qv-9jd"/>
+                                        <constraint firstItem="Dgg-B2-nEO" firstAttribute="top" secondItem="lEV-fs-5Az" secondAttribute="topMargin" constant="-8" id="wGn-Kh-g3A"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="r9J-hh-45J" secondAttribute="trailing" id="xo8-Uq-tzG"/>
+                                        <constraint firstItem="r9J-hh-45J" firstAttribute="top" secondItem="h7r-Y9-JkV" secondAttribute="bottom" constant="-1" id="yc8-n7-c0X"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bottomText" destination="3d7-o3-TsT" id="bvg-BI-U0z"/>
+                                    <outlet property="expandedBottomText" destination="r9J-hh-45J" id="R7i-hE-TDn"/>
+                                    <outlet property="expandedTopText" destination="RAn-1s-lVY" id="yF7-vU-kyc"/>
+                                    <outlet property="originalImage" destination="Dgg-B2-nEO" id="qM6-4k-dgw"/>
+                                    <outlet property="topText" destination="PU2-gD-4D0" id="bCy-qJ-Xny"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -221,15 +293,15 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zDM-qP-WgT">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="72"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csp-ib-VQg">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csp-ib-VQg">
                                             <rect key="frame" x="0.0" y="3" width="128" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cn3-aH-mkh">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cn3-aH-mkh">
                                             <rect key="frame" x="0.0" y="52" width="128" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -248,6 +320,11 @@
                                     <constraint firstAttribute="trailingMargin" secondItem="Cn3-aH-mkh" secondAttribute="trailing" constant="-8" id="w0I-Qc-xjY"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="zDM-qP-WgT" secondAttribute="bottom" constant="-8" id="xyT-06-gHS"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="bottomText" destination="Cn3-aH-mkh" id="w7C-5j-o8B"/>
+                                    <outlet property="originalImage" destination="zDM-qP-WgT" id="9z5-SK-NVu"/>
+                                    <outlet property="topText" destination="csp-ib-VQg" id="8ll-tX-z1E"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -315,6 +392,6 @@
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mG6-eX-t3k"/>
+        <segue reference="Hyn-En-pyj"/>
     </inferredMetricsTieBreakers>
 </document>

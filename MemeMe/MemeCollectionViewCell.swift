@@ -8,6 +8,17 @@
 
 import UIKit
 
-class MemeCollectionViewCell: UICollectionViewCell {
-    
+class MemeCollectionViewCell: UICollectionViewCell, MemesViewerCell {
+
+  @IBOutlet weak var originalImage: UIImageView!
+  @IBOutlet weak var topText: UILabel!
+  @IBOutlet weak var bottomText: UILabel!
+
+  let memeTextFontSize:CGFloat = 15
+  let memeTextStrokeSize:CGFloat = 4.0
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
+
 }

@@ -28,6 +28,7 @@ class MemeStore: NSObject {
     if !success {
       print("Failed to save memes...")
     }
+    
     return success
   }
   

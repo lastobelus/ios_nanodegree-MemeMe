@@ -10,6 +10,7 @@ import UIKit
 
 class Meme: NSObject, NSCoding {
   
+  
   //  MARK: Properties
   var topText: String
   var bottomText: String

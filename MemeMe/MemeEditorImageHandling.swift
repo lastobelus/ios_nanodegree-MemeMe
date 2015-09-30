@@ -69,16 +69,6 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func save(memedImage: UIImage) {
-    //Create the meme
-    var meme = Meme(
-      topText: topTextField.text!,
-      bottomText: bottomTextField.text!,
-      image: imageView.image!,
-      memedImage: memedImage
-    )
-  }
-
   func generateMemedImage() -> UIImage {
 
     showToolbars(false)
