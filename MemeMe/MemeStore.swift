@@ -45,4 +45,9 @@ class MemeStore: NSObject {
   func isFirstMeme() -> Bool {
     return self.savedMemes.isEmpty
   }
+
+  func deleteAll() -> Bool{
+    savedMemes.removeAll()
+    return save()
+  }
 }

@@ -158,7 +158,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
                                             <rect key="frame" x="0.0" y="0.0" width="134" height="89"/>
                                             <color key="backgroundColor" red="0.88627457620000005" green="0.33725491169999999" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
                                         </imageView>

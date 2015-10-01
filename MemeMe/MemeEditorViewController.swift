@@ -129,7 +129,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   func manageButtonState() {
     actionButton.enabled = (imageView.image != nil) &&
       (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
-    cancelButton?.enabled = (imageView?.image != nil)
+    cancelButton?.enabled = !isFirstMeme || (imageView?.image != nil)
 
   }
   

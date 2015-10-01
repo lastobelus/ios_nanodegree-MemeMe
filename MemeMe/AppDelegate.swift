@@ -16,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
-    application.statusBarHidden = true
+
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if defaults.boolForKey("DeleteAllMemesOnStartup") {
+      MemeStore.sharedStore.deleteAll()
+    }
+
     return true
   }
 
