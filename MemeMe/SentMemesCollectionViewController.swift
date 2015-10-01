@@ -13,9 +13,17 @@ private let reuseIdentifier = "MemeCell"
 class SentMemesCollectionViewController: UICollectionViewController, MemesViewer {
   
   @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-  
+
+  let layoutCalculator = UniformFlowLayoutCalculator(
+    desiredSizeInPortrait: CGSizeMake(192, 120),
+    desiredSizeInLandscape: CGSizeMake(192*1.3, 120*1.3),
+    desiredSpacing: 3.0
+  )
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    configureFlowLayoutForSize(view.frame.size)
   }
 
   override func viewDidAppear(animated: Bool) {
@@ -92,5 +100,16 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   
   }
   */
-  
+
+  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    configureFlowLayoutForSize(size)
+    flowLayout?.invalidateLayout()
+  }
+
+  func configureFlowLayoutForSize(size:CGSize) {
+    flowLayout?.minimumInteritemSpacing = layoutCalculator.desiredSpacing
+    flowLayout?.minimumLineSpacing = layoutCalculator.desiredSpacing
+    flowLayout?.itemSize = layoutCalculator.sizeForSize(size)
+  }
 }

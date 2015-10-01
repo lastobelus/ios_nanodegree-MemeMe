@@ -43,7 +43,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   @IBOutlet weak var cancelButton: UIBarButtonItem!
   @IBOutlet weak var actionButton: UIBarButtonItem!
-  
+
+  @IBOutlet weak var shareMemeIndicatorView: InterfaceCalloutView!
+
   var currentKeyboardHeight:CGFloat = 0.0
   
   var activeTextField: UITextField?
@@ -51,7 +53,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
   
   let imagePicker = UIImagePickerController()
-  
+  var pickingImage = false
+
   let animationDuration:NSTimeInterval = 0.4
 
   var isFirstMeme: Bool {
@@ -76,6 +79,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
 
     manageButtonState()
+
+
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -129,10 +134,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   func manageButtonState() {
     actionButton.enabled = (imageView.image != nil) &&
       (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
-    cancelButton?.enabled = !isFirstMeme || (imageView?.image != nil)
-
+    if isFirstMeme {
+      cancelButton?.enabled = (imageView?.image != nil)
+    } else {
+      cancelButton?.enabled = true
+    }
   }
-  
+
   func textIsDefault(textField: UITextField) -> Bool {
     return textField.text == textFieldDefaultText[textField]
   }
@@ -145,6 +153,26 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 
     self.presentViewController(alertController, animated: true) { (action) in
       self.instructionsShown = true
+    }
+  }
+
+  func showShareMemeIndicatorDelayed() {
+    let delay = 2 * Double(NSEC_PER_SEC)
+    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+    dispatch_after(time, dispatch_get_main_queue()) {
+      self.showShareMemeIndicator()
+    }
+  }
+
+  func showShareMemeIndicator() {
+    if isFirstMeme {
+      if imageView?.image != nil {
+        if activeTextField == nil {
+          if (!textIsDefault(topTextField) || !textIsDefault(bottomTextField)) {
+            shareMemeIndicatorView.fire()
+          }
+        }
+      }
     }
   }
 

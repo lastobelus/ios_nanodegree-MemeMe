@@ -90,6 +90,26 @@
                                 </constraints>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gJ-of-wdT" customClass="InterfaceCalloutView" customModule="MemeMe" customModuleProvider="target">
+                                <rect key="frame" x="14" y="71" width="90" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your Meme!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T5-Zq-uUM">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="Bfn-9u-ECT"/>
+                                    <constraint firstAttribute="bottom" secondItem="2T5-Zq-uUM" secondAttribute="bottom" id="NR6-7O-Of4"/>
+                                    <constraint firstAttribute="height" constant="44" id="aaa-8Y-JHl"/>
+                                    <constraint firstAttribute="trailing" secondItem="2T5-Zq-uUM" secondAttribute="trailing" id="bof-ak-hYh"/>
+                                    <constraint firstItem="2T5-Zq-uUM" firstAttribute="top" secondItem="1gJ-of-wdT" secondAttribute="top" id="g1t-Gw-XOl"/>
+                                    <constraint firstItem="2T5-Zq-uUM" firstAttribute="leading" secondItem="1gJ-of-wdT" secondAttribute="leading" id="gWp-1L-4LL"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -108,9 +128,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="h36-LD-jGa" secondAttribute="trailing" constant="-16" id="jal-Xf-8Uq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5gf-rf-Jce" secondAttribute="trailing" constant="-16" id="mea-eA-lwK"/>
                             <constraint firstItem="BSa-Nz-ByP" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="nLY-7r-2vD"/>
+                            <constraint firstItem="1gJ-of-wdT" firstAttribute="top" secondItem="BSa-Nz-ByP" secondAttribute="bottom" constant="7" id="oYm-kw-D26"/>
                             <constraint firstItem="xN0-fP-xkP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="ocq-Lw-Yi1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BSa-Nz-ByP" secondAttribute="trailing" constant="-16" id="qhw-B4-EFz"/>
                             <constraint firstItem="h36-LD-jGa" firstAttribute="top" secondItem="BSa-Nz-ByP" secondAttribute="bottom" id="rEs-Wg-gSE"/>
+                            <constraint firstItem="1gJ-of-wdT" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-2" id="tud-sj-8kw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gsA-j0-o9t" secondAttribute="trailing" constant="-20" id="xoy-mr-a8S"/>
                         </constraints>
                     </view>
@@ -130,6 +152,7 @@
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
                         <outlet property="imageViewTopConstraint" destination="rEs-Wg-gSE" id="Ky9-HK-99s"/>
+                        <outlet property="shareMemeIndicatorView" destination="1gJ-of-wdT" id="65D-MS-MCo"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
                         <outlet property="topTextRightConstraint" destination="6S7-yj-Ais" id="q6r-ji-gG7"/>
@@ -140,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="1286"/>
+            <point key="canvasLocation" x="2628" y="1295"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="biu-1p-QQj">
@@ -186,7 +209,7 @@ That can be two lines</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.96992481203007519" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.95456414473684226" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="RAn-1s-lVY" secondAttribute="bottom" id="XLt-si-s1L"/>
                                                 <constraint firstItem="RAn-1s-lVY" firstAttribute="top" secondItem="h7r-Y9-JkV" secondAttribute="top" id="evG-sc-Bjd"/>
@@ -341,7 +364,7 @@ That can be two lines</string>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="flowLayout" destination="0au-nB-3fS" id="GeL-lD-xg2"/>
+                        <outlet property="flowLayout" destination="0au-nB-3fS" id="Eqw-9c-UbP"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfz-BH-cvX" userLabel="First Responder" sceneMemberID="firstResponder"/>

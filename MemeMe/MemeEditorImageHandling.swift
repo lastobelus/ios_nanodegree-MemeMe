@@ -10,12 +10,14 @@ import UIKit
 import TOCropViewController
 
 extension MemeEditorViewController: TOCropViewControllerDelegate {
+
   func pickPhotoFromSource(source: UIImagePickerControllerSourceType) {
     imagePicker.allowsEditing = false
     imagePicker.sourceType = source
     if source == .Camera {
       imagePicker.cameraCaptureMode = .Photo
     }
+    pickingImage = true
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 
@@ -32,6 +34,7 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
       animateLayout()
       manageButtonState()
       dismissViewControllerAnimated(true, completion: nil)
+      pickingImage = false
     }
   }
 
@@ -43,8 +46,10 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
       withCroppedImage:image,
       toFrame:CGRectZero,
       completion: {
+        self.pickingImage = false
         self.animateLayout()
         self.manageButtonState()
+        self.showShareMemeIndicatorDelayed()
       }
     )
   }

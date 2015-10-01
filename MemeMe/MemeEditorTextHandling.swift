@@ -31,12 +31,14 @@ extension MemeEditorViewController {
   }
 
   func textFieldDidEndEditing(textField: UITextField) {
+    activeTextField = nil
     if textField.text!.characters.count == 0 {
       textField.text = textFieldDefaultText[textField]
     }
     manageButtonState()
+    self.showShareMemeIndicatorDelayed()
   }
-  
+
   func subscribeToKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
