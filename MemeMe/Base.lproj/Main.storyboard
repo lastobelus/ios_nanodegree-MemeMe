@@ -155,7 +155,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NTP-sa-MS3" id="lEV-fs-5Az">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
@@ -239,7 +239,7 @@ That can be two lines</string>
                     <navigationItem key="navigationItem" title="Sent Memes" id="n4X-pc-jrV">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="GJ2-gC-g7y">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="presentation" id="Hyn-En-pyj"/>
+                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="PresentMemeEditor" id="Hyn-En-pyj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

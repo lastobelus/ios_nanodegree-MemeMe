@@ -41,4 +41,8 @@ class MemeStore: NSObject {
     savedMemes.append(meme)
     return save()
   }
+
+  func isFirstMeme() -> Bool {
+    return self.savedMemes.isEmpty
+  }
 }

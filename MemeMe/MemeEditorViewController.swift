@@ -53,7 +53,15 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   let imagePicker = UIImagePickerController()
   
   let animationDuration:NSTimeInterval = 0.4
-  
+
+  var isFirstMeme: Bool {
+    get {
+      return MemeStore.sharedStore.isFirstMeme()
+    }
+  }
+
+  var instructionsShown = false
+
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
@@ -66,7 +74,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     topToolbarHeightDefault = topToolbar.bounds.height
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
-    
+
     manageButtonState()
   }
   
@@ -78,6 +86,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     subscribeToKeyboardNotifications()
+    if isFirstMeme && !instructionsShown {
+      showInstructions()
+    }
   }
   
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {
@@ -116,19 +127,30 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
   
   func manageButtonState() {
-    actionButton.enabled = imageView.image != nil
-    !textIsDefault(topTextField) ||
-      !textIsDefault(bottomTextField)
+    actionButton.enabled = (imageView.image != nil) &&
+      (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
+    cancelButton?.enabled = (imageView?.image != nil)
+
   }
   
   func textIsDefault(textField: UITextField) -> Bool {
     return textField.text == textFieldDefaultText[textField]
   }
-  
+
+  func showInstructions() {
+    let alertController = UIAlertController(title: "Let's get started…", message: "Take a picture, or choose one from your Photos. Then click on the top & bottom labels to edit your meme.", preferredStyle: .Alert)
+
+    let OKAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    alertController.addAction(OKAction)
+
+    self.presentViewController(alertController, animated: true) { (action) in
+      self.instructionsShown = true
+    }
+  }
+
   private func configureTextField(textField:UITextField) {
     textField.defaultTextAttributes = memeTextAttributes
     textField.textAlignment = .Center
   }
-  
 }
 

@@ -17,12 +17,19 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   override func viewDidLoad() {
     super.viewDidLoad()
   }
-  
+
+  override func viewDidAppear(animated: Bool) {
+    collectionView?.reloadData()
+    editIfEmpty()
+  }
+
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
+
+
   /*
   // MARK: - Navigation
   

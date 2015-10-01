@@ -11,6 +11,7 @@ import UIKit
 protocol MemesViewer {
   var memesList: [Meme] { get }
   func populateCell(cell:MemesViewerCell, withMeme meme:Meme)
+  func editIfEmpty()
 }
 
 extension MemesViewer {
@@ -25,6 +26,19 @@ extension MemesViewer {
     cell.expandedTopText?.text = meme.topText
     cell.bottomText?.attributedText = NSMutableAttributedString(string: meme.bottomText, attributes: attributes)
     cell.expandedBottomText?.text = meme.bottomText
+  }
+
+}
+
+struct MemeViewerProperties {
+  static var editSegueIdentifier = "PresentMemeEditor"
+}
+
+extension MemesViewer where Self : UIViewController {
+  func editIfEmpty() {
+    if memesList.isEmpty {
+      performSegueWithIdentifier(MemeViewerProperties.editSegueIdentifier, sender: self)
+    }
   }
 }
 
