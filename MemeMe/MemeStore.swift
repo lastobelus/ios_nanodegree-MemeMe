@@ -9,16 +9,17 @@
 import UIKit
 
 class MemeStore: NSObject {
-  var savedMemes = [Meme]()
+  var savedMemes: [Meme]!
   static let sharedStore = MemeStore()
 
   //  MARK: Archiving Paths
   static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
   static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("savedMemes")
   
-  override init(){
+  private override init(){
     super.init()
-    if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(MemeStore.ArchiveURL.path!) as? [Meme] {
+    let path = MemeStore.ArchiveURL.path!
+    if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? [Meme] {
       self.savedMemes = data
     }
   }
@@ -36,7 +37,7 @@ class MemeStore: NSObject {
     savedMemes.removeAtIndex(index)
     return save()
   }
-  
+
   func addMeme(meme: Meme) -> Bool {
     savedMemes.append(meme)
     return save()

@@ -163,7 +163,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2628" y="1295"/>
+            <point key="canvasLocation" x="2534" y="1730"/>
+        </scene>
+        <!--Meme Detail View Controller-->
+        <scene sceneID="sEm-a1-tWo">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetailView" id="6Tk-5E-wea" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a1j-GR-oNV"/>
+                        <viewControllerLayoutGuide type="bottom" id="BOb-Pc-wfC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ydW-Oe-tEd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kVL-WW-Rai">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LA2-Yk-h8Q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="bW0-hU-NXA">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="editSelectedMemeSegue" id="020-5C-Xwf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="memeImage" destination="kVL-WW-Rai" id="aLY-6q-vpk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AFp-tK-sWx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2534" y="991"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="biu-1p-QQj">
@@ -181,9 +215,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
                                             <rect key="frame" x="0.0" y="0.0" width="134" height="89"/>
-                                            <color key="backgroundColor" red="0.88627457620000005" green="0.33725491169999999" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PU2-gD-4D0">
                                             <rect key="frame" x="4" y="6" width="126" height="17"/>
@@ -251,6 +285,7 @@ That can be two lines</string>
                                     <outlet property="expandedTopText" destination="RAn-1s-lVY" id="yF7-vU-kyc"/>
                                     <outlet property="originalImage" destination="Dgg-B2-nEO" id="qM6-4k-dgw"/>
                                     <outlet property="topText" destination="PU2-gD-4D0" id="bCy-qJ-Xny"/>
+                                    <segue destination="6Tk-5E-wea" kind="show" identifier="showMemeDetailSegue" id="Iy4-ZQ-zzL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -347,6 +382,7 @@ That can be two lines</string>
                                     <outlet property="bottomText" destination="Cn3-aH-mkh" id="w7C-5j-o8B"/>
                                     <outlet property="originalImage" destination="zDM-qP-WgT" id="9z5-SK-NVu"/>
                                     <outlet property="topText" destination="csp-ib-VQg" id="8ll-tX-z1E"/>
+                                    <segue destination="6Tk-5E-wea" kind="show" identifier="showMemeDetailSegue" id="fXO-ST-gG4"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -415,6 +451,7 @@ That can be two lines</string>
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hyn-En-pyj"/>
+        <segue reference="fXO-ST-gG4"/>
+        <segue reference="020-5C-Xwf"/>
     </inferredMetricsTieBreakers>
 </document>

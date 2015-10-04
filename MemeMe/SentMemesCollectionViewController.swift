@@ -10,8 +10,9 @@ import UIKit
 
 private let reuseIdentifier = "MemeCell"
 
+
 class SentMemesCollectionViewController: UICollectionViewController, MemesViewer {
-  
+
   @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
   let layoutCalculator = UniformFlowLayoutCalculator(
@@ -38,16 +39,25 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   }
 
 
-  /*
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using [segue destinationViewController].
-  // Pass the selected object to the new view controller.
+    if prepareForShowDetailSegue(segue, sender: sender) {
+      return
+    }
   }
-  */
-  
+
+  func indexOfSendingCell(sender:AnyObject?) -> Int? {
+    guard let cell = sender as? MemeCollectionViewCell else {
+      return nil
+    }
+    guard let indexPath = collectionView!.indexPathForCell(cell) else {
+      return nil
+    }
+    return indexPath.row
+  }
+
   // MARK: UICollectionViewDataSource
   
   override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
