@@ -16,6 +16,10 @@ protocol MemesViewer {
   func prepareForShowDetailSegue(segue: UIStoryboardSegue, sender: AnyObject?) -> Bool
 }
 
+protocol MemeViewer {
+  var meme: Meme? {get set}
+}
+
 extension MemesViewer {
   var memesList: [Meme] {
     let store = MemeStore.sharedStore
@@ -33,8 +37,10 @@ extension MemesViewer {
 }
 
 struct MemeViewerProperties {
-  static var editSegueIdentifier = "PresentMemeEditor"
+  static var editSegueIdentifier = "createMemeSegue"
   static var showDetailSegueIdentifier = "showMemeDetailSegue"
+  static var editMemeSegueIdentifier = "editMemeSegue"
+  static var didFinishEditingMemeSegueIdentifier = "didFinishEditingMemeSeque"
 }
 
 // common implementation for TableView and GridView

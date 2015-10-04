@@ -16,7 +16,7 @@ class Meme: NSObject, NSCoding {
   var bottomText: String
   var image: UIImage
   var memedImage: UIImage
-  
+
   // MARK: Keys
   
   enum  Keys:String {
@@ -39,7 +39,6 @@ class Meme: NSObject, NSCoding {
       self.bottomText = bottomText
       self.image = image
       self.memedImage = memedImage
-      
       super.init()
   }
 
@@ -59,5 +58,4 @@ class Meme: NSObject, NSCoding {
     let memedImage = aDecoder.decodeObjectForKey(Keys.memedImage.key()) as! UIImage
     self.init(topText: topText, bottomText: bottomText, image: image, memedImage: memedImage)
   }
-  
 }

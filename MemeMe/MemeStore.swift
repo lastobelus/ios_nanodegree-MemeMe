@@ -21,6 +21,8 @@ class MemeStore: NSObject {
     let path = MemeStore.ArchiveURL.path!
     if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? [Meme] {
       self.savedMemes = data
+    } else {
+      self.savedMemes = [Meme]()
     }
   }
   

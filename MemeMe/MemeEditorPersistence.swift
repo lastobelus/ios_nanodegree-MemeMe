@@ -8,14 +8,24 @@
 
 import UIKit
 extension MemeEditorViewController {
+  //  TODO: see if can refactor Meme to make properties optional, so this can be DRYed
   func save(memedImage: UIImage) {
-    //Create the meme
-    let meme = Meme(
-      topText: topTextField.text!,
-      bottomText: bottomTextField.text!,
-      image: imageView.image!,
-      memedImage: memedImage
-    )
-    MemeStore.sharedStore.addMeme(meme)
+    if let meme = self.meme {
+      //  update meme from UI values
+      meme.topText = topTextField.text!
+      meme.bottomText = bottomTextField.text!
+      meme.image = imageView.image!
+      meme.memedImage = memedImage
+      MemeStore.sharedStore.save()
+    } else {
+      //Create a new meme from UI values
+      let meme = Meme(
+        topText: topTextField.text!,
+        bottomText: bottomTextField.text!,
+        image: imageView.image!,
+        memedImage: memedImage
+      )
+      MemeStore.sharedStore.addMeme(meme)
+    }
   }
 }

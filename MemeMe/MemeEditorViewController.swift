@@ -10,13 +10,15 @@ import UIKit
 import TOCropViewController
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-  
+
+  //  MARK: Meme views
   @IBOutlet weak var topTextField: UITextField!
   @IBOutlet weak var bottomTextField: UITextField!
   var textFieldDefaultText: [UITextField:String] = [:]
   
   @IBOutlet weak var imageView: UIImageView!
-  
+
+  // MARK: Toolbars
   @IBOutlet weak var topToolbar: UIToolbar!
   var topToolbarHeightDefault: CGFloat!
   var topToolbarShouldHide = false
@@ -26,6 +28,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   var bottomToolbarHeightDefault: CGFloat!
   var bottomToolbarShouldHide = false
   
+  @IBOutlet weak var cancelButton: UIBarButtonItem!
+  @IBOutlet weak var actionButton: UIBarButtonItem!
+
+//  MARK: Constraints
   @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
   @IBOutlet weak var topTextRightConstraint: NSLayoutConstraint!
   @IBOutlet weak var topTextTopConstraint: NSLayoutConstraint!
@@ -41,30 +47,28 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
   @IBOutlet weak var bottomToolbarBottomConstraint: NSLayoutConstraint!
   
-  @IBOutlet weak var cancelButton: UIBarButtonItem!
-  @IBOutlet weak var actionButton: UIBarButtonItem!
-
   @IBOutlet weak var shareMemeIndicatorView: InterfaceCalloutView!
 
+//  MARK: State
+  var meme: Meme?
+  
   var currentKeyboardHeight:CGFloat = 0.0
-  
-  var activeTextField: UITextField?
-  
-  let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
-  
-  let imagePicker = UIImagePickerController()
   var pickingImage = false
-
-  let animationDuration:NSTimeInterval = 0.4
-
+  var instructionsShown = false
+  var activeTextField: UITextField?
   var isFirstMeme: Bool {
     get {
       return MemeStore.sharedStore.isFirstMeme()
     }
   }
 
-  var instructionsShown = false
+//MARK: Constants
+  let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
+  let imagePicker = UIImagePickerController()
+  let animationDuration:NSTimeInterval = 0.4
 
+
+//  MARK: View Management
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
@@ -72,15 +76,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     configureTextField(topTextField)
     configureTextField(bottomTextField)
+
     textFieldDefaultText[topTextField] = topTextField.text
     textFieldDefaultText[bottomTextField] = bottomTextField.text
-    
+
+    if let meme = self.meme {
+      populateViewFromMeme(meme)
+    }
+
     topToolbarHeightDefault = topToolbar.bounds.height
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
 
     manageButtonState()
-
-
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -95,7 +102,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       showInstructions()
     }
   }
-  
+
+//MARK: Actions
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {
     pickPhotoFromSource(.Camera)
   }
@@ -115,22 +123,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   @IBAction func shareMeme(sender: UIBarButtonItem) {
     let memedImage = generateMemedImage()
+
     let activityController = UIActivityViewController(
       activityItems: [memedImage],
       applicationActivities: nil)
     
     activityController.completionWithItemsHandler = { activity, success, items, error in
-      
-      
       self.save(memedImage)
-      
-      self.dismissViewControllerAnimated(true, completion: nil)
+      // if we are editing an existing meme, use exit segue to ensure the detail view updates
+      if self.meme != nil {
+        self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
+      } else {
+        self.dismissViewControllerAnimated(true, completion: nil)
+      }
     }
     
     presentViewController(activityController,
       animated: true, completion: nil)
   }
-  
+
   func manageButtonState() {
     actionButton.enabled = (imageView.image != nil) &&
       (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
@@ -174,6 +185,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         }
       }
     }
+  }
+
+  private func populateViewFromMeme(meme:Meme) {
+    imageView?.image = meme.image
+    topTextField?.text = meme.topText
+    bottomTextField?.text = meme.bottomText
   }
 
   private func configureTextField(textField:UITextField) {

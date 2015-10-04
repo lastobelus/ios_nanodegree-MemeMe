@@ -9,7 +9,6 @@
 import UIKit
 
 class MemeDetailViewController: UIViewController {
-  static let editSegueIdentifier = "editSelectedMemeSegue"
 
   @IBOutlet weak var memeImage: UIImageView!
 
@@ -17,7 +16,7 @@ class MemeDetailViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    memeImage?.image = meme?.memedImage
+    populateViewFromMeme()
   }
 
   override func viewDidAppear(animated: Bool) {
@@ -31,11 +30,20 @@ class MemeDetailViewController: UIViewController {
 
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == MemeDetailViewController.editSegueIdentifier {
-      NSLog("editSelectedMemeSegue")
+    if segue.identifier == MemeViewerProperties.editMemeSegueIdentifier {
+      if let editor = segue.destinationViewController as? MemeEditorViewController {
+        editor.meme = meme
+      }
     }
   }
 
+  @IBAction func didFinishEditing(segue: UIStoryboardSegue) {
+    populateViewFromMeme()
+  }
+
+  private func populateViewFromMeme() {
+    memeImage?.image = meme?.memedImage
+  }
   /*
   // MARK: - Navigation
 
