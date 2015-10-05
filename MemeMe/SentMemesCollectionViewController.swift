@@ -26,10 +26,12 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   }
 
 
-  let layoutCalculator = UniformFlowLayoutCalculator(
-    desiredSizeInPortrait: CGSizeMake(192, 120),
-    desiredSizeInLandscape: CGSizeMake(192*1.3, 120*1.3),
-    desiredSpacing: 3.0
+  var layoutCalculator = UniformFlowLayoutCalculator(
+    desiredSizeInPortrait: CGSizeMake(120, 100),
+    desiredSizeInLandscape: CGSizeMake(192, 120),
+    minimumWidth: 60,
+    desiredSpacing: 3.0,
+    scale: 1.0
   )
 
   override func viewDidLoad() {
@@ -132,6 +134,13 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     flowLayout?.minimumInteritemSpacing = layoutCalculator.desiredSpacing
     flowLayout?.minimumLineSpacing = layoutCalculator.desiredSpacing
     flowLayout?.itemSize = layoutCalculator.sizeForSize(size)
+  }
+
+  @IBAction func scaleGrid(sender: UIPinchGestureRecognizer) {
+    print("scaleGrid: \(sender.scale)")
+    layoutCalculator.setScale(sender.scale)
+    configureFlowLayoutForSize(view.frame.size)
+    flowLayout?.invalidateLayout()
   }
 
   @IBAction func longPress(sender: UILongPressGestureRecognizer) {

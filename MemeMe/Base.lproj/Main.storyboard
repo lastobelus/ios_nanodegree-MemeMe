@@ -234,10 +234,11 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Y5-Qo-e43">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="MemeCell" id="NTP-sa-MS3" customClass="MemeTableViewCell" customModule="MemeMe" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="0.0" reuseIdentifier="MemeCell" id="NTP-sa-MS3" customClass="MemeTableViewCell" customModule="MemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NTP-sa-MS3" id="lEV-fs-5Az">
@@ -245,7 +246,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
-                                            <rect key="frame" x="0.0" y="0.0" width="134" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="134" height="89.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PU2-gD-4D0">
@@ -255,7 +256,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d7-o3-TsT">
-                                            <rect key="frame" x="4" y="66" width="126" height="17"/>
+                                            <rect key="frame" x="4" y="66.5" width="126" height="17"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -281,7 +282,7 @@ That can be two lines</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text Expanded" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9J-hh-45J">
-                                            <rect key="frame" x="142" y="44" width="170" height="45"/>
+                                            <rect key="frame" x="142" y="44" width="170" height="45.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -308,6 +309,7 @@ That can be two lines</string>
                                         <constraint firstItem="r9J-hh-45J" firstAttribute="top" secondItem="h7r-Y9-JkV" secondAttribute="bottom" constant="-1" id="yc8-n7-c0X"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="bottomText" destination="3d7-o3-TsT" id="bvg-BI-U0z"/>
                                     <outlet property="expandedBottomText" destination="r9J-hh-45J" id="R7i-hE-TDn"/>
@@ -425,6 +427,7 @@ That can be two lines</string>
                             <outlet property="dataSource" destination="nlg-zb-o1H" id="2k4-eZ-rXV"/>
                             <outlet property="delegate" destination="nlg-zb-o1H" id="ol3-5D-Uky"/>
                             <outletCollection property="gestureRecognizers" destination="kHM-nY-rLj" appends="YES" id="In9-bl-0qb"/>
+                            <outletCollection property="gestureRecognizers" destination="5CU-fL-hYx" appends="YES" id="RBg-Ht-WhH"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="8Sf-bd-L32">
@@ -440,6 +443,11 @@ That can be two lines</string>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfz-BH-cvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="5CU-fL-hYx">
+                    <connections>
+                        <action selector="scaleGrid:" destination="nlg-zb-o1H" id="5qc-ID-Ycj"/>
+                    </connections>
+                </pinchGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.69999999999999996" id="kHM-nY-rLj">
                     <connections>
                         <action selector="longPress:" destination="nlg-zb-o1H" id="3yd-kK-jfJ"/>
@@ -492,7 +500,7 @@ That can be two lines</string>
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fXO-ST-gG4"/>
-        <segue reference="mG6-eX-t3k"/>
+        <segue reference="Iy4-ZQ-zzL"/>
+        <segue reference="Hyn-En-pyj"/>
     </inferredMetricsTieBreakers>
 </document>
