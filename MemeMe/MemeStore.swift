@@ -19,13 +19,6 @@ class MemeStore: NSObject {
 
   private override init(){
     super.init()
-//    let path = MemeStore.ArchiveURL.path!
-//    if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? [Meme] {
-//      self.savedMemes = data
-//    } else {
-//      self.savedMemes = [Meme]()
-//    }
-    // Read from NSUserDefaults
     let defaults = NSUserDefaults.standardUserDefaults()
     let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as! NSData
     self.savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
@@ -34,12 +27,6 @@ class MemeStore: NSObject {
   }
   
   func save() -> Bool {
-//    let success = NSKeyedArchiver.archiveRootObject(savedMemes, toFile: MemeStore.ArchiveURL.path!)
-//    if !success {
-//      print("Failed to save memes...")
-//    }
-//    
-    // Write to NSUserDefaults
     let data = NSKeyedArchiver.archivedDataWithRootObject(savedMemes)
     let defaults = NSUserDefaults.standardUserDefaults()
     defaults.setObject(data, forKey: MemeStore.UserDefaultsKey)

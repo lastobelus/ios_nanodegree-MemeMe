@@ -174,7 +174,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <exit id="Dee-Av-7FS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2534" y="1730"/>
+            <point key="canvasLocation" x="2593" y="1723"/>
         </scene>
         <!--Meme Detail View Controller-->
         <scene sceneID="sEm-a1-tWo">
@@ -201,9 +201,6 @@
                             <constraint firstItem="kVL-WW-Rai" firstAttribute="top" secondItem="a1j-GR-oNV" secondAttribute="bottom" id="iid-U3-jlf"/>
                             <constraint firstItem="BOb-Pc-wfC" firstAttribute="top" secondItem="kVL-WW-Rai" secondAttribute="bottom" id="rVL-jw-0iM"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="VHY-xI-RQS" appends="YES" id="gI8-Lm-egf"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="LA2-Yk-h8Q">
                         <rightBarButtonItems>
@@ -227,11 +224,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFp-tK-sWx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="EoF-dA-iWx" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="VHY-xI-RQS">
-                    <connections>
-                        <action selector="longPress:" destination="6Tk-5E-wea" id="jtb-TF-RHO"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2593" y="991"/>
         </scene>
@@ -432,6 +424,7 @@ That can be two lines</string>
                         <connections>
                             <outlet property="dataSource" destination="nlg-zb-o1H" id="2k4-eZ-rXV"/>
                             <outlet property="delegate" destination="nlg-zb-o1H" id="ol3-5D-Uky"/>
+                            <outletCollection property="gestureRecognizers" destination="kHM-nY-rLj" appends="YES" id="In9-bl-0qb"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="8Sf-bd-L32">
@@ -447,6 +440,11 @@ That can be two lines</string>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfz-BH-cvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.69999999999999996" id="kHM-nY-rLj">
+                    <connections>
+                        <action selector="longPress:" destination="nlg-zb-o1H" id="3yd-kK-jfJ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2099" y="1590"/>
         </scene>

@@ -8,13 +8,23 @@
 
 import UIKit
 
-protocol MemesViewer {
+protocol MemesViewer : class {
   var memesList: [Meme] { get }
+  var movingRowIndexPath: NSIndexPath? { get set }
+  var movingRowSnapshot: UIView? { get set }
+  var memesListView: UIView { get }
+  var canMemeMoveHorizontally: Bool {get}
+
   func populateCell(cell:MemesViewerCell, withMeme meme:Meme)
   func editIfEmpty()
   func indexOfSendingCell(sender:AnyObject?) -> Int?
   func prepareForShowDetailSegue(segue: UIStoryboardSegue, sender: AnyObject?) -> Bool
+
   func handleMemeReorderGesture(sender: UILongPressGestureRecognizer)
+  func indexPathOfMemeAtLocation(location: CGPoint) -> NSIndexPath?
+  func cellViewForMemeAtIndexPath(indexPath: NSIndexPath) -> UIView?
+  func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath)
+
 }
 
 protocol MemeViewer {
@@ -70,8 +80,100 @@ extension MemesViewer where Self : UIViewController {
     return true
   }
 
-  func handleMemeReorderGesture(sender: UILongPressGestureRecognizer) {
+   func handleMemeReorderGesture(sender: UILongPressGestureRecognizer) {
+    let state = sender.state
+    print("longpress. state: \(state.rawValue)")
+    let location = sender.locationInView(memesListView)
 
+
+
+    switch (state) {
+    case .Began:
+      guard let indexPath = indexPathOfMemeAtLocation(location) else { return }
+      movingRowIndexPath = indexPath
+      if let cell = cellViewForMemeAtIndexPath(indexPath) {
+        var snapshot = cellSnapshot(cell)
+        movingRowSnapshot = snapshot
+        var center = cell.center
+        snapshot.center = center
+        snapshot.alpha = 0.0
+        memesListView.addSubview(snapshot)
+        UIView.animateWithDuration(0.25,
+          animations: {
+            center.y = location.y
+            if self.canMemeMoveHorizontally {
+              center.x = location.x
+            }
+            snapshot.center = center
+            snapshot.transform = CGAffineTransformMakeScale(1.08, 1.08)
+            snapshot.alpha = 0.98
+            cell.alpha = 0.0
+          },
+          completion: { finished in
+            cell.hidden = true
+          }
+        )
+      }
+
+    case .Changed:
+      print("changed")
+      guard let indexPath = indexPathOfMemeAtLocation(location) else { return }
+      if let snapshot = movingRowSnapshot {
+        var center = snapshot.center
+        center.y = location.y
+        if canMemeMoveHorizontally {
+          center.x = location.x
+        }
+        snapshot.center = center
+
+        if indexPath != movingRowIndexPath {
+          print("do the move")
+          MemeStore.sharedStore.swapMemes(indexPath.row, second: movingRowIndexPath!.row)
+          moveMemeAtIndexPath(movingRowIndexPath!, toIndexPath:indexPath)
+          movingRowIndexPath = indexPath
+        }
+      }
+    default:
+      print("default state")
+
+      guard let snapshot = movingRowSnapshot, let indexPath = movingRowIndexPath else { return }
+
+      if let cell = cellViewForMemeAtIndexPath(indexPath) {
+        print("unhide original cell")
+        cell.hidden = false
+        cell.alpha = 0.0
+        UIView.animateWithDuration(0.25,
+          animations: {
+            snapshot.center = cell.center
+            snapshot.transform = CGAffineTransformIdentity
+            snapshot.alpha = 0.0
+            cell.alpha = 1.0
+          }, completion: { finished in
+            MemeStore.sharedStore.save()
+            self.movingRowIndexPath = nil
+            snapshot.removeFromSuperview()
+            self.movingRowSnapshot = nil
+        })
+      }
+    }
+  }
+
+  private func cellSnapshot(inputView: UIView) -> UIView {
+    // Make an image from the input view.
+    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+    inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    // Create an image view.
+    var snapshot = UIImageView(image:image)
+    snapshot.layer.masksToBounds = false
+    snapshot.layer.cornerRadius = 0.0
+    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+    snapshot.layer.shadowRadius = 5.0
+    snapshot.layer.shadowOpacity = 0.4
+
+    return snapshot
   }
 
   

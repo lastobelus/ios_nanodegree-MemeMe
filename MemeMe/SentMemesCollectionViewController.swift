@@ -13,7 +13,18 @@ private let reuseIdentifier = "MemeCell"
 
 class SentMemesCollectionViewController: UICollectionViewController, MemesViewer {
 
+
   @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+
+  var movingRowIndexPath: NSIndexPath?
+  var movingRowSnapshot: UIView?
+  var canMemeMoveHorizontally = true
+  var memesListView: UIView {
+    get {
+      return self.collectionView!
+    }
+  }
+
 
   let layoutCalculator = UniformFlowLayoutCalculator(
     desiredSizeInPortrait: CGSizeMake(192, 120),
@@ -122,4 +133,22 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     flowLayout?.minimumLineSpacing = layoutCalculator.desiredSpacing
     flowLayout?.itemSize = layoutCalculator.sizeForSize(size)
   }
+
+  @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+    handleMemeReorderGesture(sender)
+  }
+
+  func indexPathOfMemeAtLocation(location: CGPoint) -> NSIndexPath? {
+    return collectionView?.indexPathForItemAtPoint(location)
+  }
+
+  func cellViewForMemeAtIndexPath(indexPath: NSIndexPath) -> UIView? {
+    return collectionView?.cellForItemAtIndexPath(indexPath)
+  }
+
+  func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath) {
+    collectionView?.moveItemAtIndexPath(from, toIndexPath: to)
+  }
+  
+
 }
