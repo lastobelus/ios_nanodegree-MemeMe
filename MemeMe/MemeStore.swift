@@ -20,8 +20,11 @@ class MemeStore: NSObject {
   private override init(){
     super.init()
     let defaults = NSUserDefaults.standardUserDefaults()
-    let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as! NSData
-    self.savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+    if let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as? NSData {
+      self.savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+    } else {
+      self.savedMemes = [Meme]()
+    }
 
 
   }

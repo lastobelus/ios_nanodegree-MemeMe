@@ -242,11 +242,11 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NTP-sa-MS3" id="lEV-fs-5Az">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
-                                            <rect key="frame" x="0.0" y="0.0" width="134" height="89.5"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-B2-nEO">
+                                            <rect key="frame" x="0.0" y="0.0" width="134" height="90"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PU2-gD-4D0">
@@ -255,8 +255,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d7-o3-TsT">
-                                            <rect key="frame" x="4" y="66.5" width="126" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bottom Text" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d7-o3-TsT">
+                                            <rect key="frame" x="4" y="67" width="126" height="17"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -281,8 +281,8 @@ That can be two lines</string>
                                                 <constraint firstItem="RAn-1s-lVY" firstAttribute="leading" secondItem="h7r-Y9-JkV" secondAttribute="leading" constant="8" id="sqf-hj-hCx"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom Text Expanded" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9J-hh-45J">
-                                            <rect key="frame" x="142" y="44" width="170" height="45.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bottom Text Expanded" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9J-hh-45J">
+                                            <rect key="frame" x="142" y="44" width="170" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -329,7 +329,7 @@ That can be two lines</string>
                     <navigationItem key="navigationItem" title="Sent Memes" id="n4X-pc-jrV">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="GJ2-gC-g7y">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="CreateMemeSegue" id="Hyn-En-pyj"/>
+                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="createMemeSegue" id="Hyn-En-pyj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -433,7 +433,7 @@ That can be two lines</string>
                     <navigationItem key="navigationItem" title="Sent Memes" id="8Sf-bd-L32">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="04n-9r-guz">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="editMemeSegue" id="mG6-eX-t3k"/>
+                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="createMemeSegue" id="mG6-eX-t3k"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -500,7 +500,7 @@ That can be two lines</string>
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mG6-eX-t3k"/>
         <segue reference="Iy4-ZQ-zzL"/>
-        <segue reference="Hyn-En-pyj"/>
     </inferredMetricsTieBreakers>
 </document>
