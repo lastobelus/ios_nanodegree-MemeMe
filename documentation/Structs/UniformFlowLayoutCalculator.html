@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UniformFlowLayoutCalculator Struct Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/UniformFlowLayoutCalculator" class="dashAnchor"></a>
+    <a title="UniformFlowLayoutCalculator Struct Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (2% documented)</p>
+        <p class="header-right"><a href="https:/github.com/lastobelus/ios_nanodegree-MemeMe"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        UniformFlowLayoutCalculator Struct Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterfaceCalloutView.html">InterfaceCalloutView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Meme.html">Meme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemeCollectionViewCell.html">MemeCollectionViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemeDetailViewController.html">MemeDetailViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemeEditorViewController.html">MemeEditorViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemeStore.html">MemeStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemeTableViewCell.html">MemeTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Preferences.html">Preferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SentMemesCollectionViewController.html">SentMemesCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SentMemesTableViewController.html">SentMemesTableViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v6MemeMeP33_AE85D23778ACF182F9EDEECC0FD4385B15reuseIdentifierSS">reuseIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v6MemeMeP33_3065AD6B23BF8114491E78CDD196032915reuseIdentifierSS">reuseIdentifier</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CGSize.html">CGSize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MemeEditorViewController.html">MemeEditorViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MemesViewer.html">MemesViewer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSLayoutConstraint.html">NSLayoutConstraint</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MemeViewer.html">MemeViewer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MemesViewer.html">MemesViewer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MemesViewerCell.html">MemesViewerCell</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/MemeTextStyle.html">MemeTextStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MemeViewerProperties.html">MemeViewerProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UniformFlowLayoutCalculator.html">UniformFlowLayoutCalculator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>UniformFlowLayoutCalculator</h1>
+              <div class="declaration">
+                <div class="Swift">
+                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">UniformFlowLayoutCalculator</span></code></pre>
+
+                </div>
+              </div>
+            <p>An item-size calculator for CollectionViews that are layed out as a uniform grid.
+- Sizes items to fit an integer number of items in the current screen width that will result in a size closest to the desired size
+- Always maintains the aspect ratio of the desired size
+- Allows separate desired sizes for Landscape &amp; Portrait sizes
+- Supports scaling</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV6MemeMe27UniformFlowLayoutCalculator21desiredSizeInPortraitVSC6CGSize"></a>
+                    <a name="//apple_ref/swift/Property/desiredSizeInPortrait" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV6MemeMe27UniformFlowLayoutCalculator21desiredSizeInPortraitVSC6CGSize">desiredSizeInPortrait</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The desired height</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">desiredSizeInPortrait</span><span class="p">:</span><span class="kt">CGSize</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV6MemeMe27UniformFlowLayoutCalculator22desiredSizeInLandscapeVSC6CGSize"></a>
+                    <a name="//apple_ref/swift/Property/desiredSizeInLandscape" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV6MemeMe27UniformFlowLayoutCalculator22desiredSizeInLandscapeVSC6CGSize">desiredSizeInLandscape</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">UniformFlowLayoutCalculator</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV6MemeMe27UniformFlowLayoutCalculator12minimumWidthV12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Property/minimumWidth" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV6MemeMe27UniformFlowLayoutCalculator12minimumWidthV12CoreGraphics7CGFloat">minimumWidth</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">UniformFlowLayoutCalculator</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV6MemeMe27UniformFlowLayoutCalculator14desiredSpacingV12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Property/desiredSpacing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV6MemeMe27UniformFlowLayoutCalculator14desiredSpacingV12CoreGraphics7CGFloat">desiredSpacing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">UniformFlowLayoutCalculator</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV6MemeMe27UniformFlowLayoutCalculator5scaleV12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Property/scale" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV6MemeMe27UniformFlowLayoutCalculator5scaleV12CoreGraphics7CGFloat">scale</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">UniformFlowLayoutCalculator</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV6MemeMe27UniformFlowLayoutCalculator8setScaleFRS0_FV12CoreGraphics7CGFloatT_"></a>
+                    <a name="//apple_ref/swift/Method/setScale(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV6MemeMe27UniformFlowLayoutCalculator8setScaleFRS0_FV12CoreGraphics7CGFloatT_">setScale(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Scale the desired size. Attach this to a pinch gesture recognizer to implement live grid resizing:</p>
+
+<pre class="highlight plaintext"><code>@IBAction func scaleGrid(sender: UIPinchGestureRecognizer) {
+  layoutCalculator.setScale(sender.scale)
+  layoutCalculator.configureFlowLayout(flowLayout!, forSize:view.frame.size)
+}
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">setScale</span><span class="p">(</span><span class="nv">scale</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV6MemeMe27UniformFlowLayoutCalculator18calculateDimensionFS0_FTV12CoreGraphics7CGFloat7inSpaceS2__S2_"></a>
+                    <a name="//apple_ref/swift/Method/calculateDimension(_:inSpace:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV6MemeMe27UniformFlowLayoutCalculator18calculateDimensionFS0_FTV12CoreGraphics7CGFloat7inSpaceS2__S2_">calculateDimension(_:inSpace:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Given a desired width and spacing, calculate the integral number of items that will fit in a space
+and have a width as close as possible to the desired width</p>
+
+<ul>
+<li><p>Parameters:</p>
+
+<ul>
+<li>desired: the desired item width</li>
+<li>inSpace: the available width</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">calculateDimension</span><span class="p">(</span><span class="nv">desired</span><span class="p">:</span><span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">inSpace</span><span class="p">:</span><span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>desired</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the desired item width</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSpace</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the available width</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an item width that will result in an integral number of items across the inSpace width</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV6MemeMe27UniformFlowLayoutCalculator11sizeForSizeFS0_FVSC6CGSizeS1_"></a>
+                    <a name="//apple_ref/swift/Method/sizeForSize(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV6MemeMe27UniformFlowLayoutCalculator11sizeForSizeFS0_FVSC6CGSizeS1_">sizeForSize(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Given a <code>CGSize</code> representing a visible view frame, returns an item size that will result in an integral 
+number of items across the frame, with the aspect ratio of the desired size. Uses the frame&rsquo;s aspect
+ratio to determine whether to use desiredSizeInPortrait or desiredSizeInLandscape for the item size.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sizeForSize</span><span class="p">(</span><span class="nv">available</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>available</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a view frame size</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a <code>CGSize</code> for items</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV6MemeMe27UniformFlowLayoutCalculator19configureFlowLayoutFS0_FTCSo26UICollectionViewFlowLayout7forSizeVSC6CGSize_T_"></a>
+                    <a name="//apple_ref/swift/Method/configureFlowLayout(_:forSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV6MemeMe27UniformFlowLayoutCalculator19configureFlowLayoutFS0_FTCSo26UICollectionViewFlowLayout7forSizeVSC6CGSize_T_">configureFlowLayout(_:forSize:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculates an item size for the supplied view frame size and configures a UICollectionViewFlowLayout with it.</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>flowLayout: The collection view flow layout object to configure</li>
+<li>forSize: the size of the view frame to configure it for</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">configureFlowLayout</span><span class="p">(</span><span class="nv">flowLayout</span><span class="p">:</span> <span class="kt">UICollectionViewFlowLayout</span><span class="p">,</span> <span class="n">forSize</span> <span class="nv">size</span><span class="p">:</span><span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flowLayout</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection view flow layout object to configure</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forSize</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the size of the view frame to configure it for</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external">Metafeat Apps</a>. All rights reserved. (Last updated: 2015-10-05)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.3.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

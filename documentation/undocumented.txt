@@ -1,0 +1,290 @@
+Meme.swift
+	class Meme: NSObject, NSCoding
+	var topText: String
+	var bottomText: String
+	var image: UIImage
+	var memedImage: UIImage
+	enum  Keys:String
+	topText,
+	bottomText,
+	image,
+	memedImage
+	func key() -> String
+	init(
+    topText: String,
+    bottomText: String,
+    image: UIImage,
+    memedImage: UIImage)
+	func encodeWithCoder(aCoder: NSCoder)
+	required convenience init?(coder aDecoder: NSCoder)
+SentMemesTableViewController.swift
+	private let reuseIdentifier = "MemeCell"
+	class SentMemesTableViewController: UITableViewController, MemesViewer
+	var memeForDeletionIndexPath: NSIndexPath?
+	var movingRowIndexPath: NSIndexPath?
+	var movingRowSnapshot: UIView?
+	var canMemeMoveHorizontally = false
+	var memesListView: UIView
+	override func viewDidLoad()
+	override func viewDidAppear(animated: Bool)
+	override func didReceiveMemoryWarning()
+	override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+	func performDeleteMeme(alertAction: UIAlertAction!) -> Void
+	func deleteMemeAtIndexPath(indexPath:NSIndexPath)
+	func cancelDeleteMeme(alertAction: UIAlertAction!)
+	@IBAction func shouldDeleteMeme(segue: UIStoryboardSegue)
+	@IBAction func longPress(sender: UILongPressGestureRecognizer)
+	func indexPathOfMemeAtLocation(location: CGPoint) -> NSIndexPath?
+	func cellViewForMemeAtIndexPath(indexPath: NSIndexPath) -> UIView?
+	func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath)
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+	func indexOfSendingCell(sender:AnyObject?) -> Int?
+Preferences.swift
+	class Preferences
+	static let instance = Preferences()
+	enum  Keys:String
+	ExpandImageTopPastStatusBarWhenTyping
+	func key() -> String
+	let expandImageTopPastStatusBarWhenTyping:Bool
+	init()
+MemeEditorViewController.swift
+	class MemeEditorViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+	class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+	@IBOutlet weak var topTextField: UITextField!
+	@IBOutlet weak var bottomTextField: UITextField!
+	var textFieldDefaultText: [UITextField:String] = [:]
+	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var topToolbar: UIToolbar!
+	var topToolbarHeightDefault: CGFloat!
+	var topToolbarShouldHide = false
+	@IBOutlet weak var bottomToolbar: UIToolbar!
+	@IBOutlet weak var cameraButton: UIBarButtonItem!
+	var bottomToolbarHeightDefault: CGFloat!
+	var bottomToolbarShouldHide = false
+	@IBOutlet weak var cancelButton: UIBarButtonItem!
+	@IBOutlet weak var actionButton: UIBarButtonItem!
+	@IBOutlet var saveButton: UIBarButtonItem!
+	var indexOfSaveButton:Int = 0
+	@IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
+	@IBOutlet weak var topTextRightConstraint: NSLayoutConstraint!
+	@IBOutlet weak var topTextTopConstraint: NSLayoutConstraint!
+	@IBOutlet weak var bottomTextLeftConstraint: NSLayoutConstraint!
+	@IBOutlet weak var bottomTextRightConstraint: NSLayoutConstraint!
+	@IBOutlet weak var bottomTextBottomConstraint: NSLayoutConstraint!
+	@IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+	@IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
+	@IBOutlet weak var topToolbarTopConstraint: NSLayoutConstraint!
+	@IBOutlet weak var bottomToolbarBottomConstraint: NSLayoutConstraint!
+	@IBOutlet weak var shareMemeIndicatorView: InterfaceCalloutView!
+	var meme: Meme?
+	var currentKeyboardHeight:CGFloat = 0.0
+	var pickingImage = false
+	var instructionsShown = false
+	var activeTextField: UITextField?
+	var isFirstMeme: Bool
+	let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
+	let imagePicker = UIImagePickerController()
+	let animationDuration:NSTimeInterval = 0.4
+	override func viewDidLoad()
+	override func viewWillDisappear(animated: Bool)
+	override func viewDidAppear(animated: Bool)
+	@IBAction func pickPhotoFromCamera(sender: UIBarButtonItem)
+	@IBAction func pickPhotoFromAlbum(sender: UIBarButtonItem)
+	@IBAction func cancel(sender: UIBarButtonItem)
+	@IBAction func shareMeme(sender: UIBarButtonItem)
+	@IBAction func saveMeme(sender: UIBarButtonItem)
+	func manageButtonState()
+	func manageButtonState(withChanges changes:Bool)
+	func textIsDefault(textField: UITextField) -> Bool
+	func showInstructions()
+	func showShareMemeIndicatorDelayed()
+	func showShareMemeIndicator()
+	private func populateViewFromMeme(meme:Meme)
+	private func configureTextField(textField:UITextField)
+	func hideSaveButton()
+	func showSaveButton()
+	class MemeEditorViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+	class MemeEditorViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+	class MemeEditorViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+MemeEditorTextHandling.swift
+	func keyboardWillShow(notification: NSNotification)
+	func keyboardWillHide(notification: NSNotification)
+	func textFieldDidBeginEditing(textField: UITextField)
+	func textFieldDidEndEditing(textField: UITextField)
+	func subscribeToKeyboardNotifications()
+	func unsubscribeFromKeyboardNotifications()
+	func textFieldShouldReturn(textField: UITextField) -> Bool
+	private func getKeyboardHeight(notification: NSNotification) -> CGFloat
+MemeCollectionViewCell.swift
+	class MemeCollectionViewCell: UICollectionViewCell, MemesViewerCell
+	@IBOutlet weak var originalImage: UIImageView!
+	@IBOutlet weak var topText: UILabel!
+	@IBOutlet weak var bottomText: UILabel!
+	let memeTextFontSize:CGFloat = 15
+	let memeTextStrokeSize:CGFloat = 4.0
+	override func awakeFromNib()
+InterfaceCalloutView.swift
+	class InterfaceCalloutView: UIView
+	let minScale = CGAffineTransformMakeScale(0.01, 0.01)
+	let maxScale = CGAffineTransformMakeScale(1.0, 1.0)
+	let startTranslate = CGAffineTransformMakeTranslation(50, 150)
+	let endTranslate = CGAffineTransformMakeTranslation(0, 0)
+	let comeInDuration:NSTimeInterval = 0.8
+	let goOutDuration:NSTimeInterval = 0.4
+	let showDuration:NSTimeInterval = 4
+	func fire()
+	override func drawRect(rect: CGRect)
+	func drawTriangle()
+UniformFlowLayoutCalculator.swift
+	func aspect() -> CGFloat
+	var desiredSizeInLandscape:CGSize
+	var minimumWidth:CGFloat
+	var desiredSpacing:CGFloat
+	var scale:CGFloat = 1.0
+MemeEditorImageHandling.swift
+	func pickPhotoFromSource(source: UIImagePickerControllerSourceType)
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject])
+	func cropViewController(cropViewController: TOCropViewController!, didCropToImage image: UIImage!, withRect cropRect: CGRect, angle: Int)
+	func removeImage()
+	func imagePickerControllerDidCancel(picker: UIImagePickerController)
+	func generateMemedImage() -> UIImage
+MemeDetailViewController.swift
+	class MemeDetailViewController: UIViewController
+	@IBOutlet weak var memeImage: UIImageView!
+	var meme:Meme?
+	override func viewDidLoad()
+	override func viewDidAppear(animated: Bool)
+	override func didReceiveMemoryWarning()
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+	@IBAction func longPress(sender: UILongPressGestureRecognizer)
+	@IBAction func didFinishEditing(segue: UIStoryboardSegue)
+	@IBAction func deleteAction(sender: UIBarButtonItem)
+	func performDeleteMeme(alertAction: UIAlertAction!) -> Void
+	private func populateViewFromMeme()
+	deinit
+AppDelegate.swift
+	class AppDelegate: UIResponder, UIApplicationDelegate
+	var window: UIWindow?
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
+	func applicationWillResignActive(application: UIApplication)
+	func applicationDidEnterBackground(application: UIApplication)
+	func applicationWillEnterForeground(application: UIApplication)
+	func applicationDidBecomeActive(application: UIApplication)
+	func applicationWillTerminate(application: UIApplication)
+MemeTableViewCell.swift
+	class MemeTableViewCell: UITableViewCell, MemesViewerCell
+	@IBOutlet weak var originalImage: UIImageView!
+	@IBOutlet weak var topText: UILabel!
+	@IBOutlet weak var bottomText: UILabel!
+	@IBOutlet weak var expandedTopText: UILabel!
+	@IBOutlet weak var expandedBottomText: UILabel!
+	let memeTextFontSize:CGFloat = 15
+	let memeTextStrokeSize:CGFloat = 4.0
+	override func awakeFromNib()
+	override func setSelected(selected: Bool, animated: Bool)
+MemesViewer.swift
+	protocol MemesViewer : class
+	var memesList: [Meme] { get }
+	var movingRowIndexPath: NSIndexPath? { get set }
+	var movingRowSnapshot: UIView? { get set }
+	var memesListView: UIView { get }
+	var canMemeMoveHorizontally: Bool {get}
+	func populateCell(cell:MemesViewerCell, withMeme meme:Meme)
+	func editIfEmpty()
+	func indexOfSendingCell(sender:AnyObject?) -> Int?
+	func prepareForShowDetailSegue(segue: UIStoryboardSegue, sender: AnyObject?) -> Bool
+	func handleMemeReorderGesture(sender: UILongPressGestureRecognizer)
+	func indexPathOfMemeAtLocation(location: CGPoint) -> NSIndexPath?
+	func cellViewForMemeAtIndexPath(indexPath: NSIndexPath) -> UIView?
+	func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath)
+	protocol MemeViewer
+	var meme: Meme? {get set}
+	protocol MemesViewer : class
+	var memesList: [Meme]
+	func populateCell(cell:MemesViewerCell, withMeme meme:Meme)
+	struct MemeViewerProperties
+	static var editSegueIdentifier = "createMemeSegue"
+	static var showDetailSegueIdentifier = "showMemeDetailSegue"
+	static var editMemeSegueIdentifier = "editMemeSegue"
+	static var didFinishEditingMemeSegueIdentifier = "didFinishEditingMemeSeque"
+	static var shouldDeleteMemeSegueIdentifier = "shouldDeleteMemeSeque"
+	protocol MemesViewer : class
+	func editIfEmpty()
+	func prepareForShowDetailSegue(segue: UIStoryboardSegue, sender: AnyObject?) -> Bool
+	func handleMemeReorderGesture(sender: UILongPressGestureRecognizer)
+	private func cellSnapshot(inputView: UIView) -> UIView
+	@objc protocol MemesViewerCell
+	var originalImage: UIImageView! { get }
+	var topText: UILabel! { get }
+	var bottomText: UILabel! { get }
+	var memeTextFontSize:CGFloat { get }
+	var memeTextStrokeSize:CGFloat { get }
+	optional var expandedTopText: UILabel! { get }
+	optional var expandedBottomText: UILabel! { get }
+MemeEditorPersistence.swift
+	func save(memedImage: UIImage)
+SentMemesCollectionViewController.swift
+	private let reuseIdentifier = "MemeCell"
+	class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
+	@IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+	var movingRowIndexPath: NSIndexPath?
+	var movingRowSnapshot: UIView?
+	var canMemeMoveHorizontally = true
+	var memesListView: UIView
+	var layoutCalculator = UniformFlowLayoutCalculator(
+	override func viewDidLoad()
+	override func viewDidAppear(animated: Bool)
+	override func didReceiveMemoryWarning()
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+	func indexOfSendingCell(sender:AnyObject?) -> Int?
+	override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
+	override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+	@IBAction func scaleGrid(sender: UIPinchGestureRecognizer)
+	@IBAction func longPress(sender: UILongPressGestureRecognizer)
+	func indexPathOfMemeAtLocation(location: CGPoint) -> NSIndexPath?
+	func cellViewForMemeAtIndexPath(indexPath: NSIndexPath) -> UIView?
+	func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath)
+MemeStore.swift
+	class MemeStore: NSObject
+	var savedMemes: [Meme]!
+	static let sharedStore = MemeStore()
+	static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+	static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("savedMemes")
+	static let UserDefaultsKey = "savedMemes"
+	private override init()
+	func save() -> Bool
+	func deleteMeme(atIndex index:Int) -> Bool
+	func deleteMeme(meme: Meme) -> Bool
+	func addMeme(meme: Meme) -> Bool
+	func isFirstMeme() -> Bool
+	func deleteAll() -> Bool
+	func swapMemes(first: Int, second: Int)
+MemeTextStyle.swift
+	struct MemeTextStyle
+	let strokeColor = UIColor.blackColor()
+	let fontName = "HelveticaNeue-CondensedBlack"
+	let color =  UIColor.whiteColor()
+	let strokeSize: CGFloat
+	let fontSize: CGFloat
+	var attributes: [String: AnyObject]
+	init(fontSize: CGFloat, strokeSize: CGFloat )
+MemeEditorAnimation.swift
+	private struct AssociatedKeys
+	static var OriginalValue = "mfa_original_value"
+	var originalValue: CGFloat
+	func delta()->CGFloat
+	func reset()
+	func shift(distance:CGFloat)
+	override func updateViewConstraints()
+	func letterBoxForSize(size:CGSize) -> (CGFloat, CGFloat)
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+	func animateLayout()
+	func updateConstraintsAndLayoutImmediately()
+	func showToolbars(state:Bool)
+	private func adjustTextFieldWidths(width:CGFloat)
+	private func adjustTextFieldPositions(shift :CGFloat)

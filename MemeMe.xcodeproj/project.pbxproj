@@ -169,9 +169,9 @@
 		2AAB83081B86A0AC00B226FF /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
+				2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */,
 				2A2E79981BBF5063000A0C59 /* MemeDetailViewController.swift */,
 				2A2CC9BA1BBA342800E8A4B3 /* Model */,
-				2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */,
 				2A470CA71B89453C00122684 /* MemeEditor */,
 				2A0D0B1A1BBDD0770008B3F9 /* MemesList */,
 				2AAB830F1B86A0AC00B226FF /* Main.storyboard */,

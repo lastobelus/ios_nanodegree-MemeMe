@@ -14,38 +14,16 @@ class MemeDetailViewController: UIViewController {
 
   var meme:Meme?
 
+  // MARK: View Management
   override func viewDidLoad() {
     super.viewDidLoad()
     populateViewFromMeme()
   }
 
-  override func viewDidAppear(animated: Bool) {
-    print("detail viewDidAppear")
-    print("  memeImage: \(memeImage)")
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == MemeViewerProperties.editMemeSegueIdentifier {
-      if let editor = segue.destinationViewController as? MemeEditorViewController {
-        editor.meme = meme
-      }
-    }
-  }
-
-  @IBAction func longPress(sender: UILongPressGestureRecognizer) {
-    print("DetailView long press")
-  }
-
+  // MARK: Actions
   @IBAction func didFinishEditing(segue: UIStoryboardSegue) {
     populateViewFromMeme()
   }
-
 
   @IBAction func deleteAction(sender: UIBarButtonItem) {
     // RADAR: I attempted to extract this and duplicate code in SentMemesTableViewController
@@ -65,24 +43,29 @@ class MemeDetailViewController: UIViewController {
     self.presentViewController(alert, animated: true, completion: nil)
   }
 
+  
+  // MARK: - Navigation
+
+  /**
+  1. `editMemeSegue`: sets the meme on the destination
+  */
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == MemeViewerProperties.editMemeSegueIdentifier {
+      if let editor = segue.destinationViewController as? MemeEditorViewController {
+        editor.meme = meme
+      }
+    }
+  }
+
+  /** 
+  When user clicks Delete in the delete confirmation modal, this performs the delete
+  by performing the unwind segue `shouldDeleteMemeSegue`.
+  */
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
     self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
   }
 
   private func populateViewFromMeme() {
     memeImage?.image = meme?.memedImage
-  }
-  /*
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
-
-  deinit {
-    print("MemeDetailViewController deinitialized")
   }
 }
