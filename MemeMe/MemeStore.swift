@@ -15,24 +15,35 @@ class MemeStore: NSObject {
   //  MARK: Archiving Paths
   static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
   static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("savedMemes")
-  
+  static let UserDefaultsKey = "savedMemes"
+
   private override init(){
     super.init()
-    let path = MemeStore.ArchiveURL.path!
-    if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? [Meme] {
-      self.savedMemes = data
-    } else {
-      self.savedMemes = [Meme]()
-    }
+//    let path = MemeStore.ArchiveURL.path!
+//    if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? [Meme] {
+//      self.savedMemes = data
+//    } else {
+//      self.savedMemes = [Meme]()
+//    }
+    // Read from NSUserDefaults
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as! NSData
+    self.savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+
+
   }
   
   func save() -> Bool {
-    let success = NSKeyedArchiver.archiveRootObject(savedMemes, toFile: MemeStore.ArchiveURL.path!)
-    if !success {
-      print("Failed to save memes...")
-    }
-    
-    return success
+//    let success = NSKeyedArchiver.archiveRootObject(savedMemes, toFile: MemeStore.ArchiveURL.path!)
+//    if !success {
+//      print("Failed to save memes...")
+//    }
+//    
+    // Write to NSUserDefaults
+    let data = NSKeyedArchiver.archivedDataWithRootObject(savedMemes)
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setObject(data, forKey: MemeStore.UserDefaultsKey)
+    return true
   }
   
   func deleteMeme(atIndex index:Int) -> Bool {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeDetailViewController: UIViewController, MemeDeleter {
+class MemeDetailViewController: UIViewController {
 
   @IBOutlet weak var memeImage: UIImageView!
 
@@ -48,28 +48,25 @@ class MemeDetailViewController: UIViewController, MemeDeleter {
 
 
   @IBAction func deleteAction(sender: UIBarButtonItem) {
-    print("deleteAction")
-//    self.dismissViewControllerAnimated(true, completion: nil)
-    let alert = confirmDelete()
+    // RADAR: I attempted to extract this and duplicate code in SentMemesTableViewController
+    // to a protocol+extension, but when I did I got exc_bad_access errors I was not
+    // able to solve. By enabling NSZombieEnabled I discovered that when the alert controller
+    // is created in a protocol extension, the presenting controller is deinitialized,
+    // twice, with the second release causing the exc_bad_access.
+    // See the git tag AttemptToAbstractConfirmDeleteToProtocol for a version that 
+    // demonstrates this
+    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
+    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
+    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+
+    alert.addAction(DeleteAction)
+    alert.addAction(CancelAction)
+
     self.presentViewController(alert, animated: true, completion: nil)
-//    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
-//    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
-//    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
-//
-//    alert.addAction(DeleteAction)
-//    alert.addAction(CancelAction)
-//
-//    self.presentViewController(alert, animated: true, completion: nil)
   }
 
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
-    print("DETAIL performDeleteMeme")
-//    self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
-//    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
-  func cancelDeleteMeme(alertAction: UIAlertAction!) -> Void  {
-    print("DETAIL cancelDeleteMeme")
+    self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
   }
 
   private func populateViewFromMeme() {

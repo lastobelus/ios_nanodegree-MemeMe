@@ -30,6 +30,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   @IBOutlet weak var cancelButton: UIBarButtonItem!
   @IBOutlet weak var actionButton: UIBarButtonItem!
+  @IBOutlet var saveButton: UIBarButtonItem!
+  var indexOfSaveButton:Int = 0
 
 //  MARK: Constraints
   @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
@@ -83,6 +85,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     if let meme = self.meme {
       populateViewFromMeme(meme)
     }
+    hideSaveButton()
 
     topToolbarHeightDefault = topToolbar.bounds.height
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
@@ -142,13 +145,26 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       animated: true, completion: nil)
   }
 
+  @IBAction func saveMeme(sender: UIBarButtonItem) {
+    let memedImage = generateMemedImage()
+    self.save(memedImage)
+    self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
+  }
+
   func manageButtonState() {
+    manageButtonState(withChanges: false)
+  }
+
+  func manageButtonState(withChanges changes:Bool) {
     actionButton.enabled = (imageView.image != nil) &&
       (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
     if isFirstMeme {
       cancelButton?.enabled = (imageView?.image != nil)
     } else {
       cancelButton?.enabled = true
+    }
+    if changes && (meme != nil) {
+      showSaveButton()
     }
   }
 
@@ -196,6 +212,26 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   private func configureTextField(textField:UITextField) {
     textField.defaultTextAttributes = memeTextAttributes
     textField.textAlignment = .Center
+  }
+
+
+  func hideSaveButton() {
+    if var toolbarButtons = topToolbar?.items {
+      if let index = toolbarButtons.indexOf(saveButton!) {
+        indexOfSaveButton = index
+        toolbarButtons.removeAtIndex(indexOfSaveButton)
+        topToolbar?.items = toolbarButtons
+      }
+    }
+  }
+
+  func showSaveButton() {
+    if var toolbarButtons = topToolbar?.items {
+      if !toolbarButtons.contains(saveButton!) {
+        toolbarButtons.insert(saveButton!, atIndex: indexOfSaveButton)
+        topToolbar?.setItems(toolbarButtons, animated: true)
+      }
+    }
   }
 }
 

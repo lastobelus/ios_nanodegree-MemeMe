@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "MemeCell"
 
-class SentMemesTableViewController: UITableViewController, MemesViewer, MemeDeleter {
+class SentMemesTableViewController: UITableViewController, MemesViewer {
 
   var memeForDeletionIndexPath:NSIndexPath?
   var movingRowSnapshot: UIView?
@@ -65,19 +65,27 @@ class SentMemesTableViewController: UITableViewController, MemesViewer, MemeDele
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
       memeForDeletionIndexPath = indexPath
-      let alert = confirmDelete()
-      self.presentViewController(alert, animated: true, completion: nil)
+      let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
+      let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
+      let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
+
+      alert.addAction(DeleteAction)
+      alert.addAction(CancelAction)
     }
   }
 
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
     if let indexPath = memeForDeletionIndexPath {
-      tableView.beginUpdates()
-      MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
-      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-      memeForDeletionIndexPath = nil
-      tableView.endUpdates()
+      deleteMemeAtIndexPath(indexPath)
     }
+  }
+
+  func deleteMemeAtIndexPath(indexPath:NSIndexPath) {
+    tableView.beginUpdates()
+    MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    memeForDeletionIndexPath = nil
+    tableView.endUpdates()
   }
 
   func cancelDeleteMeme(alertAction: UIAlertAction!) {
@@ -86,10 +94,9 @@ class SentMemesTableViewController: UITableViewController, MemesViewer, MemeDele
 
   @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
     print("shouldDeleteMeme")
-//    if let indexPath = tableView.indexPathForSelectedRow {
-//      print("  selected index: \(indexPath.row)")
-//      print("   topText: \(memesList[indexPath.row].topText)")
-//    }
+    if let indexPath = tableView.indexPathForSelectedRow {
+      deleteMemeAtIndexPath(indexPath)
+    }
   }
 
   /*

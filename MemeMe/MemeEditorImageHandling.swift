@@ -48,7 +48,7 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
       completion: {
         self.pickingImage = false
         self.animateLayout()
-        self.manageButtonState()
+        self.manageButtonState(withChanges: true)
         self.showShareMemeIndicatorDelayed()
       }
     )

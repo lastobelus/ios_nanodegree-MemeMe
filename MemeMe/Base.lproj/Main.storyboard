@@ -73,6 +73,12 @@
                                             <action selector="shareMeme:" destination="vXZ-lx-hvc" id="Onf-aR-huf"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="e5P-sO-efC"/>
+                                    <barButtonItem systemItem="save" id="rmV-63-hzo">
+                                        <connections>
+                                            <action selector="saveMeme:" destination="vXZ-lx-hvc" id="3GB-WT-VpP"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="CCR-5l-cGu"/>
                                     <barButtonItem systemItem="cancel" id="QSp-f0-rnS">
                                         <connections>
@@ -154,6 +160,7 @@
                         <outlet property="imageView" destination="h36-LD-jGa" id="x9c-d2-EUM"/>
                         <outlet property="imageViewBottomConstraint" destination="a4x-5F-IAH" id="qfe-rF-hst"/>
                         <outlet property="imageViewTopConstraint" destination="rEs-Wg-gSE" id="Ky9-HK-99s"/>
+                        <outlet property="saveButton" destination="rmV-63-hzo" id="6e0-xM-taj"/>
                         <outlet property="shareMemeIndicatorView" destination="1gJ-of-wdT" id="65D-MS-MCo"/>
                         <outlet property="topTextField" destination="AxA-gn-Ae7" id="gXA-as-RCV"/>
                         <outlet property="topTextLeftConstraint" destination="2NC-ng-Gve" id="PYe-bX-dS7"/>
@@ -487,7 +494,7 @@ That can be two lines</string>
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="020-5C-Xwf"/>
-        <segue reference="Iy4-ZQ-zzL"/>
+        <segue reference="fXO-ST-gG4"/>
+        <segue reference="mG6-eX-t3k"/>
     </inferredMetricsTieBreakers>
 </document>

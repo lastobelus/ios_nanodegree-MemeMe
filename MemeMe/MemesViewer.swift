@@ -21,12 +21,6 @@ protocol MemeViewer {
   var meme: Meme? {get set}
 }
 
-protocol MemeDeleter {
-  func confirmDelete() -> UIAlertController
-  func performDeleteMeme(alertAction: UIAlertAction!) -> Void
-  func cancelDeleteMeme(alertAction: UIAlertAction!)
-}
-
 extension MemesViewer {
   var memesList: [Meme] {
     let store = MemeStore.sharedStore
@@ -81,22 +75,6 @@ extension MemesViewer where Self : UIViewController {
   }
 
   
-}
-
-extension MemeDeleter where Self : UIViewController {
-  func confirmDelete() -> UIAlertController {
-    print("MemeDeleter confirmDelete")
-    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
-    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
-    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
-
-    alert.addAction(DeleteAction)
-    alert.addAction(CancelAction)
-
-    return alert
-  }
-  func cancelDeleteMeme(alertAction: UIAlertAction!) { print("empty cancelDeleteMeme")}
-
 }
 
 // common implementation for TableViewCell and GridViewCell
