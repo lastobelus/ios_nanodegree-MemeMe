@@ -180,11 +180,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kVL-WW-Rai">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kVL-WW-Rai">
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <gestureRecognizers/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="kVL-WW-Rai" secondAttribute="trailing" constant="-20" id="CTY-7f-AFn"/>
+                            <constraint firstItem="kVL-WW-Rai" firstAttribute="leading" secondItem="ydW-Oe-tEd" secondAttribute="leadingMargin" constant="-20" id="QIg-cs-ci4"/>
+                            <constraint firstItem="kVL-WW-Rai" firstAttribute="top" secondItem="a1j-GR-oNV" secondAttribute="bottom" id="iid-U3-jlf"/>
+                            <constraint firstItem="BOb-Pc-wfC" firstAttribute="top" secondItem="kVL-WW-Rai" secondAttribute="bottom" id="rVL-jw-0iM"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="VHY-xI-RQS" appends="YES" id="gI8-Lm-egf"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="LA2-Yk-h8Q">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="bW0-hU-NXA">
@@ -199,6 +210,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFp-tK-sWx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="VHY-xI-RQS">
+                    <connections>
+                        <action selector="longPress:" destination="6Tk-5E-wea" id="jtb-TF-RHO"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2534" y="991"/>
         </scene>
@@ -296,6 +312,7 @@ That can be two lines</string>
                         <connections>
                             <outlet property="dataSource" destination="kj5-u9-urx" id="ALZ-a4-6zf"/>
                             <outlet property="delegate" destination="kj5-u9-urx" id="sCM-oA-DdN"/>
+                            <outletCollection property="gestureRecognizers" destination="5BE-De-EKD" appends="YES" id="KJE-QD-cFJ"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="n4X-pc-jrV">
@@ -308,6 +325,11 @@ That can be two lines</string>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVO-qJ-fm7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.69999999999999996" id="5BE-De-EKD">
+                    <connections>
+                        <action selector="longPress:" destination="kj5-u9-urx" id="Up1-RG-rQ9"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2099" y="991"/>
         </scene>

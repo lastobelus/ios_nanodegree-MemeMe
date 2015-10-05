@@ -13,6 +13,8 @@ private let reuseIdentifier = "MemeCell"
 class SentMemesTableViewController: UITableViewController, MemesViewer {
 
   var memeForDeletion:NSIndexPath?
+  var movingRowSnapshot: UIView?
+  var movingRowIndexPath: NSIndexPath?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -106,6 +108,77 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   */
   
   // MARK: - Navigation
+  @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+    let state = sender.state
+    print("longpress. state: \(state.rawValue)")
+    let location = sender.locationInView(tableView)
+
+
+
+    switch (state) {
+    case .Began:
+      guard let indexPath = tableView.indexPathForRowAtPoint(location) else { return }
+      movingRowIndexPath = indexPath
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        var snapshot = cellSnapshot(cell)
+        movingRowSnapshot = snapshot
+        var center = cell.center
+        snapshot.center = center
+        snapshot.alpha = 0.0
+        tableView.addSubview(snapshot)
+        UIView.animateWithDuration(0.25,
+          animations: {
+            center.y = location.y
+            snapshot.center = center
+            snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05)
+            snapshot.alpha = 0.98
+            cell.alpha = 0.0
+          },
+          completion: { finished in
+            cell.hidden = true
+          }
+        )
+      }
+
+    case .Changed:
+      print("changed")
+      guard let indexPath = tableView.indexPathForRowAtPoint(location) else { return }
+      if let snapshot = movingRowSnapshot {
+        var center = snapshot.center
+        center.y = location.y
+        snapshot.center = center
+
+        if indexPath != movingRowIndexPath {
+          print("do the move")
+          MemeStore.sharedStore.swapMemes(indexPath.row, second: movingRowIndexPath!.row)
+          tableView.moveRowAtIndexPath(movingRowIndexPath!, toIndexPath:indexPath)
+          movingRowIndexPath = indexPath
+        }
+      }
+    default:
+      print("default state")
+
+      guard let snapshot = movingRowSnapshot, let indexPath = movingRowIndexPath else { return }
+
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        print("unhide original cell")
+        cell.hidden = false
+        cell.alpha = 0.0
+        UIView.animateWithDuration(0.25,
+          animations: {
+            snapshot.center = cell.center
+            snapshot.transform = CGAffineTransformIdentity
+            snapshot.alpha = 0.0
+            cell.alpha = 1.0
+        }, completion: { finished in
+          MemeStore.sharedStore.save()
+          self.movingRowIndexPath = nil
+          snapshot.removeFromSuperview()
+          self.movingRowSnapshot = nil
+        })
+      }
+    }
+  }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if prepareForShowDetailSegue(segue, sender: sender) {
@@ -121,6 +194,24 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
       return nil
     }
     return indexPath.row
+  }
+
+  private func cellSnapshot(inputView: UIView) -> UIView {
+    // Make an image from the input view.
+    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+    inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    // Create an image view.
+    var snapshot = UIImageView(image:image)
+    snapshot.layer.masksToBounds = false
+    snapshot.layer.cornerRadius = 0.0
+    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+    snapshot.layer.shadowRadius = 5.0
+    snapshot.layer.shadowOpacity = 0.4
+
+    return snapshot
   }
 
 }

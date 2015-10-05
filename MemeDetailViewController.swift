@@ -37,6 +37,10 @@ class MemeDetailViewController: UIViewController {
     }
   }
 
+  @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+    print("DetailView long press")
+  }
+
   @IBAction func didFinishEditing(segue: UIStoryboardSegue) {
     populateViewFromMeme()
   }

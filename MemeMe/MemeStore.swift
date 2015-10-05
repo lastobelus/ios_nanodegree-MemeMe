@@ -53,4 +53,8 @@ class MemeStore: NSObject {
     savedMemes.removeAll()
     return save()
   }
+
+  func swapMemes(first: Int, second: Int) {
+    swap(&savedMemes[first], &savedMemes[second])
+  }
 }
