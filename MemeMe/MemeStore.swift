@@ -40,6 +40,11 @@ class MemeStore: NSObject {
     return save()
   }
 
+  func deleteMeme(meme: Meme) -> Bool {
+    guard let index = savedMemes.indexOf(meme) else{ return false }
+    return deleteMeme(atIndex: index)
+  }
+
   func addMeme(meme: Meme) -> Bool {
     savedMemes.append(meme)
     return save()

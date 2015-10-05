@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeDetailViewController: UIViewController {
+class MemeDetailViewController: UIViewController, MemeDeleter {
 
   @IBOutlet weak var memeImage: UIImageView!
 
@@ -23,6 +23,7 @@ class MemeDetailViewController: UIViewController {
     print("detail viewDidAppear")
     print("  memeImage: \(memeImage)")
   }
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -45,6 +46,32 @@ class MemeDetailViewController: UIViewController {
     populateViewFromMeme()
   }
 
+
+  @IBAction func deleteAction(sender: UIBarButtonItem) {
+    print("deleteAction")
+//    self.dismissViewControllerAnimated(true, completion: nil)
+    let alert = confirmDelete()
+    self.presentViewController(alert, animated: true, completion: nil)
+//    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
+//    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
+//    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
+//
+//    alert.addAction(DeleteAction)
+//    alert.addAction(CancelAction)
+//
+//    self.presentViewController(alert, animated: true, completion: nil)
+  }
+
+  func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
+    print("DETAIL performDeleteMeme")
+//    self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
+//    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+
+  func cancelDeleteMeme(alertAction: UIAlertAction!) -> Void  {
+    print("DETAIL cancelDeleteMeme")
+  }
+
   private func populateViewFromMeme() {
     memeImage?.image = meme?.memedImage
   }
@@ -58,4 +85,7 @@ class MemeDetailViewController: UIViewController {
   }
   */
 
+  deinit {
+    print("MemeDetailViewController deinitialized")
+  }
 }

@@ -10,9 +10,9 @@ import UIKit
 
 private let reuseIdentifier = "MemeCell"
 
-class SentMemesTableViewController: UITableViewController, MemesViewer {
+class SentMemesTableViewController: UITableViewController, MemesViewer, MemeDeleter {
 
-  var memeForDeletion:NSIndexPath?
+  var memeForDeletionIndexPath:NSIndexPath?
   var movingRowSnapshot: UIView?
   var movingRowIndexPath: NSIndexPath?
 
@@ -22,7 +22,9 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   }
 
   override func viewDidAppear(animated: Bool) {
+    print("reloadData")
     tableView.reloadData()
+    print("editIfEmpty")
     editIfEmpty()
   }
 
@@ -62,34 +64,32 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   // Override to support editing the table view.
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      confirmDelete(indexPath)
+      memeForDeletionIndexPath = indexPath
+      let alert = confirmDelete()
+      self.presentViewController(alert, animated: true, completion: nil)
     }
   }
 
-  func confirmDelete(indexPath: NSIndexPath) {
-    memeForDeletion = indexPath
-    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
-    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
-    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
-
-    alert.addAction(DeleteAction)
-    alert.addAction(CancelAction)
-
-    self.presentViewController(alert, animated: true, completion: nil)
-  }
-
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
-    if let indexPath = memeForDeletion {
+    if let indexPath = memeForDeletionIndexPath {
       tableView.beginUpdates()
       MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-      memeForDeletion = nil
+      memeForDeletionIndexPath = nil
       tableView.endUpdates()
     }
   }
 
   func cancelDeleteMeme(alertAction: UIAlertAction!) {
-    memeForDeletion = nil
+    memeForDeletionIndexPath = nil
+  }
+
+  @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
+    print("shouldDeleteMeme")
+//    if let indexPath = tableView.indexPathForSelectedRow {
+//      print("  selected index: \(indexPath.row)")
+//      print("   topText: \(memesList[indexPath.row].topText)")
+//    }
   }
 
   /*

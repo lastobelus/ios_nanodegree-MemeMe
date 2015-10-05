@@ -4,6 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Meme Editor View Controller-->
@@ -198,25 +199,34 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="LA2-Yk-h8Q">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="bW0-hU-NXA">
-                            <connections>
-                                <segue destination="vXZ-lx-hvc" kind="presentation" identifier="editMemeSegue" id="020-5C-Xwf"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="edit" id="bW0-hU-NXA">
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="presentation" identifier="editMemeSegue" id="020-5C-Xwf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="CSi-Ms-cKj">
+                                <connections>
+                                    <action selector="deleteAction:" destination="6Tk-5E-wea" id="dm0-Ml-par"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="memeImage" destination="kVL-WW-Rai" id="aLY-6q-vpk"/>
+                        <segue destination="EoF-dA-iWx" kind="unwind" identifier="shouldDeleteMemeSeque" unwindAction="shouldDeleteMeme:" id="bP6-CJ-Uho"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFp-tK-sWx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EoF-dA-iWx" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="VHY-xI-RQS">
                     <connections>
                         <action selector="longPress:" destination="6Tk-5E-wea" id="jtb-TF-RHO"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2534" y="991"/>
+            <point key="canvasLocation" x="2593" y="991"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="biu-1p-QQj">

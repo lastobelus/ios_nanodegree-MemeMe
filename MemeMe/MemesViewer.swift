@@ -14,10 +14,17 @@ protocol MemesViewer {
   func editIfEmpty()
   func indexOfSendingCell(sender:AnyObject?) -> Int?
   func prepareForShowDetailSegue(segue: UIStoryboardSegue, sender: AnyObject?) -> Bool
+  func handleMemeReorderGesture(sender: UILongPressGestureRecognizer)
 }
 
 protocol MemeViewer {
   var meme: Meme? {get set}
+}
+
+protocol MemeDeleter {
+  func confirmDelete() -> UIAlertController
+  func performDeleteMeme(alertAction: UIAlertAction!) -> Void
+  func cancelDeleteMeme(alertAction: UIAlertAction!)
 }
 
 extension MemesViewer {
@@ -41,6 +48,7 @@ struct MemeViewerProperties {
   static var showDetailSegueIdentifier = "showMemeDetailSegue"
   static var editMemeSegueIdentifier = "editMemeSegue"
   static var didFinishEditingMemeSegueIdentifier = "didFinishEditingMemeSeque"
+  static var shouldDeleteMemeSegueIdentifier = "shouldDeleteMemeSeque"
 }
 
 // common implementation for TableView and GridView
@@ -67,6 +75,28 @@ extension MemesViewer where Self : UIViewController {
     destination.meme = memesList[index]
     return true
   }
+
+  func handleMemeReorderGesture(sender: UILongPressGestureRecognizer) {
+
+  }
+
+  
+}
+
+extension MemeDeleter where Self : UIViewController {
+  func confirmDelete() -> UIAlertController {
+    print("MemeDeleter confirmDelete")
+    let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .ActionSheet)
+    let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: performDeleteMeme)
+    let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteMeme)
+
+    alert.addAction(DeleteAction)
+    alert.addAction(CancelAction)
+
+    return alert
+  }
+  func cancelDeleteMeme(alertAction: UIAlertAction!) { print("empty cancelDeleteMeme")}
+
 }
 
 // common implementation for TableViewCell and GridViewCell
