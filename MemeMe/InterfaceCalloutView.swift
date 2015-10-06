@@ -58,7 +58,6 @@ class InterfaceCalloutView: UIView {
   func drawTriangle() {
     let shapeLayer = CAShapeLayer()
     let path = UIBezierPath()
-    let bounds = self.bounds;
     let radius:CGFloat = 10;
     let a = radius * sqrt(3.0) / 2;
     let b = radius / 2;

@@ -37,10 +37,10 @@ struct UniformFlowLayoutCalculator {
         layoutCalculator.setScale(sender.scale)
         layoutCalculator.configureFlowLayout(flowLayout!, forSize:view.frame.size)
       }
-  - Parameter: scale How much to scale the desired width when recalculating item sizes
+  - Parameter: newScale How much to scale the desired width when recalculating item sizes
   */
-  mutating func setScale(scale: CGFloat) {
-    self.scale = scale
+  mutating func setScale(newScale: CGFloat) {
+    scale = newScale
   }
 
   /**

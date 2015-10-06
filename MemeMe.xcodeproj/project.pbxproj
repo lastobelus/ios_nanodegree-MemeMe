@@ -19,6 +19,7 @@
 		2A53EE471BBB796B005D94FD /* MemeEditorPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53EE461BBB796B005D94FD /* MemeEditorPersistence.swift */; settings = {ASSET_TAGS = (); }; };
 		2A53EE491BBB7D1A005D94FD /* MemesViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53EE481BBB7D1A005D94FD /* MemesViewer.swift */; settings = {ASSET_TAGS = (); }; };
 		2A53EE4B1BBB9307005D94FD /* MemeTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53EE4A1BBB9307005D94FD /* MemeTextStyle.swift */; settings = {ASSET_TAGS = (); }; };
+		2A79FF041BC3A8200088127B /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A79FF031BC3A8200088127B /* PropertyListReadable.swift */; settings = {ASSET_TAGS = (); }; };
 		2A7F4A211BC331A000033F65 /* MemeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F4A201BC331A000033F65 /* MemeViewer.swift */; settings = {ASSET_TAGS = (); }; };
 		2A7F4A231BC3321600033F65 /* MemesViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F4A221BC3321600033F65 /* MemesViewerCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2AAB830C1B86A0AC00B226FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB830B1B86A0AC00B226FF /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		2A53EE461BBB796B005D94FD /* MemeEditorPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeEditorPersistence.swift; sourceTree = "<group>"; };
 		2A53EE481BBB7D1A005D94FD /* MemesViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemesViewer.swift; sourceTree = "<group>"; };
 		2A53EE4A1BBB9307005D94FD /* MemeTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTextStyle.swift; sourceTree = "<group>"; };
+		2A79FF031BC3A8200088127B /* PropertyListReadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyListReadable.swift; path = ../PropertyListReadable.swift; sourceTree = "<group>"; };
 		2A7F4A201BC331A000033F65 /* MemeViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeViewer.swift; sourceTree = "<group>"; };
 		2A7F4A221BC3321600033F65 /* MemesViewerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemesViewerCell.swift; sourceTree = "<group>"; };
 		2AAB83061B86A0AC00B226FF /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +112,7 @@
 		2A0D0B191BBDD04C0008B3F9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2A79FF031BC3A8200088127B /* PropertyListReadable.swift */,
 				2ADD1C521BBCDCB1007CE311 /* InterfaceCalloutView.swift */,
 				2A0D0B171BBDC3A80008B3F9 /* UniformFlowLayoutCalculator.swift */,
 			);
@@ -387,6 +390,7 @@
 				2AF2AFA81BBA21300014256C /* MemeCollectionViewCell.swift in Sources */,
 				2ADD1C531BBCDCB1007CE311 /* InterfaceCalloutView.swift in Sources */,
 				2AAB830E1B86A0AC00B226FF /* MemeEditorViewController.swift in Sources */,
+				2A79FF041BC3A8200088127B /* PropertyListReadable.swift in Sources */,
 				2A0D0B181BBDC3A80008B3F9 /* UniformFlowLayoutCalculator.swift in Sources */,
 				2A470CA61B893C7300122684 /* MemeEditorImageHandling.swift in Sources */,
 				2A2E79991BBF5063000A0C59 /* MemeDetailViewController.swift in Sources */,

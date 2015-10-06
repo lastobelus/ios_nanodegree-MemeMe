@@ -39,9 +39,9 @@ class MemeStore: NSObject {
     self.saveQueue = dispatch_queue_create(
       "com.metafeatapps.MemeMe.store", DISPATCH_QUEUE_CONCURRENT
     )
-    if let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as? NSData {
+    if let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as? [AnyObject] {
       dispatch_sync(self.saveQueue) {
-        self._savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+        self._savedMemes = extractValuesFromPropertyListArray(data)
       }
     } else {
       dispatch_sync(self.saveQueue) {
@@ -66,9 +66,7 @@ class MemeStore: NSObject {
   func save() {
     dispatch_barrier_async(saveQueue) {
       dispatch_async(self.userInitiatedQueue) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(self._savedMemes)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(data, forKey: MemeStore.UserDefaultsKey)
+        saveValuesToDefaults(self._savedMemes, key: MemeStore.UserDefaultsKey)
       }
     }
   }

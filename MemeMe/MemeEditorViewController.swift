@@ -149,10 +149,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     activityController.completionWithItemsHandler = { activity, success, items, error in
       self.save(memedImage)
       // if we are editing an existing meme, use exit segue to ensure the detail view updates
-      if self.meme != nil {
-        self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
-      } else {
-        self.dismissViewControllerAnimated(true, completion: nil)
+      if success {
+        if self.meme != nil {
+          self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
+        } else {
+          self.dismissViewControllerAnimated(true, completion: nil)
+        }
       }
     }
     
