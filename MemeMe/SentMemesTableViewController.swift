@@ -65,7 +65,7 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
 
       alert.addAction(DeleteAction)
       alert.addAction(CancelAction)
-      self.presentViewController(alert, animated: true, completion: nil)
+      presentViewController(alert, animated: true, completion: nil)
     }
   }
 

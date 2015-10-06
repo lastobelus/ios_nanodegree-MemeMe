@@ -64,7 +64,7 @@ extension MemeEditorViewController {
   override func updateViewConstraints() {
     super.updateViewConstraints()
     // ensure we are calculating from a "settled" state
-    self.view.layoutIfNeeded()
+    view.layoutIfNeeded()
 
     // first calculate how much space the image would have before any interface
     // adjustments
@@ -183,8 +183,8 @@ extension MemeEditorViewController {
 
   /// Called when no animation is needed, otherwise call `animateLayout`
   func updateConstraintsAndLayoutImmediately() {
-    self.view.setNeedsUpdateConstraints()
-    self.view.layoutIfNeeded()
+    view.setNeedsUpdateConstraints()
+    view.layoutIfNeeded()
   }
 
   /// Hide or show toolbars

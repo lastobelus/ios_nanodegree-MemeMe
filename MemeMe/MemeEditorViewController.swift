@@ -131,7 +131,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     bottomTextField.text = textFieldDefaultText[bottomTextField]
     manageButtonState()
     animateLayout()
-    self.dismissViewControllerAnimated(true, completion: nil)
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
   /**
@@ -165,8 +165,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   */
   @IBAction func saveMeme(sender: UIBarButtonItem) {
     let memedImage = generateMemedImage()
-    self.save(memedImage)
-    self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
+    save(memedImage)
+    performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
   }
 
   //MARK:- State Management

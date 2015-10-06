@@ -54,7 +54,7 @@ class MemeDetailViewController: UIViewController {
     alert.addAction(DeleteAction)
     alert.addAction(CancelAction)
 
-    self.presentViewController(alert, animated: true, completion: nil)
+    presentViewController(alert, animated: true, completion: nil)
   }
 
   
@@ -76,7 +76,7 @@ class MemeDetailViewController: UIViewController {
   by performing the unwind segue `shouldDeleteMemeSegue`.
   */
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
-    self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
+    performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
   }
 
   /// sets up the subviews with properties of the Meme being displayed
