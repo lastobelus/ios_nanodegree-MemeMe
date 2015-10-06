@@ -83,7 +83,7 @@ class MemeStore: NSObject {
     dispatch_sync(saveQueue) {
       self._savedMemes.removeAll()
     }
-    self.save()
+    save()
   }
   
   /// Is this the first meme to be created?
@@ -100,7 +100,7 @@ class MemeStore: NSObject {
     dispatch_sync(saveQueue) {
       self._savedMemes.append(meme)
     }
-    self.save()
+    save()
   }
 
   /// Given two indices, swaps the memes at those indices in `savedMemes` **without** saving.

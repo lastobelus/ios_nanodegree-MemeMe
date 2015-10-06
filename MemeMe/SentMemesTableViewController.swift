@@ -25,7 +25,7 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
 
   var memesListView: UIView {
     get {
-      return self.tableView
+      return tableView
     }
   }
 

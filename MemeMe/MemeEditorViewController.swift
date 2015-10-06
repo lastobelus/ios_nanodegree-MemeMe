@@ -236,7 +236,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     let OKAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
     alertController.addAction(OKAction)
 
-    self.presentViewController(alertController, animated: true) { (action) in
+    presentViewController(alertController, animated: true) { (action) in
       self.instructionsShown = true
     }
   }

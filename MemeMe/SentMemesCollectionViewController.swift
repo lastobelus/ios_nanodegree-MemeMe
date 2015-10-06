@@ -26,7 +26,7 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   var canMemeMoveHorizontally = true
   var memesListView: UIView {
     get {
-      return self.collectionView!
+      return collectionView!
     }
   }
 

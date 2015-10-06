@@ -15,12 +15,12 @@ extension MemeEditorViewController {
   
   /// Creates and persists the current meme, or updates it if it was already persisted
   func save(memedImage: UIImage) {
-    if var meme = self.meme {
+    if var newMeme = meme {
       //  update meme from UI values
-      meme.topText = topTextField.text!
-      meme.bottomText = bottomTextField.text!
-      meme.image = imageView.image!
-      meme.memedImage = memedImage
+      newMeme.topText = topTextField.text!
+      newMeme.bottomText = bottomTextField.text!
+      newMeme.image = imageView.image!
+      newMeme.memedImage = memedImage
       MemeStore.sharedStore.save()
     } else {
       //Create a new meme from UI values
