@@ -109,7 +109,6 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
 
   //MARK: - Deletion
   @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
-    print("shouldDeleteMeme (CollectionView)")
     if let selection = collectionView?.indexPathsForSelectedItems()?.first {
       deleteMemeAtIndexPath(selection)
     }
@@ -119,9 +118,8 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     collectionView?.performBatchUpdates({
       MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
       self.collectionView?.deleteItemsAtIndexPaths([indexPath])
-    }, completion: { finished in
       MemeStore.sharedStore.save()
-    })
+    }, completion: nil)
   }
   
   

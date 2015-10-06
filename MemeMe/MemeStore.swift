@@ -16,8 +16,17 @@ class MemeStore: NSObject {
   static let sharedStore = MemeStore()
 
   /// The array of saved memes
-  var savedMemes: [Meme]!
-  
+  var savedMemes: [Meme]! {
+    get {
+      var memes: [Meme]!
+      dispatch_sync(saveQueue) {
+        memes = self._savedMemes
+      }
+      return memes
+    }
+  }
+  var _savedMemes: [Meme]!
+
 
   static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
   static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("savedMemes")
@@ -27,21 +36,26 @@ class MemeStore: NSObject {
   private override init(){
     super.init()
     let defaults = NSUserDefaults.standardUserDefaults()
+    self.saveQueue = dispatch_queue_create(
+      "com.metafeatapps.MemeMe.store", DISPATCH_QUEUE_CONCURRENT
+    )
     if let data = defaults.objectForKey(MemeStore.UserDefaultsKey) as? NSData {
-      self.savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+      dispatch_sync(self.saveQueue) {
+        self._savedMemes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Meme]
+      }
     } else {
-      self.savedMemes = [Meme]()
+      dispatch_sync(self.saveQueue) {
+        self._savedMemes = [Meme]()
+      }
     }
-
-
   }
   
   //MARK:- Persistence
 
   /// queue guard
-  private let saveQueue = dispatch_queue_create(
-    "com.metafeatapps.MemeMe.store", DISPATCH_QUEUE_CONCURRENT
-  )
+  //RADAR: when I used let & created the queue here, it worked on simulator
+  // but caused an EXC_BAD_ACCESS on my device. I was unable to figure out why
+  private var saveQueue: dispatch_queue_t!
 
   private var userInitiatedQueue: dispatch_queue_t {
     return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
@@ -52,7 +66,7 @@ class MemeStore: NSObject {
   func save() {
     dispatch_barrier_async(saveQueue) {
       dispatch_async(self.userInitiatedQueue) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(self.savedMemes)
+        let data = NSKeyedArchiver.archivedDataWithRootObject(self._savedMemes)
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(data, forKey: MemeStore.UserDefaultsKey)
       }
@@ -61,36 +75,40 @@ class MemeStore: NSObject {
   
   /// Deletes a meme by index **without saving**
   func deleteMeme(atIndex index:Int) {
-    dispatch_barrier_async(saveQueue) {
-      self.savedMemes.removeAtIndex(index)
+    dispatch_sync(saveQueue) {
+      self._savedMemes.removeAtIndex(index)
     }
   }
 
   /// Removes all memes. Will be called if you pass the run argument `DeleteAllMemesOnStartup`
   func deleteAll() {
-    dispatch_barrier_async(saveQueue) {
-      self.savedMemes.removeAll()
-      self.save()
+    dispatch_sync(saveQueue) {
+      self._savedMemes.removeAll()
     }
+    self.save()
   }
   
   /// Is this the first meme to be created?
   func isFirstMeme() -> Bool {
-    return self.savedMemes.isEmpty
+    var empty: Bool!
+    dispatch_sync(saveQueue) {
+      empty = self._savedMemes.isEmpty
+    }
+    return empty
   }
   
   /// Adds a meme by appending it to `savedMemes`
   func addMeme(meme: Meme) {
-    dispatch_barrier_async(saveQueue) {
-      self.savedMemes.append(meme)
-      self.save()
+    dispatch_sync(saveQueue) {
+      self._savedMemes.append(meme)
     }
+    self.save()
   }
 
   /// Given two indices, swaps the memes at those indices in `savedMemes` **without** saving.
   func swapMemes(first: Int, second: Int) {
-    dispatch_barrier_async(saveQueue) {
-      swap(&self.savedMemes[first], &self.savedMemes[second])
+    dispatch_sync(saveQueue) {
+      swap(&self._savedMemes[first], &self._savedMemes[second])
     }
   }
 }

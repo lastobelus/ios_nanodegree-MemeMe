@@ -65,13 +65,13 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
 
       alert.addAction(DeleteAction)
       alert.addAction(CancelAction)
+      self.presentViewController(alert, animated: true, completion: nil)
     }
   }
 
   //MARK:- Deletion
   
   @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
-    print("shouldDeleteMeme (TableView")
     if let indexPath = tableView.indexPathForSelectedRow {
       deleteMemeAtIndexPath(indexPath)
     }
@@ -85,10 +85,10 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   func deleteMemeAtIndexPath(indexPath:NSIndexPath) {
     tableView.beginUpdates()
     MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
+    MemeStore.sharedStore.save()
     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     memeForDeletionIndexPath = nil
     tableView.endUpdates()
-    MemeStore.sharedStore.save()
   }
   
   func cancelDeleteMeme(alertAction: UIAlertAction!) {
