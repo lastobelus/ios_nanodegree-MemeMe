@@ -7,8 +7,13 @@
 //
 
 import UIKit
+/**
+Save memes
+*/
 extension MemeEditorViewController {
   //  TODO: see if can refactor Meme to make properties optional, so this can be DRYed
+  
+  /// Creates and persists the current meme, or updates it if it was already persisted
   func save(memedImage: UIImage) {
     if let meme = self.meme {
       //  update meme from UI values

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// The style of the top or bottom text on a meme. Not currently persisted or editable
 struct MemeTextStyle {
   let strokeColor = UIColor.blackColor()
   let fontName = "HelveticaNeue-CondensedBlack"

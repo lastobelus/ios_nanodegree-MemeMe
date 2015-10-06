@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// adds aspect() to CGSize, defined as width/height
 extension CGSize {
   func aspect() -> CGFloat {
     return width / height

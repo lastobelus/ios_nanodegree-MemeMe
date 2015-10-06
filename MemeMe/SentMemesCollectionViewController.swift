@@ -8,12 +8,17 @@
 
 import UIKit
 
-private let reuseIdentifier = "MemeCell"
 
 
+/**
+Displays sent Memes in a grid. 
+- Elements of the grid can be re-ordered by long-pressing
+an item and moving it around
+- the size of items in the grid can be changed via pinch
+- selecting an item displays it in the Meme Detail view
+- has an unwind segue action to provide deletion of selected item
+*/
 class SentMemesCollectionViewController: UICollectionViewController, MemesViewer {
-
-
   @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
   var movingRowIndexPath: NSIndexPath?
@@ -34,6 +39,7 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     scale: 1.0
   )
 
+  //MARK:- View Management
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -45,33 +51,7 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     editIfEmpty()
   }
 
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-
-
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if prepareForShowDetailSegue(segue, sender: sender) {
-      return
-    }
-  }
-
-  func indexOfSendingCell(sender:AnyObject?) -> Int? {
-    guard let cell = sender as? MemeCollectionViewCell else {
-      return nil
-    }
-    guard let indexPath = collectionView!.indexPathForCell(cell) else {
-      return nil
-    }
-    return indexPath.row
-  }
-
-  // MARK: UICollectionViewDataSource
+  //MARK:- UICollectionViewDataSource
   
   override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
     // #warning Incomplete implementation, return the number of sections
@@ -85,7 +65,7 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionViewCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MemeViewerProperties.memeCellIdentifier, forIndexPath: indexPath) as! MemeCollectionViewCell
     let meme = memesList[indexPath.row]
     
     populateCell(cell, withMeme: meme)
@@ -93,37 +73,13 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     return cell
   }
   
-  // MARK: UICollectionViewDelegate
-  
-  /*
-  // Uncomment this method to specify if the specified item should be highlighted during tracking
-  override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-  return true
-  }
-  */
-  
-  /*
-  // Uncomment this method to specify if the specified item should be selected
-  override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-  return true
-  }
-  */
-  
-  /*
-  // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-  override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-  return false
-  }
-  
-  override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-  return false
-  }
-  
-  override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-  
-  }
-  */
+  //MARK:- UICollectionViewDelegate
 
+  override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    return true
+  }
+
+  //MARK:- Layout/Scaling
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     layoutCalculator.configureFlowLayout(flowLayout!, forSize: size)
@@ -134,6 +90,7 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
     layoutCalculator.configureFlowLayout(flowLayout!, forSize:view.frame.size)
   }
 
+  //MARK:- Reordering
   @IBAction func longPress(sender: UILongPressGestureRecognizer) {
     handleMemeReorderGesture(sender)
   }
@@ -149,6 +106,39 @@ class SentMemesCollectionViewController: UICollectionViewController, MemesViewer
   func moveMemeAtIndexPath(from:NSIndexPath, toIndexPath to:NSIndexPath) {
     collectionView?.moveItemAtIndexPath(from, toIndexPath: to)
   }
-  
 
+  //MARK: - Deletion
+  @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
+    print("shouldDeleteMeme (CollectionView)")
+    if let selection = collectionView?.indexPathsForSelectedItems()?.first {
+      deleteMemeAtIndexPath(selection)
+    }
+  }
+
+  func deleteMemeAtIndexPath(indexPath:NSIndexPath) {
+    collectionView?.performBatchUpdates({
+      MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
+      self.collectionView?.deleteItemsAtIndexPaths([indexPath])
+    }, completion: { finished in
+      MemeStore.sharedStore.save()
+    })
+  }
+  
+  
+  //MARK: - Navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if prepareForShowDetailSegue(segue, sender: sender) {
+      return
+    }
+  }
+  
+  func indexOfSendingCell(sender:AnyObject?) -> Int? {
+    guard let cell = sender as? MemeCollectionViewCell else {
+      return nil
+    }
+    guard let indexPath = collectionView!.indexPathForCell(cell) else {
+      return nil
+    }
+    return indexPath.row
+  }
 }

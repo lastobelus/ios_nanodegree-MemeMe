@@ -8,10 +8,16 @@
 
 import UIKit
 
+/**
+A class for managing Application settings. Currently manages a single preference:
+expandImageTopPastStatusBarWhenTyping
+
+TODO: Could move lots of magic numbers & constants here
+*/
 class Preferences {
   static let instance = Preferences()
   
-  // MARK: Keys
+  //MARK: Keys
   enum  Keys:String {
     case
     ExpandImageTopPastStatusBarWhenTyping
@@ -32,7 +38,7 @@ class Preferences {
       }
     }
   
-    //    MARK: Values
+    //    MARK:- Values
     expandImageTopPastStatusBarWhenTyping = NSUserDefaults.standardUserDefaults().boolForKey(Keys.ExpandImageTopPastStatusBarWhenTyping.key())
 
   }

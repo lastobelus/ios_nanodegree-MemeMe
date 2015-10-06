@@ -8,16 +8,26 @@
 
 import UIKit
 
+/**
+A view with a triangular pointer for briefly calling attention to an interface element.
+Show by calling fire().
+*/
 class InterfaceCalloutView: UIView {
-
-
   //  RADAR: chaining animations does not work properly if you use scale(0,0)
+
+  // the scale the view grows from when animating in
   let minScale = CGAffineTransformMakeScale(0.01, 0.01)
+  // the scale the view grows to when animating in
   let maxScale = CGAffineTransformMakeScale(1.0, 1.0)
+  // the positional offset from the storyboard defined position that the view slides from when animating in
   let startTranslate = CGAffineTransformMakeTranslation(50, 150)
+  // the positional offset from the storyboard defined position that the view slides to when animating in
   let endTranslate = CGAffineTransformMakeTranslation(0, 0)
+  // the time it takes the view to animate in
   let comeInDuration:NSTimeInterval = 0.8
+  // the time it takes the view to animate out
   let goOutDuration:NSTimeInterval = 0.4
+  // the time the view is show for
   let showDuration:NSTimeInterval = 4
 
 

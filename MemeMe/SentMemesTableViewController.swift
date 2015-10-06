@@ -8,10 +8,15 @@
 
 import UIKit
 
-private let reuseIdentifier = "MemeCell"
-
+/**
+Displays saved Memes in a table view.
+- Elements of the grid can be re-ordered by long-pressing
+an item and moving it around
+- selecting an item displays it in the Meme Detail view
+- items can be deleted by swiping left
+- has an unwind segue action to provide deletion of selected item from the Meme Detail View
+*/
 class SentMemesTableViewController: UITableViewController, MemesViewer {
-
   var memeForDeletionIndexPath: NSIndexPath?
 
   var movingRowIndexPath: NSIndexPath?
@@ -24,24 +29,13 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
     }
   }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-  }
-
+  //MARK: View Management
   override func viewDidAppear(animated: Bool) {
-    print("reloadData")
     tableView.reloadData()
-    print("editIfEmpty")
     editIfEmpty()
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  // MARK: - Table view data source
+  //MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
@@ -53,21 +47,13 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(MemeViewerProperties.memeCellIdentifier, forIndexPath: indexPath) as! MemeTableViewCell
     let meme = memesList[indexPath.row]
 
     populateCell(cell, withMeme: meme)
 
     return cell
   }
-  
-  /*
-  // Override to support conditional editing of the table view.
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return false if you do not want the specified item to be editable.
-  return true
-  }
-  */
   
   // Override to support editing the table view.
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -82,47 +68,34 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
     }
   }
 
+  //MARK:- Deletion
+  
+  @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
+    print("shouldDeleteMeme (TableView")
+    if let indexPath = tableView.indexPathForSelectedRow {
+      deleteMemeAtIndexPath(indexPath)
+    }
+  }
   func performDeleteMeme(alertAction: UIAlertAction!) -> Void  {
     if let indexPath = memeForDeletionIndexPath {
       deleteMemeAtIndexPath(indexPath)
     }
   }
-
+  
   func deleteMemeAtIndexPath(indexPath:NSIndexPath) {
     tableView.beginUpdates()
     MemeStore.sharedStore.deleteMeme(atIndex: indexPath.row)
     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     memeForDeletionIndexPath = nil
     tableView.endUpdates()
+    MemeStore.sharedStore.save()
   }
-
+  
   func cancelDeleteMeme(alertAction: UIAlertAction!) {
     memeForDeletionIndexPath = nil
   }
-
-  @IBAction func shouldDeleteMeme(segue: UIStoryboardSegue) {
-    print("shouldDeleteMeme")
-    if let indexPath = tableView.indexPathForSelectedRow {
-      deleteMemeAtIndexPath(indexPath)
-    }
-  }
-
-  /*
-  // Override to support rearranging the table view.
-  override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
   
-  }
-  */
-  
-  /*
-  // Override to support conditional rearranging of the table view.
-  override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return false if you do not want the item to be re-orderable.
-  return true
-  }
-  */
-  
-  // MARK: - Navigation
+  //MARK:- Reordering
   @IBAction func longPress(sender: UILongPressGestureRecognizer) {
     handleMemeReorderGesture(sender)
   }
@@ -140,6 +113,7 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
   }
 
 
+  //MARK: - Navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if prepareForShowDetailSegue(segue, sender: sender) {
       return
@@ -155,6 +129,4 @@ class SentMemesTableViewController: UITableViewController, MemesViewer {
     }
     return indexPath.row
   }
-
-
 }

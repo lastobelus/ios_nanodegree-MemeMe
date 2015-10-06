@@ -8,23 +8,37 @@
 
 import UIKit
 
+/**
+  A View Controller for displaying the memed image of a sent meme.
+  - Allows the user to delete a saved meme
+  - Allows the user to edit a saved meme
+*/
 class MemeDetailViewController: UIViewController {
 
   @IBOutlet weak var memeImage: UIImageView!
 
+  /// The meme being displayed
   var meme:Meme?
 
-  // MARK: View Management
+  //MARK:- View Management
   override func viewDidLoad() {
     super.viewDidLoad()
     populateViewFromMeme()
   }
 
-  // MARK: Actions
+  //MARK: - Actions
+  /**
+  Called when the user exits an editor view that was pushed to edit this meme to
+  repopulate this view with any new properties saved to the meme.
+  */
   @IBAction func didFinishEditing(segue: UIStoryboardSegue) {
     populateViewFromMeme()
   }
 
+  /**
+  Displays a modal alert to confirm deletion of this meme. If confirmed, the
+  unwind segue `shouldDeleteMemeSegue` will be called
+  */
   @IBAction func deleteAction(sender: UIBarButtonItem) {
     // RADAR: I attempted to extract this and duplicate code in SentMemesTableViewController
     // to a protocol+extension, but when I did I got exc_bad_access errors I was not
@@ -44,7 +58,7 @@ class MemeDetailViewController: UIViewController {
   }
 
   
-  // MARK: - Navigation
+  //MARK: - Navigation
 
   /**
   1. `editMemeSegue`: sets the meme on the destination
@@ -65,6 +79,7 @@ class MemeDetailViewController: UIViewController {
     self.performSegueWithIdentifier(MemeViewerProperties.shouldDeleteMemeSegueIdentifier, sender: nil)
   }
 
+  /// sets up the subviews with properties of the Meme being displayed
   private func populateViewFromMeme() {
     memeImage?.image = meme?.memedImage
   }

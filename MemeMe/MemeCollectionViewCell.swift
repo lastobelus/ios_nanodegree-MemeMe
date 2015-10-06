@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Custom CollectionView cell for displaying Memes.
 class MemeCollectionViewCell: UICollectionViewCell, MemesViewerCell {
 
   @IBOutlet weak var originalImage: UIImageView!

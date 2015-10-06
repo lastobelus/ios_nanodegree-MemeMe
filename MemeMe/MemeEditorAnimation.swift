@@ -8,8 +8,11 @@
 
 import UIKit
 
-// Swift does not allow adding stored properties via extension, so we use
-// objc associatedObject dictionary to keep track of constraints' orginal values
+/**
+Swift does not allow adding stored properties via extension. This extension
+to NSLayoutConstraint uses the objc associatedObject dictionary to keep
+track of constraints' orginal values.
+*/
 extension NSLayoutConstraint {
   private struct AssociatedKeys {
     static var OriginalValue = "mfa_original_value"
@@ -46,8 +49,18 @@ extension NSLayoutConstraint {
 }
 
 
+/**
+MARK:- Animation of the editor view during editing.
+*/
 extension MemeEditorViewController {
 
+  /**
+  Organizes the size of the Meme image to show the text label being edited just above
+  the keyboard, and keeps the text labels constained to the frame of the actual image.
+  Everything is positioned by adjusting the constant on storyboard-set constraints,
+  attached to outlets.
+  TODO: switch to using storyboard ids for constraints instead of outlets
+  */
   override func updateViewConstraints() {
     super.updateViewConstraints()
     // ensure we are calculating from a "settled" state
@@ -115,9 +128,11 @@ extension MemeEditorViewController {
   
   }
 
+  /**
+  Calculates the scale & orientation of image when scaled to fit, and then
+  calculates how much we need to adjust the textfield widths & positions.
+  */
   func letterBoxForSize(size:CGSize) -> (CGFloat, CGFloat) {
-    // calculate scale & orientation of image when scaled to fit, and then
-    // calculate how much we need to adjust the textfield widths & position
     var letterBoxWidth = CGFloat(0)
     var letterBoxHeight = CGFloat(0)
 
@@ -143,6 +158,9 @@ extension MemeEditorViewController {
     return (letterBoxWidth, letterBoxHeight)
   }
 
+  /**
+  When device rotates, update constraints and animate them during the rotation
+  */
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
       self.updateConstraintsAndLayoutImmediately()
@@ -151,23 +169,25 @@ extension MemeEditorViewController {
     super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
   }
   
+  // update constraints within an animation block
   func animateLayout() {
     UIView.animateWithDuration(animationDuration,
       delay: 0,
       options: UIViewAnimationOptions.CurveEaseOut,
       animations: {
-        self.imageView.alpha = 1.0
         self.updateConstraintsAndLayoutImmediately()
       },
       completion: nil
     )
   }
 
+  /// Called when no animation is needed, otherwise call `animateLayout`
   func updateConstraintsAndLayoutImmediately() {
     self.view.setNeedsUpdateConstraints()
     self.view.layoutIfNeeded()
   }
 
+  /// Hide or show toolbars
   func showToolbars(state:Bool) {
     topToolbarShouldHide = !state
     bottomToolbarShouldHide = !state

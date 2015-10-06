@@ -9,8 +9,12 @@
 import UIKit
 import TOCropViewController
 
+/**
+Handle the choosing and editing of a Meme image
+*/
 extension MemeEditorViewController: TOCropViewControllerDelegate {
 
+  /// Presents a UIImagePickerController
   func pickPhotoFromSource(source: UIImagePickerControllerSourceType) {
     imagePicker.allowsEditing = false
     imagePicker.sourceType = source
@@ -21,6 +25,7 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 
+  //MARK:- UIImagePickerControllerDelegate
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
       updateConstraintsAndLayoutImmediately()
@@ -38,6 +43,11 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
     }
   }
 
+  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  //MARK:- TOCropViewControllerDelegate
   func cropViewController(cropViewController: TOCropViewController!, didCropToImage image: UIImage!, withRect cropRect: CGRect, angle: Int) {
     imageView.image = image;
     imageView.contentMode = .ScaleAspectFit
@@ -70,12 +80,11 @@ extension MemeEditorViewController: TOCropViewControllerDelegate {
     )
   }
 
-  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
+  /**
+  Generate a memed image by setting up the view to hide toolbars and then taking
+  a snapshot, then restore the toolbars.
+  */
   func generateMemedImage() -> UIImage {
-
     showToolbars(false)
     updateConstraintsAndLayoutImmediately()
 

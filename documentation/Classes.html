@@ -12,7 +12,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (2% documented)</p>
+        <p><a href="index.html"> Docs</a> (24% documented)</p>
         <p class="header-right"><a href="https:/github.com/lastobelus/ios_nanodegree-MemeMe"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -61,17 +61,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/SentMemesTableViewController.html">SentMemesTableViewController</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-          <a href="Global Variables.html">Global Variables</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Global Variables.html#/s:v6MemeMeP33_AE85D23778ACF182F9EDEECC0FD4385B15reuseIdentifierSS">reuseIdentifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Global Variables.html#/s:v6MemeMeP33_3065AD6B23BF8114491E78CDD196032915reuseIdentifierSS">reuseIdentifier</a>
               </li>
             </ul>
           </li>
@@ -145,9 +134,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A meme object, with top &amp; bottom text, the original image, and
+the <q>memed</q> image with text overlaid, that can be saved tusing NSCoding</p>
 
                         <a href="Classes/Meme.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">Meme</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">NSCoding</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -169,9 +167,22 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Displays saved Memes in a table view.
+- Elements of the grid can be re-ordered by long-pressing
+an item and moving it around
+- selecting an item displays it in the Meme Detail view
+- items can be deleted by swiping left
+- has an unwind segue action to provide deletion of selected item from the Meme Detail View</p>
 
                         <a href="Classes/SentMemesTableViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">SentMemesTableViewController</span><span class="p">:</span> <span class="kt">UITableViewController</span><span class="p">,</span> <span class="kt">MemesViewer</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -193,9 +204,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A class for managing Application settings. Currently manages a single preference:
+expandImageTopPastStatusBarWhenTyping</p>
+
+<p>TODO: Could move lots of magic numbers &amp; constants here</p>
 
                         <a href="Classes/Preferences.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">Preferences</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -217,9 +239,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Custom CollectionView cell for displaying Memes.</p>
 
                         <a href="Classes/MemeCollectionViewCell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">MemeCollectionViewCell</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">,</span> <span class="kt">MemesViewerCell</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -241,9 +271,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A view with a triangular pointer for briefly calling attention to an interface element.
+Show by calling fire().</p>
 
                         <a href="Classes/InterfaceCalloutView.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">InterfaceCalloutView</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -265,9 +304,22 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A ViewController that provides an interface for creating and editing a Meme.
+- animates its contents to accomodate the device keyboard when editing texts
+- provides an image picker
+- provides an interface for cropping a chosen image
+- provides an activity controller for sharing a Meme
+- handles saving an existing meme via unwind segue</p>
 
                         <a href="Classes/MemeEditorViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">MemeEditorViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UIImagePickerControllerDelegate</span><span class="p">,</span> <span class="kt">UINavigationControllerDelegate</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -289,9 +341,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A View Controller for displaying the memed image of a sent meme.
+- Allows the user to delete a saved meme
+- Allows the user to edit a saved meme</p>
 
                         <a href="Classes/MemeDetailViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">MemeDetailViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -337,9 +399,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Custom TableView cell for displaying Memes.</p>
 
                         <a href="Classes/MemeTableViewCell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">MemeTableViewCell</span><span class="p">:</span> <span class="kt">UITableViewCell</span><span class="p">,</span> <span class="kt">MemesViewerCell</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -361,9 +431,22 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Displays sent Memes in a grid. 
+- Elements of the grid can be re-ordered by long-pressing
+an item and moving it around
+- the size of items in the grid can be changed via pinch
+- selecting an item displays it in the Meme Detail view
+- has an unwind segue action to provide deletion of selected item</p>
 
                         <a href="Classes/SentMemesCollectionViewController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">SentMemesCollectionViewController</span><span class="p">:</span> <span class="kt">UICollectionViewController</span><span class="p">,</span> <span class="kt">MemesViewer</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -385,9 +468,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Singleton that manages the persistence of the set of Memes the user has created and saved.</p>
 
                         <a href="Classes/MemeStore.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">MemeStore</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

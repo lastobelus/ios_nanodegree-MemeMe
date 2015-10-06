@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Custom TableView cell for displaying Memes.
 class MemeTableViewCell: UITableViewCell, MemesViewerCell {
   
   @IBOutlet weak var originalImage: UIImageView!

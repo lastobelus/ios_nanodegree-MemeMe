@@ -8,17 +8,17 @@
 
 import UIKit
 
+/**
+A meme object, with top & bottom text, the original image, and
+the "memed" image with text overlaid, that can be saved tusing NSCoding
+*/
 class Meme: NSObject, NSCoding {
-  
-  
-  //  MARK: Properties
   var topText: String
   var bottomText: String
   var image: UIImage
   var memedImage: UIImage
 
-  // MARK: Keys
-  
+  //MARK: Keys
   enum  Keys:String {
     case
       topText,
@@ -30,6 +30,7 @@ class Meme: NSObject, NSCoding {
     }
   }
   
+  //MARK:- initialization
   init(
     topText: String,
     bottomText: String,
@@ -42,7 +43,7 @@ class Meme: NSObject, NSCoding {
       super.init()
   }
 
-  //  MARK: NSCoding
+  //  MARK:- NSCoding
   
   func encodeWithCoder(aCoder: NSCoder) {
     aCoder.encodeObject(topText, forKey: Keys.topText.key())

@@ -8,17 +8,11 @@
 
 import UIKit
 
+/**
+Handle the editing of the top and bottom Meme Labels
+*/
 extension MemeEditorViewController {
-  func keyboardWillShow(notification: NSNotification) {
-    currentKeyboardHeight = getKeyboardHeight(notification)
-    animateLayout()
-  }
-  
-  func keyboardWillHide(notification: NSNotification) {
-    currentKeyboardHeight = 0
-    animateLayout()
-  }
-  
+  //MARK:- UITextFieldDelegate
   func textFieldDidBeginEditing(textField: UITextField) {
     activeTextField = textField
     topToolbarShouldHide = true
@@ -39,6 +33,23 @@ extension MemeEditorViewController {
     self.showShareMemeIndicatorDelayed()
   }
 
+  /**
+  When return is pressed in the top text field, edit the
+  bottom one. When return is pressed in the bottom text field,
+  restore the toolbars */
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    if textField == topTextField {
+      bottomTextField.becomeFirstResponder()
+    } else {
+      topToolbarShouldHide = false
+      bottomToolbarShouldHide = false
+      animateLayout()
+    }
+    return true;
+  }
+  
+  //MARK:- Keyboard state notifications
   func subscribeToKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
@@ -58,18 +69,15 @@ extension MemeEditorViewController {
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
   }
+
+  func keyboardWillShow(notification: NSNotification) {
+    currentKeyboardHeight = getKeyboardHeight(notification)
+    animateLayout()
+  }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
-    if textField == topTextField {
-      bottomTextField.becomeFirstResponder()
-    } else {
-      topToolbarShouldHide = false
-      bottomToolbarShouldHide = false
-      animateLayout()
-    }
-    
-    return true;
+  func keyboardWillHide(notification: NSNotification) {
+    currentKeyboardHeight = 0
+    animateLayout()
   }
   
   private func getKeyboardHeight(notification: NSNotification) -> CGFloat {
@@ -77,6 +85,4 @@ extension MemeEditorViewController {
     let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
     return keyboardSize.CGRectValue().height
   }
-  
-
 }

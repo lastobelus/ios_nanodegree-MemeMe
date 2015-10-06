@@ -8,6 +8,10 @@
 
 import UIKit
 
+//MARK: MemesViewer Protocol
+/**
+Encapsulates code & functionality shared between the table view and grid view of sent Memes.
+*/
 protocol MemesViewer : class {
   var memesList: [Meme] { get }
   var movingRowIndexPath: NSIndexPath? { get set }
@@ -27,16 +31,32 @@ protocol MemesViewer : class {
 
 }
 
-protocol MemeViewer {
-  var meme: Meme? {get set}
+//MARK: Reuse identifiers
+/// Reuse identifiers
+struct MemeViewerProperties {
+  static var editSegueIdentifier = "createMemeSegue"
+  static var showDetailSegueIdentifier = "showMemeDetailSegue"
+  static var editMemeSegueIdentifier = "editMemeSegue"
+  static var didFinishEditingMemeSegueIdentifier = "didFinishEditingMemeSeque"
+  static var shouldDeleteMemeSegueIdentifier = "shouldDeleteMemeSeque"
+  static var memeCellIdentifier = "MemeCell"
 }
 
-extension MemesViewer {
+
+//MARK:-  Implementation
+/**
+Common implementation for TableView and GridView
+*/
+extension MemesViewer where Self : UIViewController {
+
   var memesList: [Meme] {
     let store = MemeStore.sharedStore
     return store.savedMemes
   }
   
+  /**
+  Configures the subviews of a table/collection view cell with the properties of the Meme it is displaying.
+  */
   func populateCell(cell:MemesViewerCell, withMeme meme:Meme) {
     let attributes = MemeTextStyle(fontSize: cell.memeTextFontSize, strokeSize: cell.memeTextStrokeSize).attributes
     cell.originalImage?.image = meme.image
@@ -45,18 +65,6 @@ extension MemesViewer {
     cell.bottomText?.attributedText = NSMutableAttributedString(string: meme.bottomText, attributes: attributes)
     cell.expandedBottomText?.text = meme.bottomText
   }
-}
-
-struct MemeViewerProperties {
-  static var editSegueIdentifier = "createMemeSegue"
-  static var showDetailSegueIdentifier = "showMemeDetailSegue"
-  static var editMemeSegueIdentifier = "editMemeSegue"
-  static var didFinishEditingMemeSegueIdentifier = "didFinishEditingMemeSeque"
-  static var shouldDeleteMemeSegueIdentifier = "shouldDeleteMemeSeque"
-}
-
-// common implementation for TableView and GridView
-extension MemesViewer where Self : UIViewController {
 
   //  if the sent memes list is empty, automatically segue to the meme editor
   func editIfEmpty() {
@@ -80,12 +88,23 @@ extension MemesViewer where Self : UIViewController {
     return true
   }
 
-   func handleMemeReorderGesture(sender: UILongPressGestureRecognizer) {
+  /**
+  Handles long press meme reorganization in table and grid views. When the
+  long press starts, a snapshot of the cell is created, and the actual cell is hidden.
+  During long press changes, the tableview or collection view is checked to see
+  if the cell under the cell being dragged has changed, and if so it and the cell being
+  dragged are swapped in the table/collection view and model. When the long press
+  ends, the model is saved, the snapshot discarded, and the row it represented shown
+  in its new location.
+  
+  Use `canMemeMoveHorizontally` to set whether cell movement is constrained to the
+  vertical axis.
+  
+  Credit: Adapted from https://github.com/moayes/UDo
+  */
+  func handleMemeReorderGesture(sender: UILongPressGestureRecognizer) {
     let state = sender.state
-    print("longpress. state: \(state.rawValue)")
     let location = sender.locationInView(memesListView)
-
-
 
     switch (state) {
     case .Began:
@@ -116,7 +135,6 @@ extension MemesViewer where Self : UIViewController {
       }
 
     case .Changed:
-      print("changed")
       guard let indexPath = indexPathOfMemeAtLocation(location) else { return }
       if let snapshot = movingRowSnapshot {
         var center = snapshot.center
@@ -127,19 +145,15 @@ extension MemesViewer where Self : UIViewController {
         snapshot.center = center
 
         if indexPath != movingRowIndexPath {
-          print("do the move")
           MemeStore.sharedStore.swapMemes(indexPath.row, second: movingRowIndexPath!.row)
           moveMemeAtIndexPath(movingRowIndexPath!, toIndexPath:indexPath)
           movingRowIndexPath = indexPath
         }
       }
     default:
-      print("default state")
-
       guard let snapshot = movingRowSnapshot, let indexPath = movingRowIndexPath else { return }
 
       if let cell = cellViewForMemeAtIndexPath(indexPath) {
-        print("unhide original cell")
         cell.hidden = false
         cell.alpha = 0.0
         UIView.animateWithDuration(0.25,
@@ -158,6 +172,7 @@ extension MemesViewer where Self : UIViewController {
     }
   }
 
+  /// Creates an image snapshot of a row/cell with a shodow
   private func cellSnapshot(inputView: UIView) -> UIView {
     // Make an image from the input view.
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
@@ -169,23 +184,10 @@ extension MemesViewer where Self : UIViewController {
     var snapshot = UIImageView(image:image)
     snapshot.layer.masksToBounds = false
     snapshot.layer.cornerRadius = 0.0
-    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+    snapshot.layer.shadowOffset = CGSizeMake(4.0, 4.0)
     snapshot.layer.shadowRadius = 5.0
     snapshot.layer.shadowOpacity = 0.4
 
     return snapshot
   }
-
-  
-}
-
-// common implementation for TableViewCell and GridViewCell
-@objc protocol MemesViewerCell {
-  var originalImage: UIImageView! { get }
-  var topText: UILabel! { get }
-  var bottomText: UILabel! { get }
-  var memeTextFontSize:CGFloat { get }
-  var memeTextStrokeSize:CGFloat { get }
-  optional var expandedTopText: UILabel! { get }
-  optional var expandedBottomText: UILabel! { get }
 }

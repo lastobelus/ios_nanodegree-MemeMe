@@ -9,16 +9,23 @@
 import UIKit
 import TOCropViewController
 
+/**
+A ViewController that provides an interface for creating and editing a Meme.
+- animates its contents to accomodate the device keyboard when editing texts
+- provides an image picker
+- provides an interface for cropping a chosen image
+- provides an activity controller for sharing a Meme
+- handles saving an existing meme via unwind segue
+*/
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-  //  MARK: Meme views
+  //  MARK:- Meme views
   @IBOutlet weak var topTextField: UITextField!
   @IBOutlet weak var bottomTextField: UITextField!
   var textFieldDefaultText: [UITextField:String] = [:]
-  
   @IBOutlet weak var imageView: UIImageView!
 
-  // MARK: Toolbars
+  //MARK:- Toolbars
   @IBOutlet weak var topToolbar: UIToolbar!
   var topToolbarHeightDefault: CGFloat!
   var topToolbarShouldHide = false
@@ -33,7 +40,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   @IBOutlet var saveButton: UIBarButtonItem!
   var indexOfSaveButton:Int = 0
 
-//  MARK: Constraints
+//  MARK:- Constraints
   @IBOutlet weak var topTextLeftConstraint: NSLayoutConstraint!
   @IBOutlet weak var topTextRightConstraint: NSLayoutConstraint!
   @IBOutlet weak var topTextTopConstraint: NSLayoutConstraint!
@@ -51,7 +58,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   
   @IBOutlet weak var shareMemeIndicatorView: InterfaceCalloutView!
 
-//  MARK: State
+  ///  MARK:- State Properties
   var meme: Meme?
   
   var currentKeyboardHeight:CGFloat = 0.0
@@ -64,13 +71,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
 
-//MARK: Constants
+  //MARK:- Constants
   let memeTextAttributes = MemeTextStyle(fontSize: 40, strokeSize: 5.0).attributes
   let imagePicker = UIImagePickerController()
   let animationDuration:NSTimeInterval = 0.4
 
 
-//  MARK: View Management
+  //MARK:- View Management
   override func viewDidLoad() {
     super.viewDidLoad()
     imagePicker.delegate = self
@@ -85,7 +92,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     if let meme = self.meme {
       populateViewFromMeme(meme)
     }
-    hideSaveButton()
 
     topToolbarHeightDefault = topToolbar.bounds.height
     bottomToolbarHeightDefault = bottomToolbar.bounds.height
@@ -106,15 +112,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
 
-//MARK: Actions
+  //MARK:- Actions
+
+  /// Action to provide a Meme image by taking a picture with the camera
   @IBAction func pickPhotoFromCamera(sender: UIBarButtonItem) {
     pickPhotoFromSource(.Camera)
   }
   
+  /// Action to pick a photo from the photo album
   @IBAction func pickPhotoFromAlbum(sender: UIBarButtonItem) {
     pickPhotoFromSource(.PhotoLibrary)
   }
   
+  /// Action to cancel the creation of a Meme and return to the Sent Memes list or Meme Detail
   @IBAction func cancel(sender: UIBarButtonItem) {
     removeImage()
     topTextField.text = textFieldDefaultText[topTextField]
@@ -124,6 +134,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  /**
+  Presents an activity controller. Upon completion, the exit segue `didFinishEditingMemeSegue`
+  will be performed if an existing meme was being edited, to give other views an opportunity to
+  refresh.
+  */
   @IBAction func shareMeme(sender: UIBarButtonItem) {
     let memedImage = generateMemedImage()
 
@@ -145,16 +160,31 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
       animated: true, completion: nil)
   }
 
+  /** 
+  Action to save a meme that is only available when the meme being edited was already persisted/sent
+  */
   @IBAction func saveMeme(sender: UIBarButtonItem) {
     let memedImage = generateMemedImage()
     self.save(memedImage)
     self.performSegueWithIdentifier(MemeViewerProperties.didFinishEditingMemeSegueIdentifier, sender: self)
   }
 
+  //MARK:- State Management
+
+  /// Update button states when there have been no changes persisted to the model
   func manageButtonState() {
     manageButtonState(withChanges: false)
   }
 
+  /**
+  Update button states, based on:
+  - whether this is the first meme
+  - whether an image has been set
+  - whether at least one of top or bottom text has been set
+  - whether changes have been made to a previously persisted meme
+  
+  - Parameter withChanges: boolean indicating whether there have been changes persisted to the model
+  */
   func manageButtonState(withChanges changes:Bool) {
     actionButton.enabled = (imageView.image != nil) &&
       (!textIsDefault(topTextField) || !textIsDefault(bottomTextField))
@@ -165,6 +195,29 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     if changes && (meme != nil) {
       showSaveButton()
+    } else {
+      hideSaveButton()
+    }
+  }
+
+  /// Hides the save button in the top toolbar if it is currently showing
+  func hideSaveButton() {
+    if var toolbarButtons = topToolbar?.items {
+      if let index = toolbarButtons.indexOf(saveButton!) {
+        indexOfSaveButton = index
+        toolbarButtons.removeAtIndex(indexOfSaveButton)
+        topToolbar?.items = toolbarButtons
+      }
+    }
+  }
+  
+  /// Shows the save button in the top toolbar if it is currently hidden
+  func showSaveButton() {
+    if var toolbarButtons = topToolbar?.items {
+      if !toolbarButtons.contains(saveButton!) {
+        toolbarButtons.insert(saveButton!, atIndex: indexOfSaveButton)
+        topToolbar?.setItems(toolbarButtons, animated: true)
+      }
     }
   }
 
@@ -172,6 +225,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     return textField.text == textFieldDefaultText[textField]
   }
 
+  //MARK:- Onboarding
+
+  /// Shows an alert explaining how to get started with the Meme Editor
   func showInstructions() {
     let alertController = UIAlertController(title: "Let's get started…", message: "Take a picture, or choose one from your Photos. Then click on the top & bottom labels to edit your meme.", preferredStyle: .Alert)
 
@@ -183,14 +239,16 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
 
+  /// Shows the Share Meme callout view after a delay
   func showShareMemeIndicatorDelayed() {
-    let delay = 2 * Double(NSEC_PER_SEC)
+    let delay = 1.5 * Double(NSEC_PER_SEC)
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
     dispatch_after(time, dispatch_get_main_queue()) {
       self.showShareMemeIndicator()
     }
   }
 
+  /// Shows the Share Meme callout view
   func showShareMemeIndicator() {
     if isFirstMeme {
       if imageView?.image != nil {
@@ -203,6 +261,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
   }
 
+  //MARK:- Setup
   private func populateViewFromMeme(meme:Meme) {
     imageView?.image = meme.image
     topTextField?.text = meme.topText
@@ -215,23 +274,5 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
   }
 
 
-  func hideSaveButton() {
-    if var toolbarButtons = topToolbar?.items {
-      if let index = toolbarButtons.indexOf(saveButton!) {
-        indexOfSaveButton = index
-        toolbarButtons.removeAtIndex(indexOfSaveButton)
-        topToolbar?.items = toolbarButtons
-      }
-    }
-  }
-
-  func showSaveButton() {
-    if var toolbarButtons = topToolbar?.items {
-      if !toolbarButtons.contains(saveButton!) {
-        toolbarButtons.insert(saveButton!, atIndex: indexOfSaveButton)
-        topToolbar?.setItems(toolbarButtons, animated: true)
-      }
-    }
-  }
 }
 
