@@ -199,10 +199,12 @@ SentMemesCollectionViewController.swift
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
 	func indexOfSendingCell(sender:AnyObject?) -> Int?
 MemeStore.swift
+	var _savedMemes: [Meme]!
 	static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
 	static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("savedMemes")
 	static let UserDefaultsKey = "savedMemes"
 	private override init()
+	private var saveQueue: dispatch_queue_t!
 	private var userInitiatedQueue: dispatch_queue_t
 MemeViewer.swift
 	var meme: Meme? {get set}
